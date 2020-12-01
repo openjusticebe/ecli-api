@@ -10,7 +10,7 @@ PoC Api built on top of Lumen.
 - [ ] Count
 
 # Credits
-- project led by OpenJustice.be and Liège Legal Tech Lab of University of Liège
+- Project led by OpenJustice.be and Liège Legal Tech Lab of University of Liège
 
 # Develop
 ## Without docker
@@ -20,4 +20,4 @@ PoC Api built on top of Lumen.
 
 
 # Build
-```docker build -t "ecli-api" ./  && docker run --rm -it -p 8000:8000```
+```docker-compose up```

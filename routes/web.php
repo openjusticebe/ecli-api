@@ -14,7 +14,7 @@
 */
 
 $router->get('/', function () use ($router) {
-    return $router->app->version();
+    return redirect('api/v1/ELCI:BE');
 });
 
 $router->get('/very-secret-password', function () {
