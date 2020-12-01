@@ -21,9 +21,14 @@ $router->get('/very-secret-password', function () {
     return 'unicorn-pirates-love-pizza';
 });
 
-$router->group(['prefix'=>'api/v1'], function() use($router){
+$router->group(['prefix'=>'api/v1/ELCI:BE'], function() use($router){
 
-    $router->get('/', 'ApiController@index');
+    $router->get('/', 'Api\CategoryController@index');
+    
+    $router->get(':{court_acronym}', 'Api\CourtController@show');
+    $router->get(':{court_acronym}:{year}', 'Api\CourtController@showPerYear');
+
+    $router->get(':{court_acronym}:{year}:document', 'Api\DocumentController@show');
 
 });
 

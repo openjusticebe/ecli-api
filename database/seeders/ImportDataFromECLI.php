@@ -26,7 +26,7 @@ class ImportDataFromECLI extends Seeder
         'RVSCDE' => 'https://raw.githubusercontent.com/openjusticebe/ecli/master/resources/RVSCDE_def.json'
         ];
     
-        if ($this->command->confirm('Do like unicorn, pizza or pirate?')) {
+        if ($this->command->confirm('Do like want to import ECLI into DB ?')) {
 
             foreach($sources as $key => $value) {
                 $this->command->info("Importing data from " . $key );
@@ -108,7 +108,6 @@ class ImportDataFromECLI extends Seeder
 
 
 
-        https://raw.githubusercontent.com/openjusticebe/resources/main/json/BE_Courts.json
         
     }
 }
