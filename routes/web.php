@@ -13,11 +13,17 @@
 |
 */
 
-// $router->get('/', function () use ($router) {
-//     return $router->app->version();
-// });
+$router->get('/', function () use ($router) {
+    return $router->app->version();
+});
+
+$router->get('/very-secret-password', function () {
+    return 'unicorn-pirates-love-pizza';
+});
 
 $router->group(['prefix'=>'api/v1'], function() use($router){
+
     $router->get('/', 'ApiController@index');
-    }
-);
+
+});
+
