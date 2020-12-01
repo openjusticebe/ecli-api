@@ -107,5 +107,8 @@ class ImportDataFromECLI extends Seeder
         $this->command->info("I'll never give you up.");
 
 
+
+        https://raw.githubusercontent.com/openjusticebe/resources/main/json/BE_Courts.json
+        
     }
 }

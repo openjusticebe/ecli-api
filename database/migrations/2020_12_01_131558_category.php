@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Documents extends Migration
+class Category extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,12 @@ class Documents extends Migration
      */
     public function up()
     {
-        Schema::create('documents', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->integer('num');
-            $table->string('type');
-            $table->string('lang')->nullable();
-            $table->integer('court_id');
-            $table->integer('year');
+            $table->string('label_fr');
+            $table->string('label_nl');
             $table->timestamps();
-            $table->index('court_id');
-            $table->index('year');
         });
-
-
     }
 
     /**
@@ -35,6 +28,7 @@ class Documents extends Migration
      */
     public function down()
     {
-        Schema::drop('documents');
+        Schema::drop('categories');
+
     }
 }

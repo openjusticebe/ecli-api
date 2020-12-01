@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Court extends Model
+class Category extends Model
 {
 
     /**
@@ -13,7 +13,7 @@ class Court extends Model
      * @var array
      */
     protected $fillable = [
-        'court_id', 'content',
+        'label_fr', 'label_nl',
     ];
 
     /**
@@ -24,15 +24,11 @@ class Court extends Model
     protected $hidden = [
     ];
 
-    public function documents()
+    public function courts()
     {
-        return $this->hasMany('App\Models\Document');
+        return $this->hasMany('App\Models\Court');
     }
 
-    public function category()
-    {
-        return $this->belongsTo('App\Models\Category');
-    }
-
+        
 
 }

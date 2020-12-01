@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Court;
 use Illuminate\Http\Request;
-use Cache;
+// use Cache;
+use App\Http\Resources\CourtResource;
 
 class ApiController extends Controller
 {
@@ -16,7 +17,7 @@ class ApiController extends Controller
     public function index()
     {
 
-        return Court::withCount('documents')->get();
+        return CourtResource::collection(Court::withCount('documents')->get());
 
     }
 }
