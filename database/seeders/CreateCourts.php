@@ -18,6 +18,7 @@ class ImportDataFromECLI extends Seeder
      */
     public function run()
     {
+        $data = file_get_contents($value);
         https://raw.githubusercontent.com/openjusticebe/resources/main/json/BE_Courts.json
 
     }

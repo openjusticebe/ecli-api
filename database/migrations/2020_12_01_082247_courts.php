@@ -19,6 +19,7 @@ class Courts extends Migration
             $table->string('name_nl')->nullable();
             $table->string('name_de')->nullable();
             $table->string('name_fr')->nullable();
+            $table->string('def')->nullable();
             $table->timestamps();
             $table->index('acronym');
 

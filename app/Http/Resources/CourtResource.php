@@ -15,20 +15,22 @@ class CourtResource extends JsonResource
             'name_fr' => $this->name_fr,
             'href' => null,
             'logo_href' => null,
+            'category' => $this->category,
             'documents_count' => $this->documents_count,
             'years_count' =>  $this->documents->groupBy('year')->count(),
             'first_year' => $this->documents->min('year'),
             'last_year' =>  $this->documents->max('year'),
-            'year' -> $this->year;
+            // 'year' -> $this->year,
             'languages_document' => [
-                'fr' => 98e3, 
-                'nl' => 88273, 
-                'de' => 173
+                'fr' => null, 
+                'nl' => null, 
+                'de' => null
             ],      
+            // 'type' => PostResource::collection($this->posts),
             'types_document' => [
-                'arr' => 98e3, 
-                'dec' => 88273, 
-                'de' => 173
+                'arr' => null, 
+                'dec' => null, 
+                'de' => null
             ],
             'year_count' => null,
         ];
