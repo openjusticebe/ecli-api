@@ -11,7 +11,7 @@ class CategoryResource extends JsonResource
         return [
             'label_fr' => $this->label_fr,
             'label_nl' => $this->label_nl,
-            'courts' => $this->courts
+            'courts' => CourtResource::collection($this->courts)
         ];
     }
 }

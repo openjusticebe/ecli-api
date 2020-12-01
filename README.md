@@ -3,11 +3,15 @@
 PoC Api built on top of Lumen.
 
 # Features (Todos)
-- [ ] Cache
-- [ ] Api versioning
+- [x] Cache
+- [x] Api versioning
+- [x] Pagination
+- [x] Count
+- [ ] Validation de schema
+- [ ] Documentation openapi https://niceprogrammer.com/lumen-api-tutorial-documentation-using-swagger-ui/
+- [ ] GraphQL (https://github.com/digiaonline/lumen-graphql)
 - [ ] Authentication
-- [ ] Pagination
-- [ ] Count
+- [ ] Throttle without api
 
 # Credits
 - Project led by OpenJustice.be and Liège Legal Tech Lab of University of Liège

@@ -24,7 +24,8 @@ $router->get('/very-secret-password', function () {
 $router->group(['prefix'=>'api/v1/ELCI:BE'], function() use($router){
 
     $router->get('/', 'Api\CategoryController@index');
-    
+    $router->get('/courts', 'Api\CourtController@index');
+
     $router->get(':{court_acronym}', 'Api\CourtController@show');
     $router->get(':{court_acronym}:{year}', 'Api\CourtController@showPerYear');
 
