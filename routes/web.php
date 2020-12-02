@@ -20,26 +20,23 @@ $router->get('/', function () use ($router) {
 
 
 // Customs
-$router->group(['prefix'=>'api/v1/'], function() use($router){
+$router->group(['prefix'=>'api/v1/'], function () use ($router) {
     $router->get('/courts', 'Api\CourtController@index');
     $router->get('/very-secret-password', function () {
         return 'unicorn-pirates-love-pizza';
     });
-
 });
 
 // ECLI Routing
-$router->group(['prefix'=>'api/v1/ELCI/BE'], function() use($router){
-
+$router->group(['prefix'=>'api/v1/ELCI/BE'], function () use ($router) {
     $router->get('/', 'Api\CategoryController@index');
     
     // List of year and list of category
     $router->get('/{court_acronym}', 'Api\CourtController@show');
 
-    $router->get('/{court_acronym}/{year}', 'Api\CourtController@showPerYear');
+    // $router->get('/{court_acronym}/{year}', 'Api\CourtController@showPerYear');
 
+    // $router->get('/{court_acronym}/{type}', 'Api\CourtController@showPerYear');
 
     $router->get('/{court_acronym}/{year}/{type}.{document}', 'Api\DocumentController@show');
-
 });
-

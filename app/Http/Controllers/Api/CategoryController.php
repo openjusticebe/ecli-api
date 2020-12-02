@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -17,12 +16,11 @@ class CategoryController extends Controller
      * @return void
      */
     public function index()
-    {        
+    {
         $data = Cache::get('category', function () {
             return Category::with('courts')->get();
         });
 
         return CategoryResource::collection($data);
-
     }
 }

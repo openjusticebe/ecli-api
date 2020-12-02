@@ -6,27 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Document extends Model
 {
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'court_id',
-    ];
-
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $hidden = [
-    ];
-
     public function court()
     {
         return $this->belongsTo('App\Models\Court');
     }
 
+    public function getELCIAttribute()
+    {
+        return "'ELCI:BE:'{$this->court->acronym}:{$this->court->acronym}:{$this->court->acronym}";
+    }
 }

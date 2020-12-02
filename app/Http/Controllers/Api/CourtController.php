@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-
 use App\Http\Controllers\Controller;
 use App\Models\Court;
 use Illuminate\Http\Request;
@@ -18,16 +17,11 @@ class CourtController extends Controller
      */
     public function index()
     {
-
         return CourtResource::collection(Court::withCount('documents')->paginate(10));
-
     }
 
     public function show($court_acronym)
     {
-        $court = Court::whereAcronym($court_acronym)->firstOrFail();
-
-        return new CourtResource($court);
-      
+        return new CourtResource(Court::whereAcronym($court_acronym)->firstOrFail());
     }
 }

@@ -16,8 +16,6 @@ class ApiController extends Controller
      */
     public function index()
     {
-
         return CourtResource::collection(Court::withCount('documents')->paginate(2));
-
     }
 }
