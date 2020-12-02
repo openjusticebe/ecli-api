@@ -23,7 +23,7 @@ class ImportDataFromECLI extends Seeder
         $sources = [
         'IUBEL' => 'https://raw.githubusercontent.com/openjusticebe/ecli/master/resources/IUBEL.txt',
         'GHCC' => 'https://raw.githubusercontent.com/openjusticebe/ecli/master/resources/GHCC_def.json',
-        'RVSCDE' => 'https://raw.githubusercontent.com/openjusticebe/ecli/master/resources/RVSCDE_def.json'
+        'RSCE' => 'https://raw.githubusercontent.com/openjusticebe/ecli/master/resources/RVSCDE_def.json'
         ];
     
         if ($this->command->confirm('Do like want to import ECLI into DB ?')) {

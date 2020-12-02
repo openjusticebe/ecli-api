@@ -22,4 +22,12 @@ class CourtController extends Controller
         return CourtResource::collection(Court::withCount('documents')->paginate(10));
 
     }
+
+    public function show($court_acronym)
+    {
+        $court = Court::whereAcronym($court_acronym)->firstOrFail();
+
+        return new CourtResource($court);
+      
+    }
 }
