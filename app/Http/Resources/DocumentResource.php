@@ -10,7 +10,7 @@ class DocumentResource extends JsonResource
     {
         return [
             'type' -> $this->type,
-            'year' -> $this->year,
+            'year' -> (int)$this->year,
             'court' => new CourtResource($this->court),
         ];
     }
