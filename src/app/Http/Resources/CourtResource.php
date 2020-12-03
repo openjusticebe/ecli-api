@@ -16,7 +16,7 @@ class CourtResource extends BaseResource
             'category' => $this->whenPivotLoaded('category', function () {
                 return $this->category();
             }),
-            'documents_count' => (int)$this->docs_per_year->sum('documents_count'),
+            'documents_count' => (int)$this->docs_per_year->sum('count'),
             'first_year' => (int)$this->docs_per_year->min('year'),
             'last_year' =>  (int)$this->docs_per_year->max('year'),
             'docs_per_year' => $this->docs_per_year,

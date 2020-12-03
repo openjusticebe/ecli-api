@@ -17,15 +17,12 @@ class CourtController extends Controller
      */
     public function index()
     {
-        return CourtResource::collection(Court::withCount('documents')->paginate(10));
+        return CourtResource::collection(Court::get());
     }
 
     public function show($court_acronym)
     {
-        return Cache::rememberForever('court_show' . $court_acronym, function () use ($court_acronym) {
-            return new CourtResource(Court::whereAcronym($court_acronym)
-            ->withCount('documents')
+        return new CourtResource(Court::whereAcronym($court_acronym)->with('category')
             ->firstOrFail());
-        });
     }
 }
