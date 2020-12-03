@@ -39,6 +39,11 @@ $router->group(['prefix'=>'api/v1/ELCI/BE'], function () use ($router) {
     // $router->get('/{court_acronym}/{year}', 'Api\CourtController@showPerYear');
 
     // $router->get('/{court_acronym}/{type}', 'Api\CourtController@showPerYear');
+    $router->get('/{court_acronym}/{year}/', 'Api\DocumentController@perYear');
+    
+    $router->get('/{court_acronym}/perType/{type}/', 'Api\DocumentController@perType');
 
-    $router->get('/{court_acronym}/{year}/{type}.{document}', 'Api\DocumentController@show');
+    $router->get('/{court_acronym}/perLang/{lang}/', 'Api\DocumentController@perLang');
+
+    // $router->get('/{court_acronym}/{year}/{type}.{document}', 'Api\DocumentController@show');
 });

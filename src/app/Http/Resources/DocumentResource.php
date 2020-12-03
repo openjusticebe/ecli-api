@@ -9,6 +9,7 @@ class DocumentResource extends BaseResource
         return [
             'type' => $this->type,
             'year' => (int)$this->year,
+            'lang' => $this->lang,
             'court' => new CourtResource($this->court),
             'elci' => $this->elci,
         ];
