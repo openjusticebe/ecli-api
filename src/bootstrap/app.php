@@ -96,7 +96,7 @@ $app->configure('app');
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(Illuminate\Redis\RedisServiceProvider::class);
 
-
+   
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes

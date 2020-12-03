@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Cache;
 
 class Court extends Model
 {
@@ -16,16 +17,29 @@ class Court extends Model
         return $this->belongsTo('App\Models\Category');
     }
 
-    public function docsPerYear()
+    public function getDocsPerYearAttribute()
     {
-        return $this->hasMany('App\Models\Document')
-        ->select(\DB::raw('count(*) as documents_count, year'))->groupBy('year');
+        return Cache::rememberForever('docs_per_year' . $this->id, function () {
+            $docs_per_year = $this->hasMany('App\Models\Document')
+        ->select(\DB::raw('count(*) as documents_count, year'))
+        ->groupBy('year')
+        ->get();
+        
+            return $result;
+        });
     }
 
-    public function docsPerType()
+    public function getDocsPerTypeAttribute()
     {
-        return $this->hasMany('App\Models\Document')
-        ->select(\DB::raw('count(*) as documents_count, type'))->groupBy('type');
+        return Cache::rememberForever('docs_per_type' . $this->id, function () {
+            $result = $this->hasMany('App\Models\Document')
+        ->select(\DB::raw('count(*) as documents_count, year'))
+        ->groupBy('type')
+        ->get();
+
+
+            return $result;
+        });
     }
 
     public function getSelfLinkAttribute()

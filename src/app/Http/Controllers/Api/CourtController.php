@@ -25,7 +25,6 @@ class CourtController extends Controller
         return Cache::rememberForever('court_show' . $court_acronym, function () use ($court_acronym) {
             return new CourtResource(Court::whereAcronym($court_acronym)
             ->withCount('documents')
-            ->with(['docsPerYear', 'docsPerType'])
             ->firstOrFail());
         });
     }

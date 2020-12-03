@@ -21,6 +21,8 @@ $router->get('/', function () use ($router) {
 
 // Customs
 $router->group(['prefix'=>'api/v1/'], function () use ($router) {
+    $router->get('/{elci}}', 'Api\ELCIController@elci');
+    $router->get('/stats', 'Api\StatsController@index');
     $router->get('/courts', 'Api\CourtController@index');
     $router->get('/very-secret-password', function () {
         return 'unicorn-pirates-love-pizza';
