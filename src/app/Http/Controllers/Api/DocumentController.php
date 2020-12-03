@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Court;
 use App\Models\Document;
+use App\Http\Resources\DocumentResource;
 
 use Illuminate\Http\Request;
 use Cache;
@@ -16,12 +17,12 @@ class DocumentController extends Controller
     {
         $court = Court::whereAcronym($court_acronym)->firstOrFail();
 
-        return Document::whereCourtId($court->id)
+        $document = Document::whereCourtId($court->id)
         ->where('year', $year)
         ->where('num', $num)
         ->where('type', $type)
         ->firstOrfail();
-        // return new CourtResource(Court::whereAcronym($court_acronym)->with(['category', 'documents'])
-        //     ->firstOrFail());
+
+        return new DocumentResource($document);
     }
 }

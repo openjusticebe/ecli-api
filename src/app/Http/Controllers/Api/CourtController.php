@@ -7,6 +7,7 @@ use App\Models\Court;
 use Illuminate\Http\Request;
 use Cache;
 use App\Http\Resources\CourtResource;
+use App\Http\Resources\DocumentResource;
 use App\Models\Document;
 
 class CourtController extends Controller
@@ -32,33 +33,34 @@ class CourtController extends Controller
     {
         $court = Court::whereAcronym($court_acronym)->firstOrFail();
 
-        return Document::whereCourtId($court->id)
+        $documents = Document::whereCourtId($court->id)
         ->where('year', $year)
+        ->with('court.category')
         ->get();
-        // return DocumentResource(Court::whereAcronym($court_acronym)->with(['category', 'documents'])
-        //     ->firstOrFail());
+        
+        return DocumentResource::collection($documents);
     }
 
     public function docsPerLang($court_acronym, $lang)
     {
         $court = Court::whereAcronym($court_acronym)->firstOrFail();
-        return Document::whereCourtId($court->id)
+        $documents = Document::whereCourtId($court->id)
         ->where('lang', $lang)
+        ->with('court.category')
         ->get();
 
-        // return DocumentResource(Court::whereAcronym($court_acronym)->with(['category', 'documents'])
-        //     ->firstOrFail());
+        return DocumentResource::collection($documents);
     }
 
     public function docsPerType($court_acronym, $type)
     {
         $court = Court::whereAcronym($court_acronym)->firstOrFail();
 
-        return Document::whereCourtId($court->id)
+        $documents = Document::whereCourtId($court->id)
         ->where('type', $type)
+        ->with('court.category')
         ->get();
 
-        // return DocumentResource(Court::whereAcronym($court_acronym)->with(['category', 'documents'])
-        //     ->firstOrFail());
+        return DocumentResource::collection($documents);
     }
 }
