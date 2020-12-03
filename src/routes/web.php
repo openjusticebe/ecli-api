@@ -63,7 +63,7 @@ $router->group(['prefix'=>'api/v1/ELCI/BE'], function () use ($router) {
     'uses' => 'Api\CourtController@docsPerLang'
     ]);
 
-    $router->get('/{court_acronym}/{year}/{type}.{document}', [
+    $router->get('/{court_acronym}/{year}/{type}/{num}', [
         'as' => 'documents.show',
         'uses' => 'Api\DocumentController@show'
     ]);

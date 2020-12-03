@@ -18,7 +18,7 @@ class BaseResource extends JsonResource
             'ECLI_ref' => $this->elci,
             'links' => [
                 'self' => URL::current(),
-                'parent' => route('base_api') . '/' . $this->parent_link,
+                'parent' => $this->parent_link,
             ],
             'meta' => [
                 'api_version' => 'v1',

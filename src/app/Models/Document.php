@@ -11,21 +11,29 @@ class Document extends Model
         return $this->belongsTo('App\Models\Court');
     }
 
-    public function getElciAttribute()
+    public function getELCIAttribute()
     {
-        return "'ELCI:BE:'{$this->court->acronym}:{$this->year}:{$this->type}:{$this->num}";
+        return "ELCI:BE:{$this->court->acronym}:{$this->year}:{$this->type}:{$this->num}";
     }
 
     public function getSelfLinkAttribute()
     {
         return route(
             'documents.show',
-            [$this->court->acronym,$this->year,$this->type,$this->num]
+            [
+            'court_acronym' => $this->court->acronym,
+            'year' => $this->year,
+            'type' => $this->type,
+            'num' => $this->num
+            ]
         );
     }
 
     public function getParentLinkAttribute()
     {
-        return route('courts.docsPerYear', [$this->court->acronym,$this->year]);
+        return route('courts.docsPerYear', [
+            'court_acronym' => $this->court->acronym,
+            'year' => $this->year
+            ]);
     }
 }
