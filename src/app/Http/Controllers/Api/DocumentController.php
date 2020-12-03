@@ -12,35 +12,15 @@ use App\Http\Resources\CourtResource;
 
 class DocumentController extends Controller
 {
-    public function perYear($court_acronym, $year)
+    public function show($court_acronym, $year, $type, $num)
     {
         $court = Court::whereAcronym($court_acronym)->firstOrFail();
 
         return Document::whereCourtId($court->id)
         ->where('year', $year)
-        ->get();
-        // return new CourtResource(Court::whereAcronym($court_acronym)->with(['category', 'documents'])
-        //     ->firstOrFail());
-    }
-
-    public function perLang($court_acronym, $lang)
-    {
-        $court = Court::whereAcronym($court_acronym)->firstOrFail();
-        return Document::whereCourtId($court->id)
-        ->where('lang', $lang)
-        ->get();
-
-        // return new CourtResource(Court::whereAcronym($court_acronym)->with(['category', 'documents'])
-        //     ->firstOrFail());
-    }
-
-    public function perType($court_acronym, $type)
-    {
-        $court = Court::whereAcronym($court_acronym)->firstOrFail();
-        return Document::whereCourtId($court->id)
+        ->where('num', $num)
         ->where('type', $type)
-        ->get();
-
+        ->firstOrfail();
         // return new CourtResource(Court::whereAcronym($court_acronym)->with(['category', 'documents'])
         //     ->firstOrFail());
     }

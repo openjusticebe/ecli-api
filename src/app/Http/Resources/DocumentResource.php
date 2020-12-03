@@ -10,8 +10,14 @@ class DocumentResource extends BaseResource
             'type' => $this->type,
             'year' => (int)$this->year,
             'lang' => $this->lang,
-            'court' => new CourtResource($this->court),
+            'court' => new CourtResource($this->whenLoaded($this->court)),
             'elci' => $this->elci,
+            'links' => [
+                'default' => null,
+                'meta' => null,
+                'text' => null,
+                'pdf' =>  null,
+            ]
         ];
     }
 }

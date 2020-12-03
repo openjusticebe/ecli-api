@@ -21,6 +21,10 @@ $router->get('/', function () use ($router) {
 
 // Customs
 $router->group(['prefix'=>'api/v1/'], function () use ($router) {
+    $router->get('/', [
+        'as' => 'base_api',
+        'uses' => 'Api\ApiController@index'
+    ]);
     $router->get('/{elci}}', 'Api\ELCIController@elci');
     $router->get('/stats', 'Api\StatsController@index');
     $router->get('/courts', 'Api\CourtController@index');
@@ -31,19 +35,36 @@ $router->group(['prefix'=>'api/v1/'], function () use ($router) {
 
 // ECLI Routing
 $router->group(['prefix'=>'api/v1/ELCI/BE'], function () use ($router) {
-    $router->get('/', 'Api\CategoryController@index');
+    $router->get('/', [
+        'as' => 'base_ecli_be',
+        'uses' => 'Api\CategoryController@index'
+    ]);
+
+    // $router->get('/', 'Api\CategoryController@index')->name('base_api');
     
     // List of year and list of category
-    $router->get('/{court_acronym}', 'Api\CourtController@show');
+    $router->get('/{court_acronym}', [
+        'as' => 'courts.show',
+        'uses' => 'Api\CourtController@show'
+    ]);
 
-    // $router->get('/{court_acronym}/{year}', 'Api\CourtController@showPerYear');
+    $router->get('/{court_acronym}/{year}/', [
+        'as' => 'courts.docsPerYear',
+        'uses' => 'Api\CourtController@docsPerYear'
+    ]);
 
-    // $router->get('/{court_acronym}/{type}', 'Api\CourtController@showPerYear');
-    $router->get('/{court_acronym}/{year}/', 'Api\DocumentController@perYear');
-    
-    $router->get('/{court_acronym}/perType/{type}/', 'Api\DocumentController@perType');
+    $router->get('/{court_acronym}/type/{type}/', [
+    'as' => 'courts.docsPerType',
+    'uses' => 'Api\CourtController@docsPerType'
+    ]);
 
-    $router->get('/{court_acronym}/perLang/{lang}/', 'Api\DocumentController@perLang');
+    $router->get('/{court_acronym}/lang/{lang}/', [
+    'as' => 'courts.docsPerLang',
+    'uses' => 'Api\CourtController@docsPerLang'
+    ]);
 
-    // $router->get('/{court_acronym}/{year}/{type}.{document}', 'Api\DocumentController@show');
+    $router->get('/{court_acronym}/{year}/{type}.{document}', [
+        'as' => 'documents.show',
+        'uses' => 'Api\DocumentController@show'
+    ]);
 });

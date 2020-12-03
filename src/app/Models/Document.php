@@ -13,16 +13,19 @@ class Document extends Model
 
     public function getElciAttribute()
     {
-        return "'ELCI:BE:'{$this->court->acronym}:{$this->type}:{$this->num}";
+        return "'ELCI:BE:'{$this->court->acronym}:{$this->year}:{$this->type}:{$this->num}";
     }
 
     public function getSelfLinkAttribute()
     {
-        return "ELCI/BE/{$this->court->acronym}/";
+        return route(
+            'documents.show',
+            [$this->court->acronym,$this->year,$this->type,$this->num]
+        );
     }
 
     public function getParentLinkAttribute()
     {
-        return "ELCI/BE/{$this->court->acronym}";
+        return route('courts.docsPerYear', [$this->court->acronym,$this->year]);
     }
 }

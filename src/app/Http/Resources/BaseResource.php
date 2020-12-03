@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use URL;
 
 class BaseResource extends JsonResource
 {
@@ -16,8 +17,8 @@ class BaseResource extends JsonResource
         [
             'ECLI_ref' => $this->elci,
             'links' => [
-                'self' => $this->self_link,
-                'parent' => $this->parent_link,
+                'self' => URL::current(),
+                'parent' => route('base_api') . '/' . $this->parent_link,
             ],
             'meta' => [
                 'api_version' => 'v1',
