@@ -17,10 +17,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        // $data = Cache::get('category', function () {
-        //     return Category::with('courts')->get();
-        // });
+        return Cache::rememberForever('categories_index', function () {
+            return CategoryResource::collection(Category::with('courts.docsPerYear')
 
-        return CategoryResource::collection(Category::with('courts')->get());
+            ->get());
+        });
     }
 }

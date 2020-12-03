@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Court;
 use Illuminate\Http\Request;
-// use Cache;
+use Cache;
 use App\Http\Resources\CourtResource;
 
 class CourtController extends Controller
@@ -22,6 +22,11 @@ class CourtController extends Controller
 
     public function show($court_acronym)
     {
-        return new CourtResource(Court::whereAcronym($court_acronym)->withCount('documents')->firstOrFail());
+        return Cache::rememberForever('court_show' . $court_acronym, function () use ($court_acronym) {
+            return new CourtResource(Court::whereAcronym($court_acronym)
+            ->withCount('documents')
+            ->with(['docsPerYear', 'docsPerType'])
+            ->firstOrFail());
+        });
     }
 }

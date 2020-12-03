@@ -10,4 +10,14 @@ class Category extends Model
     {
         return $this->hasMany('App\Models\Court');
     }
+
+    public function getSelfLinkAttribute()
+    {
+        return "ELCI/BE/";
+    }
+
+    public function getParentLinkAttribute()
+    {
+        return "null";
+    }
 }

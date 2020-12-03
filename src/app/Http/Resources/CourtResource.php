@@ -14,15 +14,17 @@ class CourtResource extends BaseResource
             'href' => null,
             'logo_href' => null,
             'category' => $this->category,
-            'documents_count' => (int)$this->documents_count,
-            'years_count' =>  (int)$this->documents->groupBy('year')->count(),
+            'documents_count' => (int)$this->docsPerYear->sum('documents_count'),
             'first_year' => (int)$this->documents->min('year'),
             'last_year' =>  (int)$this->documents->max('year'),
-            // 'year' -> $this->year,
-            'docsPerType' => $this->docsPerType,
-            // 'type' => PostResource::collection($this->posts),
-            'docsPerYear' => $this->docsPerYear,
-            'year_count' => null,
+            'year_count' => (int)$this->docsPerYear->count(),
+            'type_count' => (int)$this->docsPerType->count(),
+            // 'posts' => PostResource::collection($this->whenLoaded('posts')),
+            'docsPerType' => $this->docsPerType(),
+            'docsPerYear' => $this->docsPerYear(),
+            // 'expires_at' => $this->whenPivotLoaded('role_user', function () {
+            //     return $this->pivot->expires_at;
+            // }),
         ];
     }
 }
