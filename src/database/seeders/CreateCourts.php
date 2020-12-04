@@ -18,15 +18,9 @@ class CreateCourts extends Seeder
      */
     public function run()
     {
-        // $data = file_get_contents('https://raw.githubusercontent.com/openjusticebe/resources/main/json/BE_Courts.json');
-       
         $json = (array)json_decode(file_get_contents('https://raw.githubusercontent.com/openjusticebe/resources/main/json/BE_Courts.json'), true);
 
-        // dd($json);
-
         foreach ($json as $key => $category) {
-            // var_dump($category);
-
             $cat = Category::updateOrCreate(
                 [
                 'label_fr' => $category['label_fr'],

@@ -14,26 +14,20 @@ class ELCIController extends Controller
      */
     public function elci($elci)
     {
-        $array_ecli = explode(":", $elci);
-        $array_ecli2 = explode('.', $array_ecli[4], 2);
+        $arr_colon = explode(":", $elci);
 
-
-
-        $route_params = [
-            'court_acronym' => $array_ecli[2],
-            'year' => $array_ecli[3],
-            'type' => $array_ecli2[0],
-            'num' => $array_ecli2[1]
-        ];
+        if (isset($arr_colon[4]) {
+            $arr_type_num = explode('.', $arr_colon[4], 2);
+        }
       
         // should redirect to page
         return redirect()->route(
             'documents.show',
             [
-                'court_acronym' => $array_ecli[2],
-                'year' => $array_ecli[3],
-                'type' => $array_ecli2[0],
-                'num' => $array_ecli2[1]
+                'court_acronym' => $arr_colon[2],
+                'year' => $arr_colon[3],
+                'type' => $arr_type_num[0],
+                'num' => $arr_type_num[1]
             ]
         );
     }

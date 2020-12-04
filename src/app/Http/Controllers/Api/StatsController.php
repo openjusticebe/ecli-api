@@ -10,18 +10,19 @@ use Cache;
 
 class StatsController extends Controller
 {
-    /**
-    *   Get distinct year from docs
-    *   Get distinct courts from count
-    *   Loop and build huge array[] and cache it
-    *  @return 'stats';
-    */
     public function index()
     {
         return Cache::rememberForever('stats', function () {
             return $this->docPerYear();
         });
     }
+
+    /**
+      *   Get distinct year from docs
+      *   Get court from courts
+      *   Loop and build huge array[]
+      *  @return 'stats';
+      */
 
     private function docPerYear()
     {
