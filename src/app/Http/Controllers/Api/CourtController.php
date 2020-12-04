@@ -36,7 +36,7 @@ class CourtController extends Controller
         $documents = Document::whereCourtId($court->id)
         ->where('year', $year)
         ->with('court.category')
-        ->get();
+        ->paginate(20);
         
         return DocumentResource::collection($documents);
     }
@@ -47,7 +47,7 @@ class CourtController extends Controller
         $documents = Document::whereCourtId($court->id)
         ->where('lang', $lang)
         ->with('court.category')
-        ->get();
+        ->paginate(20);
 
         return DocumentResource::collection($documents);
     }
@@ -59,7 +59,7 @@ class CourtController extends Controller
         $documents = Document::whereCourtId($court->id)
         ->where('type', $type)
         ->with('court.category')
-        ->get();
+        ->paginate(20);
 
         return DocumentResource::collection($documents);
     }

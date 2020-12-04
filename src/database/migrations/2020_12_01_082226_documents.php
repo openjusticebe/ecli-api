@@ -18,14 +18,14 @@ class Documents extends Migration
             $table->integer('num');
             $table->string('type');
             $table->string('lang')->nullable();
-            $table->integer('court_id');
             $table->integer('year');
+            $table->string('src');
+            $table->integer('court_id');
             $table->timestamps();
+            $table->index('type');
             $table->index('court_id');
             $table->index('year');
         });
-
-
     }
 
     /**

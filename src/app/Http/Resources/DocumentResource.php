@@ -11,14 +11,28 @@ class DocumentResource extends BaseResource
             'type' => $this->type,
             'year' => (int)$this->year,
             'lang' => $this->lang,
-            'court' => new CourtResource($this->whenLoaded('court')),
+            'court' => $this->court,
             'elci' => $this->elci,
+            'src' => $this->src,
+            'href' => $this->href,
             'links' => [
-                'self' => route('documents.show', ['court_acronym' => $this->court->acronym, 'year' => $this->year, 'type' => $this->type, 'num' => $this->num]),
-                'meta' => null,
+                'default' => null,
                 'text' => null,
                 'pdf' =>  null,
             ]
         ];
     }
 }
+
+
+// 'logo': 'https://www.rechtbanken-tribunaux.be/themes/custom/hoverech/logo.svg',
+// 'website': 'https://iubel.be/IUBELhome/welkom',
+
+//         'logo': 'https://openjustice.be/wp-content/uploads/2020/10/cropped-Open-Justice.png',
+// 'website': 'https://openjustice.be/',
+
+//             'logo': 'https://www.const-court.be/images/titre_index3.gif',
+// 'website': 'https://www.const-court.be/',
+
+//             'logo': 'http://www.raadvst-consetat.be/a/s/logo.gif',
+// 'website': 'http://www.raadvst-consetat.be/',

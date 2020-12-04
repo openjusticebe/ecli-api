@@ -17,6 +17,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        // return Category::all();
         return Cache::rememberForever('categories_index', function () {
             return CategoryResource::collection(Category::with(['courts'])
             ->get());

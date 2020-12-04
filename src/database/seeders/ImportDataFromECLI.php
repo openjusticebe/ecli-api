@@ -55,6 +55,7 @@ class ImportDataFromECLI extends Seeder
                                 [
                                 'court_id' => $court->id,
                                 'num' => $num,
+                                'src' => $key,
                                 'year' => $array[3],
                                 'lang' => null,
                                 'type' => strtoupper($ecli[0]) ?? null
@@ -86,6 +87,7 @@ class ImportDataFromECLI extends Seeder
                             'court_id' => $court->id,
                             'num' => $json->num ?? null,
                             'year' => $json->year ?? null,
+                            'src' => $key,
                             'lang' => $json->language ?? null,
                             'type' => strtoupper($json->type) ?? null,
                             ]

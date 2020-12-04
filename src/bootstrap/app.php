@@ -108,6 +108,9 @@ $app->register(Illuminate\Redis\RedisServiceProvider::class);
 |
 */
 
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: *');
+header('Access-Control-Allow-Headers: *');
 
 $app->router->group([
     'namespace' => 'App\Http\Controllers',

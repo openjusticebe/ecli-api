@@ -19,17 +19,23 @@ $router->get('/', function () use ($router) {
 
 
 
+$router->get('/{elci}', 'Api\ELCIController@elci');
+
+
+
 // Customs
 $router->group(['prefix'=>'api/v1/'], function () use ($router) {
     $router->get('/', [
         'as' => 'base_api',
         'uses' => 'Api\ApiController@index'
     ]);
-    $router->get('/{elci}}', 'Api\ELCIController@elci');
     $router->get('/stats', 'Api\StatsController@index');
     $router->get('/courts', 'Api\CourtController@index');
     $router->get('/very-secret-password', function () {
         return 'unicorn-pirates-love-pizza';
+    });
+    $router->get('/amazing', function () {
+        return redirect('https://www.youtube.com/watch?v=oHg5SJYRHA0&start=20&fs=1');
     });
 });
 
@@ -39,8 +45,6 @@ $router->group(['prefix'=>'api/v1/ELCI/BE'], function () use ($router) {
         'as' => 'base_ecli_be',
         'uses' => 'Api\CategoryController@index'
     ]);
-
-    // $router->get('/', 'Api\CategoryController@index')->name('base_api');
     
     // List of year and list of category
     $router->get('/{court_acronym}', [

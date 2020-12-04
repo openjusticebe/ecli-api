@@ -2,6 +2,8 @@ FROM php:7.4-fpm-alpine
 
 WORKDIR /var/www
 
+RUN chown -R www-data:www-data /var/www
+
 RUN docker-php-ext-install pdo pdo_mysql
 # RUN apt-get update && apt-get install -y \
 #         libfreetype6-dev \

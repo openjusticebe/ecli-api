@@ -13,10 +13,10 @@ class Document extends Model
 
     public function getELCIAttribute()
     {
-        return "ELCI:BE:{$this->court->acronym}:{$this->year}:{$this->type}:{$this->num}";
+        return "ELCI:BE:{$this->court->acronym}:{$this->year}:{$this->type}.{$this->num}";
     }
 
-    public function getSelfLinkAttribute()
+    public function getHrefAttribute()
     {
         return route(
             'documents.show',
@@ -25,15 +25,7 @@ class Document extends Model
             'year' => $this->year,
             'type' => $this->type,
             'num' => $this->num
-            ]
+            ],
         );
-    }
-
-    public function getParentLinkAttribute()
-    {
-        return route('courts.docsPerYear', [
-            'court_acronym' => $this->court->acronym,
-            'year' => $this->year
-            ]);
     }
 }

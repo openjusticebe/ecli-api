@@ -29,11 +29,8 @@ class Court extends Model
                 return [
             'lang' => $lang->lang,
             'count' => (int)$lang->documents_count,
-            'links' => [
-                'parent' => $this->self_link,
-                'self' =>  route('courts.docsPerLang', ['court_acronym' => $this->acronym, 'lang' => $lang->lang])
-                ]
-            ];
+            'href' => route('courts.docsPerLang', ['court_acronym' => $this->acronym, 'lang' => $lang->lang]),
+                ];
             });
 
             return $result;
@@ -53,10 +50,7 @@ class Court extends Model
             'year' => (int)$year->year,
             'count' => (int)$year->documents_count,
             'elci_ref' => $this->elci . ':' . $year->year,
-            'links' => [
-                'parent' =>  $this->self_link,
-                'self' =>  route('courts.docsPerYear', ['court_acronym' => $this->acronym,'year' => $year->year])
-                ]
+            'href' => route('courts.docsPerYear', ['court_acronym' => $this->acronym,'year' => $year->year]),
             ];
             });
 
@@ -76,6 +70,8 @@ class Court extends Model
                 return [
             'type' => $type->type,
             'count' => (int)$type->documents_count,
+            '
+            href' => route('courts.docsPerType', ['court_acronym' => $this->acronym, 'type' => $type->type]),
             'links' => [
                 'parent' => $this->self_link,
                 'self' => route('courts.docsPerType', ['court_acronym' => $this->acronym, 'type' => $type->type])
@@ -91,6 +87,15 @@ class Court extends Model
     {
         return "ELCI:BE:{$this->acronym}";
     }
+
+    public function getHrefAttribute()
+    {
+        return route(
+            'courts.show',
+            ['court_acronym' => $this->acronym]
+        );
+    }
+
 
     public function getSelfLinkAttribute()
     {
