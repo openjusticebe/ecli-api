@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Court;
 use App\Models\Document;
 use Illuminate\Http\Request;
+use Cache;
 
 class StatsController extends Controller
 {
@@ -16,6 +17,13 @@ class StatsController extends Controller
     *  @return 'stats';
     */
     public function index()
+    {
+        return Cache::rememberForever('stats', function () {
+            return $this->docPerYear();
+        });
+    }
+
+    private function docPerYear()
     {
         $courts = Court::get(['id', 'acronym']);
         $years = Document::distinct('year')->pluck('year');
