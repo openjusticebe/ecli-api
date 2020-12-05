@@ -20,12 +20,12 @@ class Courts extends Migration
             $table->string('name_de')->nullable();
             $table->string('name_fr')->nullable();
             $table->string('def')->nullable();
+            $table->string('court_href')->nullable();
+            $table->string('logo_href')->nullable();
             $table->integer('category_id')->nullable();
             $table->timestamps();
             $table->index('acronym');
-
         });
-
     }
 
     /**

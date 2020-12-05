@@ -38,6 +38,8 @@ class CreateCourts extends Seeder
                      'name_nl' => $court['name_nl'] ?? null,
                      'name_fr' => $court['name_fr'] ?? null,
                      'name_de' => $court['name_de'] ?? null,
+                     'court_href' => $court['court_href'] ?? null,
+                     'logo_href' => $court['logo_href'] ?? null,
                      'def' => $court['def'] ?? null
                      ]
                 );

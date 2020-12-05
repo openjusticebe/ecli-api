@@ -11,9 +11,9 @@ class CourtResource extends BaseResource
             'name_nl' => $this->name_nl,
             'name_de' => $this->name_de,
             'name_fr' => $this->name_fr,
-            'href' => $this->href,
-            'ext_logo' => null,
-            'ext_href' => null,
+            'def' => $this->def,
+            'court_href' => $this->court_href,
+            'logo_href' => $this->logo_href,
             'category' => new CategoryResource($this->whenLoaded('category')),
             'count_total' => (int)$this->docs_per_year->sum('count'),
             'first_year' => (int)$this->docs_per_year->min('year'),
@@ -24,6 +24,7 @@ class CourtResource extends BaseResource
             'docs_per_year' => $this->docs_per_year,
             'docs_per_type' => $this->docs_per_type,
             'docs_per_lang' => $this->docs_per_lang,
+            'links' => route('courts.show', ['court_acronym' => $this->acronym])
         ];
     }
 }

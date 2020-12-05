@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Cache;
-use App\Http\Resources\CategoryResource;
+use App\Http\Resources\HomePageResource;
 
 class CategoryController extends Controller
 {
@@ -17,10 +17,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
+
         // return Category::all();
         return Cache::rememberForever('categories_index', function () {
-            return CategoryResource::collection(Category::with(['courts'])
-            ->get());
+            $category = Category::with(['courts'])->get();
+
+            return new HomePageResource($category);
         });
     }
 }

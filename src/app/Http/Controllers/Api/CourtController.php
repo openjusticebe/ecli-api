@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Cache;
 use App\Http\Resources\CourtResource;
 use App\Http\Resources\DocumentResource;
+use App\Http\Resources\CourtDocumentsPageResource;
 use App\Models\Document;
 
 class CourtController extends Controller
@@ -38,7 +39,7 @@ class CourtController extends Controller
         ->with('court.category')
         ->paginate(20);
         
-        return DocumentResource::collection($documents);
+        return new CourtDocumentsPageResource($documents);
     }
 
     public function docsPerLang($court_acronym, $lang)
