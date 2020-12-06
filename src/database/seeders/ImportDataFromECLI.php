@@ -57,8 +57,8 @@ class ImportDataFromECLI extends Seeder
                                 'num' => $num,
                                 'src' => $key,
                                 'year' => $array[3],
-                                'lang' => null,
-                                'type' => strtoupper($ecli[0]) ?? null
+                                'lang' => 'undefined',
+                                'type' => strtoupper($ecli[0]) ?? 'undefined'
                                 ]
                             );
                         }
@@ -85,11 +85,11 @@ class ImportDataFromECLI extends Seeder
                             Document::firstOrCreate(
                                 [
                             'court_id' => $court->id,
-                            'num' => $json->num ?? null,
-                            'year' => $json->year ?? null,
+                            'num' => $json->num ?? 'undefined',
+                            'year' => $json->year ?? 'undefined',
                             'src' => $key,
-                            'lang' => $json->language ?? null,
-                            'type' => strtoupper($json->type) ?? null,
+                            'lang' => $json->language ?? 'undefined',
+                            'type' => strtoupper($json->type) ?? 'undefined',
                             ]
                             );
                         }
