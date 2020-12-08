@@ -17,6 +17,7 @@ class Category extends Migration
             $table->id();
             $table->string('label_fr');
             $table->string('label_nl');
+            $table->string('label_de');
             $table->timestamps();
         });
     }
@@ -29,6 +30,5 @@ class Category extends Migration
     public function down()
     {
         Schema::drop('categories');
-
     }
 }

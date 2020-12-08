@@ -9,3 +9,4 @@ caprover.yml
 docker/.DS_Store
 .DS_Store
 src/database/database.sqlite
+*.sqlite

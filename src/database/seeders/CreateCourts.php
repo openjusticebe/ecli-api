@@ -25,6 +25,7 @@ class CreateCourts extends Seeder
                 [
                 'label_fr' => $category['label_fr'],
                 'label_nl' => $category['label_nl'],
+                'label_de' => $category['label_de']
                 ]
             );
 
