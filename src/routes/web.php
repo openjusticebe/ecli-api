@@ -18,9 +18,7 @@ $router->get('/', function () use ($router) {
 });
 
 
-
 $router->get('/{elci}', 'Api\ELCIController@elci');
-
 
 
 // Customs
@@ -52,21 +50,27 @@ $router->group(['prefix'=>'api/v1/ELCI/BE'], function () use ($router) {
         'uses' => 'Api\CourtController@show'
     ]);
 
-    $router->get('/{court_acronym}/{year}/', [
-        'as' => 'courts.docsPerYear',
+    $router->get('/{court_acronym}/docsPerYear/{year}/', [
+        'as' => 'courts.documents.PerYear',
         'uses' => 'Api\CourtController@docsPerYear'
     ]);
 
-    $router->get('/{court_acronym}/type/{type}/', [
-    'as' => 'courts.docsPerType',
+    $router->get('/{court_acronym}/docsPerType/{type}/', [
+    'as' => 'courts.documents.docsPerType',
     'uses' => 'Api\CourtController@docsPerType'
     ]);
 
-    $router->get('/{court_acronym}/lang/{lang}/', [
-    'as' => 'courts.docsPerLang',
+    $router->get('/{court_acronym}/docsPerLang/{lang}/', [
+    'as' => 'courts.documents.docsPerLang',
     'uses' => 'Api\CourtController@docsPerLang'
     ]);
 
+
+    $router->get('/{court_acronym}/docsRecent/', [
+        'as' => 'courts.documents.docsRecent',
+        'uses' => 'Api\CourtController@docsRecent'
+        ]);
+    
     $router->get('/{court_acronym}/{year}/{type}/{num}', [
         'as' => 'documents.show',
         'uses' => 'Api\DocumentController@show'
