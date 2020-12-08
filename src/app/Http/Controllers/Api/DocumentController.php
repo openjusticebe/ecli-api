@@ -27,7 +27,7 @@ class DocumentController extends Controller
     }
 
 
-    public function recent($court_acronym)
+    public function docsRecent($court_acronym)
     {
         $court = Court::whereAcronym($court_acronym)->firstOrFail();
 
