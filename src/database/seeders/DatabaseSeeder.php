@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(CreateCourts::class);
         $this->call(ImportDataFromECLI::class);
+        $this->call(ImportDataFromOJ::class);
     }
 }
