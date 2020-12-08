@@ -11,9 +11,9 @@ class Document extends Model
         return $this->belongsTo('App\Models\Court');
     }
 
-    public function getELCIAttribute()
+    public function getECLIAttribute()
     {
-        return "ELCI:BE:{$this->court->acronym}:{$this->year}:{$this->type}.{$this->num}";
+        return "ECLI:BE:{$this->court->acronym}:{$this->year}:{$this->type}.{$this->num}";
     }
 
     public function getHrefAttribute()

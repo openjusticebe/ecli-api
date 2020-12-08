@@ -12,7 +12,7 @@ class DocumentResource extends BaseResource
             'year' => (int)$this->year,
             'lang' => $this->lang,
             'court' => $this->court,
-            'elci' => $this->elci,
+            'ecli' => $this->ecli,
             'src' => $this->src,
             'href' => $this->href,
             'links' => [
