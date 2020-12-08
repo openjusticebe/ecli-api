@@ -43,21 +43,18 @@ class ImportDataFromOJ extends Seeder
                     $this->command->info($ecli);
 
 
-                    if (isset($array[4])) {
-                        $ecli = explode(".", $document);
-                        $court = Court::firstOrCreate(['acronym' => $court]);
-                        $num = $ecli[1] . '.' . $ecli[2];
-                        Document::firstOrCreate(
-                            [
+                    $ecli = explode(".", $document);
+                    $court = Court::firstOrCreate(['acronym' => $court]);
+                    $document = Document::firstOrCreate(
+                        [
                             'court_id' => $court->id,
-                            'num' => $num,
+                            'num' => $document,
                             'src' => "OJ",
                             'year' => $year,
                             'lang' => 'undefined',
                             'type' => strtoupper($ecli[0]) ?? 'undefined'
                             ]
-                        );
-                    }
+                    );
                 }
             }
         }
