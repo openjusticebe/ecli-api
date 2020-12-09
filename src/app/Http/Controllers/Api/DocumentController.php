@@ -13,14 +13,19 @@ use App\Http\Resources\CourtResource;
 
 class DocumentController extends Controller
 {
-    public function show($court_acronym, $year, $type, $num)
+    public function show($court_acronym, $year, $type_num)
     {
         $court = Court::whereAcronym($court_acronym)->firstOrFail();
 
+        if (isset($type_num)) {
+            $arr_type_num = explode('.', $type_num, 2);
+        }
+
         $document = Document::whereCourtId($court->id)
         ->where('year', $year)
-        ->where('num', $num)
-        ->where('type', $type)
+        ->where('type', $arr_type_num[0])
+        ->where('num', $arr_type_num[1])
+        ->with('court')
         ->firstOrfail();
 
         return new DocumentResource($document);

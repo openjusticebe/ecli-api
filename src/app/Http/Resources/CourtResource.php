@@ -8,10 +8,13 @@ class CourtResource extends BaseResource
     {
         return [
             'acronym' => $this->acronym,
-            'name_nl' => $this->name_nl,
-            'name_de' => $this->name_de,
-            'name_fr' => $this->name_fr,
-            'def' => $this->def,
+            'name' => $this->name,
+            'name_i18ns' => [
+                'name_nl' => $this->name_nl,
+                'name_de' => $this->name_de,
+                'name_fr' => $this->name_fr,
+
+            ],
             'court_href' => $this->court_href,
             'logo_href' => $this->logo_href,
             'category' => new CategoryResource($this->whenLoaded('category')),

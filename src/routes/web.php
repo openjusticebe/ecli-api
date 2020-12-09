@@ -51,7 +51,7 @@ $router->group(['prefix'=>'api/v1/ELCI/BE'], function () use ($router) {
     ]);
 
     $router->get('/{court_acronym}/docsPerYear/{year}/', [
-        'as' => 'courts.documents.PerYear',
+        'as' => 'courts.documents.docsPerYear',
         'uses' => 'Api\DocumentController@docsPerYear'
     ]);
 
@@ -71,7 +71,7 @@ $router->group(['prefix'=>'api/v1/ELCI/BE'], function () use ($router) {
         'uses' => 'Api\DocumentController@docsRecent'
         ]);
     
-    $router->get('/{court_acronym}/{year}/{type}.{num}', [
+    $router->get('/{court_acronym}/{year}/{type_num}', [
         'as' => 'documents.show',
         'uses' => 'Api\DocumentController@show'
     ]);

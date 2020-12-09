@@ -40,25 +40,22 @@ class ImportDataFromOJ extends Seeder
                 
                 foreach ($documents as $document) {
                     $ecli = $country . ':' . $court . ':' . $year . ':'. $document;
-                    $this->command->info($ecli);
 
+                    $arr_type_num = explode('.', $document, 2);
 
-                    $ecli = explode(".", $document);
                     $court = Court::firstOrCreate(['acronym' => $court]);
                     $document = Document::firstOrCreate(
                         [
                             'court_id' => $court->id,
-                            'num' => $document,
+                            'num' => strtoupper($arr_type_num[1]) ?? 'undefined',
                             'src' => "OJ",
                             'year' => $year,
                             'lang' => 'undefined',
-                            'type' => strtoupper($ecli[0]) ?? 'undefined'
+                            'type' => strtoupper($arr_type_num[0]) ?? 'undefined'
                             ]
                     );
                 }
             }
         }
-       
-        $this->command->info("I'll never give you up.");
     }
 }

@@ -24,35 +24,34 @@ class ImportDataFromECLI extends Seeder
         'RSCE' => 'https://raw.githubusercontent.com/openjusticebe/ecli/master/resources/RVSCDE_def.json'
         ];
     
-        if ($this->command->confirm('Do like want to import ECLI into DB ?')) {
-            foreach ($sources as $key => $value) {
-                $this->command->info("Importing data from " . $key);
+        foreach ($sources as $key => $value) {
+            $this->command->info("Importing data from " . $key);
 
-                // Get files from API
-                $data = file_get_contents($value);
+            // Get files from API
+            $data = file_get_contents($value);
                 
-                // Loop and import into DB
-                $lines = explode(PHP_EOL, $data);
+            // Loop and import into DB
+            $lines = explode(PHP_EOL, $data);
         
-                $output = new ConsoleOutput();
-                $progress = new ProgressBar($output, count($lines));
-                $progress->start();
+            $output = new ConsoleOutput();
+            $progress = new ProgressBar($output, count($lines));
+            $progress->start();
         
-                // Data is stored in .txt
-                if ($key == 'IUBEL') {
-                    // ECLI:BE:AHANT:2003:ARR.20030423.6
-                    // ECLI:BE:AHANT:2004:ARR.20040604.5
-                    // ECLI:BE:AHANT:2004:ARR.20040625.15
-                    foreach ($lines as $line) {
-                        $progress->advance();
+            // Data is stored in .txt
+            if ($key == 'IUBEL') {
+                // ECLI:BE:AHANT:2003:ARR.20030423.6
+                // ECLI:BE:AHANT:2004:ARR.20040604.5
+                // ECLI:BE:AHANT:2004:ARR.20040625.15
+                foreach ($lines as $line) {
+                    $progress->advance();
 
-                        $array = explode(":", $line);
-                        if (isset($array[4])) {
-                            $ecli = explode(".", $array[4]);
-                            $court = Court::firstOrCreate(['acronym' => $array[2]]);
-                            $num = $ecli[1] . '.' . $ecli[2];
-                            Document::firstOrCreate(
-                                [
+                    $array = explode(":", $line);
+                    if (isset($array[4])) {
+                        $ecli = explode(".", $array[4]);
+                        $court = Court::firstOrCreate(['acronym' => $array[2]]);
+                        $num = $ecli[1] . '.' . $ecli[2];
+                        Document::firstOrCreate(
+                            [
                                 'court_id' => $court->id,
                                 'num' => $num,
                                 'src' => $key,
@@ -60,12 +59,12 @@ class ImportDataFromECLI extends Seeder
                                 'lang' => 'undefined',
                                 'type' => strtoupper($ecli[0]) ?? 'undefined'
                                 ]
-                            );
-                        }
+                        );
                     }
-                    $progress->finish();
-                    $this->command->info("");
-                // Data is stored in .json (wrongly formatted)
+                }
+                $progress->finish();
+                $this->command->info("");
+            // Data is stored in .json (wrongly formatted)
                 // GHCC
                 // {"num": "035", "year": "2009", "language": "french", "type": "arr"}
                 // {"num": "167", "year": "2005", "language": "french", "type": "arr"}
@@ -75,15 +74,15 @@ class ImportDataFromECLI extends Seeder
                 // {"num": 142636, "year": 2005, "language": "dutch", "type": "arr"}
                 // {"num": 246073, "year": 2019, "language": "dutch", "type": "arr"}
                 // {"num": 208168, "year": 2010, "language": "french", "type": "arr"}
-                } else {
-                    $court = Court::firstOrCreate(['acronym' => $key]);
-                    foreach ($lines as $line) {
-                        $progress->advance();
+            } else {
+                $court = Court::firstOrCreate(['acronym' => $key]);
+                foreach ($lines as $line) {
+                    $progress->advance();
 
-                        $json = json_decode($line);
-                        if (isset($json->num)) {
-                            Document::firstOrCreate(
-                                [
+                    $json = json_decode($line);
+                    if (isset($json->num)) {
+                        Document::firstOrCreate(
+                            [
                             'court_id' => $court->id,
                             'num' => $json->num ?? 'undefined',
                             'year' => $json->year ?? 'undefined',
@@ -91,14 +90,12 @@ class ImportDataFromECLI extends Seeder
                             'lang' => $json->language ?? 'undefined',
                             'type' => strtoupper($json->type) ?? 'undefined',
                             ]
-                            );
-                        }
+                        );
                     }
-                    $progress->finish();
-                    $this->command->info("");
                 }
+                $progress->finish();
+                $this->command->info("");
             }
         }
-        $this->command->info("I'll never give you up.");
     }
 }

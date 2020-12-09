@@ -7,6 +7,9 @@ use Cache;
 
 class Court extends Model
 {
+    protected $visible = ['name'];
+
+
     public function documents()
     {
         return $this->hasMany('App\Models\Document');
@@ -15,6 +18,18 @@ class Court extends Model
     public function category()
     {
         return $this->belongsTo('App\Models\Category');
+    }
+
+    public function getNameAttribute()
+    {
+        if ($this->def != '0' or !isset($this->def)) {
+            $key = 'name_' . $this->def;
+        } else {
+            $input = ['name_fr', 'name_nl', 'name_de'];
+            $rand_keys = array_rand($input);
+            $key = $input[$rand_keys];
+        }
+        return $this->$key;
     }
 
     public function getDocsPerLangAttribute()
@@ -29,7 +44,7 @@ class Court extends Model
                 return [
             'lang' => $lang->lang,
             'count' => (int)$lang->documents_count,
-            'href' => route('courts.docsPerLang', ['court_acronym' => $this->acronym, 'lang' => $lang->lang]),
+            'href' => route('courts.documents.docsPerLang', ['court_acronym' => $this->acronym, 'lang' => $lang->lang]),
                 ];
             });
 
@@ -50,7 +65,7 @@ class Court extends Model
             'year' => (int)$year->year,
             'count' => (int)$year->documents_count,
             'elci_ref' => $this->elci . ':' . $year->year,
-            'href' => route('courts.docsPerYear', ['court_acronym' => $this->acronym,'year' => $year->year]),
+            'href' => route('courts.documents.docsPerYear', ['court_acronym' => $this->acronym,'year' => $year->year]),
             ];
             });
 
@@ -71,10 +86,10 @@ class Court extends Model
             'type' => $type->type,
             'count' => (int)$type->documents_count,
             '
-            href' => route('courts.docsPerType', ['court_acronym' => $this->acronym, 'type' => $type->type]),
+            href' => route('courts.documents.docsPerType', ['court_acronym' => $this->acronym, 'type' => $type->type]),
             'links' => [
                 'parent' => $this->self_link,
-                'self' => route('courts.docsPerType', ['court_acronym' => $this->acronym, 'type' => $type->type])
+                'self' => route('courts.documents.docsPerType', ['court_acronym' => $this->acronym, 'type' => $type->type])
                 ]
             ];
             });
