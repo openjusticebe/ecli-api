@@ -15,8 +15,8 @@ class DocumentResource extends BaseResource
             'court' => new CourtMinimalResource($this->whenLoaded('court')),
             'ecli' => $this->ecli,
             'src' => $this->src,
-            'href' => $this->href,
-
+            'self_link' => $this->self_link,
+            'parent_link' => $this->parent_link,
             'ref' => $this->ref,
             'links' => $this->links
         ];

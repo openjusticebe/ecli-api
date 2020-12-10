@@ -24,7 +24,7 @@ class Category extends Model
 
     public function getSelfLinkAttribute()
     {
-        return "ELCI/BE/";
+        return "ECLI/BE/";
     }
 
     public function getParentLinkAttribute()

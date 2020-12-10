@@ -33,6 +33,24 @@ class Document extends Model
         );
     }
 
+    public function getSelfLinkAttribute()
+    {
+        return route(
+            'documents.show',
+            [
+            'court_acronym' => $this->court->acronym,
+            'year' => $this->year,
+            'type_num' => $this->type_num,
+             ],
+        );
+    }
+   
+   
+    public function getParentLinkAttribute()
+    {
+        return route('courts.show', ['court_acronym' => $this->court->acronym]);
+    }
+
     public function getRefAttribute()
     {
         return '/BE/' . $this->court->acronym . '/' . $this->year . '/' . $this->type_num;
@@ -78,11 +96,11 @@ class Document extends Model
             return [
                 [
                  'rel' =>  'default',
-                 'href' => "https://doc.openjustice.lltl.be/" . $this->ecli
+                 'href' => "https://doc.openjustice.lltl.be/html/" . $this->ecli
                 ],
                 [
                   'rel' =>  'html',
-                  'href' => "https://doc.openjustice.lltl.be/" . $this->ecli
+                  'href' => "https://doc.openjustice.lltl.be/html/" . $this->ecli
                 ],
             ];
         };
