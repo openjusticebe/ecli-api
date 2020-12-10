@@ -49,6 +49,22 @@ class ImportDataFromECLI extends Seeder
                     if (isset($array[4])) {
                         $ecli = explode(".", $array[4]);
                         $court = Court::firstOrCreate(['acronym' => $array[2]]);
+
+                        switch ($court->def) {
+                            case 'fr':
+                                $lang = "french";
+                                break;›
+                            case 'nl':
+                                $lang = "dutch";
+                                break;
+                            case 'de':
+                                $lang = "german";
+                                break;
+                            default:
+                            $lang = "undefined";
+                        }
+
+
                         $num = $ecli[1] . '.' . $ecli[2];
                         Document::firstOrCreate(
                             [
@@ -56,7 +72,7 @@ class ImportDataFromECLI extends Seeder
                                 'num' => $num,
                                 'src' => $key,
                                 'year' => $array[3],
-                                'lang' => 'undefined',
+                                'lang' => $lang,
                                 'type' => strtoupper($ecli[0]) ?? 'undefined'
                                 ]
                         );

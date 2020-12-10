@@ -14,11 +14,11 @@
 */
 
 $router->get('/', function () use ($router) {
-    return redirect('api/v1/ELCI/BE');
+    return redirect('api/v1/ECLI/BE');
 });
 
 
-$router->get('/{elci}', 'Api\ELCIController@elci');
+$router->get('/{elci}', 'Api\ECLIController@elci');
 
 
 // Customs
@@ -38,7 +38,7 @@ $router->group(['prefix'=>'api/v1/'], function () use ($router) {
 });
 
 // ECLI Routing
-$router->group(['prefix'=>'api/v1/ELCI/BE'], function () use ($router) {
+$router->group(['prefix'=>'api/v1/ECLI/BE'], function () use ($router) {
     $router->get('/', [
         'as' => 'base_ecli_be',
         'uses' => 'Api\CategoryController@index'
