@@ -14,6 +14,7 @@ class CourtMinimalResource extends BaseResource
                 'name_de' => $this->name_de,
                 'name_fr' => $this->name_fr,
             ],
+            'ref' => $this->ref,
             'court_href' => $this->court_href,
             'logo_href' => $this->logo_href,
             'links' => route('courts.show', ['court_acronym' => $this->acronym])

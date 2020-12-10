@@ -64,7 +64,7 @@ class Court extends Model
                 return [
             'year' => (int)$year->year,
             'count' => (int)$year->documents_count,
-            'elci_ref' => $this->elci . ':' . $year->year,
+            'ecli_ref' => $this->elci . ':' . $year->year,
             'href' => route('courts.documents.docsPerYear', ['court_acronym' => $this->acronym,'year' => $year->year]),
             ];
             });
@@ -100,7 +100,12 @@ class Court extends Model
 
     public function getELCIAttribute()
     {
-        return "ELCI:BE:{$this->acronym}";
+        return "ECLI:BE:{$this->acronym}";
+    }
+
+    public function getRefAttribute()
+    {
+        return '/BE/' . $this->acronym . '/';
     }
 
     public function getHrefAttribute()

@@ -13,7 +13,12 @@ class Document extends Model
 
     public function getECLIAttribute()
     {
-        return "ECLI:BE:{$this->court->acronym}:{$this->year}:{$this->type}.{$this->num}";
+        return "ECLI:BE:{$this->court->acronym}:{$this->year}:{$this->type_num}";
+    }
+
+    public function getTypeNumAttribute()
+    {
+        return $this->type . '.' . $this->num;
     }
 
     public function getHrefAttribute()
@@ -23,9 +28,14 @@ class Document extends Model
             [
             'court_acronym' => $this->court->acronym,
             'year' => $this->year,
-            'type_num' => $this->type . '.' . $this->num
+            'type_num' => $this->type_num,
              ],
         );
+    }
+
+    public function getRefAttribute()
+    {
+        return '/BE/' . $this->court->acronym . '/' . $this->year . '/' . $this->type_num;
     }
 
     public function getLinksAttribute()
