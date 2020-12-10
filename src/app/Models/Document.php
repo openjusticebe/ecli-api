@@ -78,11 +78,11 @@ class Document extends Model
             return [
                 [
                  'rel' =>  'default',
-                 'href' => "https://ecli.openjustice.be/html/" . $this->ecli
+                 'href' => "https://doc.openjustice.lltl.be/" . $this->ecli
                 ],
                 [
                   'rel' =>  'html',
-                  'href' => "https://ecli.openjustice.be/html/{eclip.raw}" . $this->ecli
+                  'href' => "https://doc.openjustice.lltl.be/" . $this->ecli
                 ],
             ];
         };
