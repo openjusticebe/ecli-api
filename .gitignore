@@ -5,3 +5,6 @@
 .DS_Store
 *.sqlite
 *.sqlite-journal
+temporary-captain-to-deploy.tar
+*.tar
+Dockerfile.deploy
