@@ -1,28 +1,8 @@
-FROM php:7.4-fpm-alpine
+FROM nginx:1.17.9
 
-WORKDIR /var/www
+COPY ./nginx/default.prod.conf /etc/nginx/conf.d/default.conf
+COPY ./src /var/www
+COPY ./src/.env.prod /var/www/.env
 
-RUN chown -R www-data:www-data /var/www
-
-RUN docker-php-ext-install pdo pdo_mysql
-# RUN apt-get update && apt-get install -y \
-#         libfreetype6-dev \
-#         libjpeg62-turbo-dev \
-#         libpng-dev \
-#     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-#     && docker-php-ext-install -j$(nproc) gd
-
-RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS}
-RUN pecl install redis \
-&& docker-php-ext-enable redis
-
-# Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
-
-RUN echo 'memory_limit = 1024M' >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini;
-
-# RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
-# RUN mv "$PHP_INI_DIR/php.ini-development " "$PHP_INI_DIR/php.ini"
-
-EXPOSE 9000/tcp
-EXPOSE 9000/udp
+EXPOSE 80/tcp
+EXPOSE 443/tcp

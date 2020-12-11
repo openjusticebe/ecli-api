@@ -8,7 +8,7 @@ services:
       - 8443:443
     volumes:
       - ./src:/var/www:delegated
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:delegated
+      - ./nginx/default.dev.conf:/etc/nginx/conf.d/default.conf:delegated
     depends_on:
       - php
     networks:
@@ -21,7 +21,7 @@ services:
   php:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-php-fpm
     restart: on-failure:3
     volumes:
       - ./src:/var/www:delegated

@@ -53,7 +53,7 @@ class ImportDataFromECLI extends Seeder
                         switch ($court->def) {
                             case 'fr':
                                 $lang = "french";
-                                break;›
+                                break;
                             case 'nl':
                                 $lang = "dutch";
                                 break;
