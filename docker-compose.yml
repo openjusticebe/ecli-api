@@ -45,6 +45,8 @@ services:
 volumes:
   redisdata:
     driver: local
+  # lumendata:
+  #   drive: local
 
 networks:
   app-network:
