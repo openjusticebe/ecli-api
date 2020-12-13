@@ -7,7 +7,7 @@ services:
       - 8000:80
       - 8443:443
     volumes:
-      - ./src:/var/www:delegated
+      - ./app:/var/www:delegated
       - ./config/default.dev.conf:/etc/nginx/conf.d/default.conf:delegated
     depends_on:
       - php
@@ -24,7 +24,7 @@ services:
       dockerfile: Dockerfile.dev
     restart: on-failure:3
     volumes:
-      - ./src:/var/www:delegated
+      - ./app:/var/www:delegated
     # ports:
     #   - 9000:9000
     networks:

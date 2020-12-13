@@ -1,10 +1,13 @@
-/src/vendor
+/app/vendor
 /.idea
 .env
+.env.prod
 .phpunit.result.cache
 .DS_Store
 *.sqlite
 *.sqlite-journal
 temporary-captain-to-deploy.tar
 *.tar
-Dockerfile.deploy
+deploy.sh
+.deploy
+.vscode
