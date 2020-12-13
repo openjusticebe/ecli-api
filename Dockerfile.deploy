@@ -4,7 +4,7 @@ ENV WEB_DOCUMENT_ROOT="/app/public"
 COPY ./app /app
 COPY ./config/php.ini opt/docker/etc/php/php.ini
 
-RUN chmod -Rv 755 /app/storage
+RUN chmod -Rv 777 /app/storage
 
 # Composer
 RUN composer install -d /app
