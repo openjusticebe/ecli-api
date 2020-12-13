@@ -4,7 +4,7 @@
 .env.prod
 .phpunit.result.cache
 .DS_Store
-*.sqlite
+# *.sqlite
 *.sqlite-journal
 temporary-captain-to-deploy.tar
 *.tar
