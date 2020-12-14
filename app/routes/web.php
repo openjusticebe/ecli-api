@@ -27,7 +27,9 @@ $router->group(['prefix'=>'api/v1/'], function () use ($router) {
         'as' => 'base_api',
         'uses' => 'Api\ApiController@index'
     ]);
-    $router->get('/stats', 'Api\StatsController@index');
+
+    $router->get('/statistics', 'Api\StatsController@index');
+    $router->get('/utus', 'Api\UtuController@index');
     $router->get('/courts', 'Api\CourtController@index');
     $router->get('/very-secret-password', function () {
         return 'unicorn-pirates-love-pizza';

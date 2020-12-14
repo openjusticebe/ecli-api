@@ -16,86 +16,139 @@ class ImportUTU extends Seeder
      */
     public function run()
     {
+        Utu::truncate();
+
         $file_path = realpath('/var/www/database/seeders/UTU-src.json');
         $utu = json_decode(file_get_contents($file_path), true);
 
+        // Create branch
         foreach ($utu as $record) {
-            foreach ($record as $key=>$line) {
-                foreach ([
-                    ['Branch_FR', 'Branch_NL'],
-                    ["Lvl1_FR", "Lvl1_NL"],
-                    ["Lvl2_FR", "Lvl2_NL"],
-                    ["Lvl3_FR","Lvl3_NL"],
-                    ["Lvl4_FR","Lvl4_NL"]
-                    ] as $value) {
-                    if ($record[$value[0]] != null) {
-                        $utu = Utu::firstOrCreate([
-                            'term_fr' => $record[$value[0]],
-                            'term_nl' => $record[$value[1]],
-                            'term_de' => null,
-                        ]);
-                        $utu->parent_id = isset($parent->id) ?? $parent->id :: null;
-                        $utu->save();
-
-                        $parent = $utu;
-                    }
-
-                    $this->command->info($utu);
+            {
+                if (!empty($record['Branch_FR']) && !empty($record['Branch_NL'])) {
+                    Utu::firstOrCreate([
+                                    'term_fr' => $record['Branch_FR'],
+                                    'term_nl' => $record['Branch_NL'],
+                                    'term_de' => null,
+                                    'parent_id' => null
+                                ]);
                 }
-
-
-                // EX
-                // "Branch_FR": "DROIT JUDICIAIRE",
-                // "Lvl1_FR": "DROIT JUDICIAIRE - PRINCIPES GÉNÉRAUX",
-                // "Lvl2_FR": "Principes généraux droit judiciaire",
-                // "Lvl3_FR": "Généralités ",
-                // "Lvl4_FR": "",
-                // "Branch_NL": "GERECHTELIJK RECHT",
-                // "Lvl1_NL": "GERECHTELIJK RECHT- ALGEMENE BEGINSELEN",
-                // "Lvl2_NL": "Algemene beginselen",
-                // "Lvl3_NL": "Algemeen",
-                // "Lvl4_NL": ""
             }
         }
+        // Create Level 1 cat
+        foreach ($utu as $record) {
+            {
+                    if (!empty($record['Branch_FR']) && !empty($record['Branch_NL'])) {
+                        $parent = Utu::where('term_fr', $record['Branch_FR'])
+                                ->where('term_nl', $record['Branch_NL'])
+                                ->firstOrFail();
+                                     
+                        if (!empty($record['Lvl1_FR']) && !empty($record['Lvl1_NL'])) {
+                            Utu::firstOrCreate([
+                                'term_fr' => $record['Lvl1_FR'],
+                                'term_nl' => $record['Lvl1_NL'],
+                                'term_de' => null,
+                                'parent_id' => $parent->id
+                                ]);
+                        }
+                    }
+                }
+        }
+            
 
-        // $country = "BE";
-        // $country_params = ["country" => $country];
-        // $country_params = json_encode($country_params);
+        // Create Level 2 cat
+        foreach ($utu as $record) {
+            {
+                    if (!empty($record['Branch_FR']) && !empty($record['Branch_NL'])) {
+                        $parent = Utu::where('term_fr', $record['Lvl1_FR'])
+                                ->where('term_nl', $record['Lvl1_NL'])
+                                ->whereHas('parent', function ($q) use ($record) {
+                                    $q->where('term_fr', $record['Branch_FR'])
+                                    ->where('term_nl', $record['Branch_NL']);
+                                })
+                                ->first();
+                                     
+                        if (isset($parent) &&  !empty($record['Lvl2_FR']) && !empty($record['Lvl2_NL'])) {
+                            Utu::firstOrCreate([
+                                'term_fr' => $record['Lvl2_FR'],
+                                'term_nl' => $record['Lvl2_NL'],
+                                'term_de' => null,
+                                'parent_id' => $parent->id
+                                ]);
+                        }
+                    }
+                }
+        }
 
-        // $base_api = "https://doc.openjustice.lltl.be/list?level=court&data=" . $country_params;
-        
-        // $courts = file_get_contents($base_api);
-        // $courts = json_decode($courts);
+        // Create Level 3 cat
+        foreach ($utu as $record) {
+            {
+                    if (!empty($record['Branch_FR']) && !empty($record['Branch_NL'])) {
+                        $parent = Utu::where('term_fr', $record['Lvl2_FR'])
+                                ->where('term_nl', $record['Lvl2_NL'])
+                                ->whereHas('parent', function ($q) use ($record) {
+                                    $q->where('term_fr', $record['Lvl1_FR'])
+                                    ->where('term_nl', $record['Lvl1_NL'])->whereHas('parent', function ($qq) use ($record) {
+                                        $qq->where('term_fr', $record['Branch_FR'])
+                                        ->where('term_nl', $record['Branch_NL']);
+                                    });
+                                })
+                                ->first();
+                                     
+                        if (isset($parent) && !empty($record['Lvl3_FR']) && !empty($record['Lvl3_NL'])) {
+                            Utu::firstOrCreate([
+                                'term_fr' => $record['Lvl3_FR'],
+                                'term_nl' => $record['Lvl3_NL'],
+                                'term_de' => null,
+                                'parent_id' => $parent->id
+                                ]);
+                        }
+                    }
+                }
+        }
 
-        // foreach ($courts as $court) {
-        //     $court_params = json_encode(["country" => "BE", "court"  => $court]);
-        //     $base_api = "https://doc.openjustice.lltl.be/list?level=year&data=" . $court_params;
-        //     $years = file_get_contents($base_api);
-        //     $years = json_decode($years);
-        //     foreach ($years as $year) {
-        //         $full_params = json_encode(["country" => "BE", "court" => $court, "year" => $year]);
-        //         $base_api = "https://doc.openjustice.lltl.be/list?level=document&data=" . $full_params;
-        //         $documents = file_get_contents($base_api);
-        //         $documents = json_decode($documents);
-                
-        //         foreach ($documents as $document) {
-        //             $ecli = $country . ':' . $court . ':' . $year . ':'. $document;
+        // Create Level 4 cat
+        foreach ($utu as $record) {
+            {
+                        if (!empty($record['Branch_FR']) && !empty($record['Branch_NL'])) {
+                            $parent = Utu::where('term_fr', $record['Lvl3_FR'])
+                                    ->where('term_nl', $record['Lvl3_NL'])
+                                    ->whereHas('parent', function ($q) use ($record) {
+                                        $q->where('term_fr', $record['Lvl2_FR'])
+                                        ->where('term_nl', $record['Lvl2_NL'])->whereHas('parent', function ($qq) use ($record) {
+                                            $qq->where('term_fr', $record['Lvl1_FR'])
+                                            ->where('term_nl', $record['Lvl1_NL'])->whereHas('parent', function ($qqq) use ($record) {
+                                                $qqq->where('term_fr', $record['Branch_FR'])
+                                                ->where('term_nl', $record['Branch_NL']);
+                                            });
+                                            ;
+                                        });
+                                    })
+                                    ->first();
 
-        //             $arr_type_num = explode('.', $document, 2);
-
-        //             $court = Court::firstOrCreate(['acronym' => $court]);
-        //             $document = Document::firstOrCreate(
-        //                 [
-        //                     'court_id' => $court->id,
-        //                     'num' => strtoupper($arr_type_num[1]) ?? 'undefined',
-        //                     'src' => "OJ",
-        //                     'year' => $year,
-        //                     'lang' => 'undefined',
-        //                     'type' => strtoupper($arr_type_num[0]) ?? 'undefined'
-        //                     ]
-        //             );
-        //         }
-        //     }
-        // }
+                            if (isset($parent) && !empty($record['Lvl4_FR']) && !empty($record['Lvl4_NL'])) {
+                                Utu::firstOrCreate([
+                                    'term_fr' => $record['Lvl4_FR'],
+                                    'term_nl' => $record['Lvl4_NL'],
+                                    'term_de' => null,
+                                    'parent_id' => $parent->id
+                                    ]);
+                            }
+                        }
+                    }
+        }
+        // EX
+        // "Branch_FR": "DROIT JUDICIAIRE",
+        // "Lvl1_FR": "DROIT JUDICIAIRE - PRINCIPES GÉNÉRAUX",
+        // "Lvl2_FR": "Principes généraux droit judiciaire",
+        // "Lvl3_FR": "Généralités ",
+        // "Lvl4_FR": "",
+        // "Branch_NL": "GERECHTELIJK RECHT",
+        // "Lvl1_NL": "GERECHTELIJK RECHT- ALGEMENE BEGINSELEN",
+        // "Lvl2_NL": "Algemene beginselen",
+        // "Lvl3_NL": "Algemeen",
+        // "Lvl4_NL": ""
+        $db_count = Utu::count();
+        $pct_completion = $db_count / count($utu) * 100;
+        $this->command->info($db_count . ' / ' . count($utu) . ' (' . $pct_completion  . '%)');
     }
 }
