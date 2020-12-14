@@ -12,6 +12,9 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
+if (env('FORCE_HTTPS', false)) { // Default value should be false for local server
+    URL::forceScheme('https');
+}
 
 $router->get('/', function () use ($router) {
     return redirect('api/v1/ECLI/BE');
