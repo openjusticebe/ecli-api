@@ -23,7 +23,16 @@ class CourtController extends Controller
      * path="/ECLI/BE/{court_acronym}",
      * summary="Get Court information",
      * description="Get Court",
-     * operationId="court_acronym",
+     * operationId="GetCourtInfo",
+     * @OA\Parameter(
+     *          name="court_acronym",
+     *          description="Court acronym",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
      * tags={"Court"},
      * security={ {"bearer": {} }},
      * @OA\Response(

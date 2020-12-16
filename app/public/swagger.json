@@ -6,6 +6,10 @@
             "name": "Team of OpenJustice",
             "email": "team@openjustice.be"
         },
+        "license": {
+            "name": "GNU General Public License v3",
+            "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
+        },
         "version": "1.0.0"
     },
     "servers": [
@@ -41,7 +45,18 @@
                 ],
                 "summary": "Get Court information",
                 "description": "Get Court",
-                "operationId": "court_acronym",
+                "operationId": "GetCourtInfo",
+                "parameters": [
+                    {
+                        "name": "court_acronym",
+                        "in": "path",
+                        "description": "Court acronym",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success"
