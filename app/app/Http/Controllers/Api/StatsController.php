@@ -10,20 +10,20 @@ use Cache;
 class StatsController extends Controller
 {
     /**
- * @OA\Get(
- * path="/statistics",
- * summary="Get list of Stats",
- * description="Get list of Stats",
- * operationId="Stats",
- * tags={"Stats"},
- * security={ {"bearer": {} }},
- * @OA\Response(
- *    response=200,
- *    description="Success",
- * )
- * )
- * )
- */
+     * @OA\Get(
+     * path="/statistics",
+     * summary="Get list of Stats",
+     * description="Get list of Stats",
+     * operationId="Stats",
+     * tags={"Stats"},
+     * security={ {"bearer": {} }},
+     * @OA\Response(
+     *    response=200,
+     *    description="Success",
+     * )
+     * )
+     * )
+     */
     public function index()
     {
         return Cache::rememberForever('stats', function () {

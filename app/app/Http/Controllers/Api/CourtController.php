@@ -19,19 +19,19 @@ class CourtController extends Controller
     }
 
     /**
- * @OA\Get(
- * path="/ECLI/BE/{court_acronym}",
- * summary="Get Court information",
- * description="Get Court",
- * operationId="court_acronym",
- * tags={"Court"},
- * security={ {"bearer": {} }},
- * @OA\Response(
- *    response=200,
- *    description="Success"
- * )
- * )
- */
+     * @OA\Get(
+     * path="/ECLI/BE/{court_acronym}",
+     * summary="Get Court information",
+     * description="Get Court",
+     * operationId="court_acronym",
+     * tags={"Court"},
+     * security={ {"bearer": {} }},
+     * @OA\Response(
+     *    response=200,
+     *    description="Success"
+     * )
+     * )
+     */
     public function show($court_acronym)
     {
         return new CourtResource(Court::whereAcronym($court_acronym)->with('category')

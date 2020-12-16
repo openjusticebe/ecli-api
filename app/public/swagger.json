@@ -19,7 +19,7 @@
                 "tags": [
                     "Category"
                 ],
-                "summary": "Get list of courts organised by categtories",
+                "summary": "Get list of courts organised by categories",
                 "description": "Get list of Courts with statistics organised by categories",
                 "operationId": "Category",
                 "responses": {

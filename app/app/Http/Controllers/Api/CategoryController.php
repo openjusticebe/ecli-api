@@ -10,20 +10,20 @@ use Cache;
 class CategoryController extends Controller
 {
     /**
- * @OA\Get(
- * path="/ECLI/BE",
- * summary="Get list of courts organised by categtories",
- * description="Get list of Courts with statistics organised by categories",
- * operationId="Category",
- * tags={"Category"},
- * security={ {"bearer": {} }},
- * @OA\Response(
- *    response=200,
- *    description="Success",
- * )
- * )
- * )
- */
+    * @OA\Get(
+    * path="/ECLI/BE",
+    * summary="Get list of courts organised by categories",
+    * description="Get list of Courts with statistics organised by categories",
+    * operationId="Category",
+    * tags={"Category"},
+    * security={ {"bearer": {} }},
+    * @OA\Response(
+    *    response=200,
+    *    description="Success",
+    * )
+    * )
+    * )
+    */
     public function index()
     {
         return Cache::rememberForever('categories_index', function () {
