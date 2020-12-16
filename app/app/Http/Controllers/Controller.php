@@ -6,5 +6,14 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
-    //
+    /**
+ * @OA\Info(
+ *   title="ECLI API of OpenJustice",
+ *  version="1.0.0",
+ *   @OA\Contact(
+ *    email="team@openjustice.be",
+ *    name="Team of OpenJustice"
+ *  )
+ * )
+ */
 }

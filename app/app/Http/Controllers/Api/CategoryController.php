@@ -10,11 +10,6 @@ use App\Http\Resources\HomePageResource;
 
 class CategoryController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function index()
     {
         return Cache::rememberForever('categories_index', function () {

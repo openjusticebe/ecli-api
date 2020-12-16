@@ -23,6 +23,29 @@ class CourtController extends Controller
         return CourtResource::collection(Court::get());
     }
 
+    
+    /**
+ * @OA\Get(
+ * path="/v1/geo/cities/{court_acronym}/zip_codes",
+ * summary="List of zip codes by city",
+ * description="Get list of zip codes by city",
+ * operationId="geoZipCodes",
+ * tags={"geo"},
+ * security={ {"bearer": {} }},
+ * @OA\Response(
+ *    response=200,
+ *    description="Success",
+ * @OA\Response(
+ *    response=401,
+ *    description="User should be authorized to get profile information",
+ *    @OA\JsonContent(
+ *       @OA\Property(property="message", type="string", example="Not authorized"),
+ *    )
+ * )
+ * )
+ * )
+ */
+    
     public function show($court_acronym)
     {
         return new CourtResource(Court::whereAcronym($court_acronym)->with('category')
