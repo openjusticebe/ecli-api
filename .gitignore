@@ -11,3 +11,4 @@ temporary-captain-to-deploy.tar
 deploy.sh
 .deploy
 .vscode
+*.cache

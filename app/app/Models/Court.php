@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Cache;
+use Illuminate\Database\Eloquent\Model;
 
 class Court extends Model
 {
     protected $visible = ['name'];
-
 
     public function documents()
     {
@@ -29,6 +28,7 @@ class Court extends Model
             $rand_keys = array_rand($input);
             $key = $input[$rand_keys];
         }
+
         return $this->$key;
     }
 
@@ -39,7 +39,7 @@ class Court extends Model
         ->select(\DB::raw('count(*) as documents_count, lang'))
         ->groupBy('lang')
         ->get();
-        
+
             $result = $docs_per_lang->map(function ($lang, $key) use ($docs_per_lang) {
                 return [
             'lang' => $lang->lang,
@@ -59,7 +59,7 @@ class Court extends Model
         ->select(\DB::raw('count(*) as documents_count, year'))
         ->groupBy('year')
         ->get();
-        
+
             $result = $docs_per_year->map(function ($year, $key) use ($docs_per_year) {
                 return [
             'year' => (int)$year->year,
@@ -80,7 +80,7 @@ class Court extends Model
         ->select(\DB::raw('count(*) as documents_count, type'))
         ->groupBy('type')
         ->get();
-        
+
             $result = $docs_per_type->map(function ($type, $key) use ($docs_per_type) {
                 return [
             'type' => $type->type,
@@ -89,8 +89,8 @@ class Court extends Model
             href' => route('courts.documents.docsPerType', ['court_acronym' => $this->acronym, 'type' => $type->type]),
             'links' => [
                 'parent' => $this->self_link,
-                'self' => route('courts.documents.docsPerType', ['court_acronym' => $this->acronym, 'type' => $type->type])
-                ]
+                'self' => route('courts.documents.docsPerType', ['court_acronym' => $this->acronym, 'type' => $type->type]),
+                ],
             ];
             });
 
@@ -115,7 +115,6 @@ class Court extends Model
             ['court_acronym' => $this->acronym]
         );
     }
-
 
     public function getSelfLinkAttribute()
     {

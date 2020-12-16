@@ -73,7 +73,7 @@ $app->configure('app');
 */
 
 // $app->middleware([
-//     App\Http\Middleware\ExampleMiddleware::class
+//     App\Http\Middleware\HttpsMiddleware::class
 // ]);
 
 // $app->routeMiddleware([

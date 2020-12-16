@@ -2,12 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use Storage;
-use App\Models\Document;
 use App\Models\Court;
-use Symfony\Component\Console\Helper\ProgressBar;
-use Symfony\Component\Console\Output\ConsoleOutput;
+use App\Models\Document;
+use Illuminate\Database\Seeder;
 
 class ImportDataFromOJ extends Seeder
 {
@@ -23,7 +20,7 @@ class ImportDataFromOJ extends Seeder
         $country_params = json_encode($country_params);
 
         $base_api = "https://doc.openjustice.lltl.be/list?level=court&data=" . $country_params;
-        
+
         $courts = file_get_contents($base_api);
         $courts = json_decode($courts);
 
@@ -37,9 +34,9 @@ class ImportDataFromOJ extends Seeder
                 $base_api = "https://doc.openjustice.lltl.be/list?level=document&data=" . $full_params;
                 $documents = file_get_contents($base_api);
                 $documents = json_decode($documents);
-                
+
                 foreach ($documents as $document) {
-                    $ecli = $country . ':' . $court . ':' . $year . ':'. $document;
+                    $ecli = $country . ':' . $court . ':' . $year . ':' . $document;
 
                     $arr_type_num = explode('.', $document, 2);
 
@@ -51,7 +48,7 @@ class ImportDataFromOJ extends Seeder
                             'src' => "OJ",
                             'year' => $year,
                             'lang' => 'undefined',
-                            'type' => strtoupper($arr_type_num[0]) ?? 'undefined'
+                            'type' => strtoupper($arr_type_num[0]) ?? 'undefined',
                             ]
                     );
                 }

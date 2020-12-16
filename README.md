@@ -1,22 +1,24 @@
 🚧 Under construction 🚧
 
 # ECLI Api poc
-
-Replacement API of : https://github.com/openjusticebe/ecli
+Replacement of original API : https://github.com/openjusticebe/ecli
 
 Developed by OpenJustice.be with ❤️. Licensed with GPLv3.
 PoC Api built on top of Lumen.
 
-# Features (Todos)
+# Features
 - [x] Cache with Redis
 - [x] Api versioning
 - [x] Pagination
-- [ ] Documentation OpenAPI
-<!-- https://niceprogrammer.com/lumen-api-tutorial-documentation-using-swagger-ui/ -->
-- [ ] GraphQL
-<!-- https://github.com/digiaonline/lumen-graphql) -->
-- [ ] Authentication
-- [ ] Throttle without api key
+- [x] Documentation OpenAPI
+
+# TODOS
+- [ ] GraphQL (standing by)
+- [ ] Authentication for post (standing by)
+- [ ] Throttle without api key (standing by)
+
+# Documentations of the API
+- [OpenAPI Documentation](https://api-ecli.openjustice.lltl.be/api-docs.html)
 
 # Credits
 - Project led by **OpenJustice.be** in collaboration with Liège Legal Tech Lab of **[University of Liège](https://legaltech.uliege.be/)** 🎓.

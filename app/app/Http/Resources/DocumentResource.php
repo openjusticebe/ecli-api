@@ -18,7 +18,7 @@ class DocumentResource extends BaseResource
             'self_link' => $this->self_link,
             'parent_link' => $this->parent_link,
             'ref' => $this->ref,
-            'links' => $this->links
+            'links' => $this->links,
         ];
     }
 }
