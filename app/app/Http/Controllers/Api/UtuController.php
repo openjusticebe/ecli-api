@@ -12,7 +12,7 @@ class UtuController extends Controller
 {
     /**
  * @OA\Get(
- * path="/api/v1/utus",
+ * path="/utus",
  * summary="Get list of Utus",
  * description="Get list of Utus",
  * operationId="utus",

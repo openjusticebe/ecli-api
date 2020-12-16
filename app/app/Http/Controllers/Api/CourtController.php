@@ -26,22 +26,15 @@ class CourtController extends Controller
     
     /**
  * @OA\Get(
- * path="/v1/geo/cities/{court_acronym}/zip_codes",
- * summary="List of zip codes by city",
- * description="Get list of zip codes by city",
+ * path="/ECLI/BE/{court_acronym}",
+ * summary="Get Court",
+ * description="Get list of Court",
  * operationId="geoZipCodes",
- * tags={"geo"},
+ * tags={"Court"},
  * security={ {"bearer": {} }},
  * @OA\Response(
  *    response=200,
- *    description="Success",
- * @OA\Response(
- *    response=401,
- *    description="User should be authorized to get profile information",
- *    @OA\JsonContent(
- *       @OA\Property(property="message", type="string", example="Not authorized"),
- *    )
- * )
+ *    description="Success"
  * )
  * )
  */

@@ -8,14 +8,19 @@
         },
         "version": "1.0.0"
     },
+    "servers": [
+        {
+            "url": "https://api-ecli.openjustice.lltl.be/api/v1"
+        }
+    ],
     "paths": {
-        "/v1/geo/cities/{court_acronym}/zip_codes": {
+        "/ECLI/BE/{court_acronym}": {
             "get": {
                 "tags": [
-                    "geo"
+                    "Court"
                 ],
-                "summary": "List of zip codes by city",
-                "description": "Get list of zip codes by city",
+                "summary": "Get Court",
+                "description": "Get list of Court",
                 "operationId": "geoZipCodes",
                 "responses": {
                     "200": {
@@ -29,7 +34,27 @@
                 ]
             }
         },
-        "/api/v1/utus": {
+        "/statistics": {
+            "get": {
+                "tags": [
+                    "Stats"
+                ],
+                "summary": "Get list of Stats",
+                "description": "Get list of Stats",
+                "operationId": "Stats",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/utus": {
             "get": {
                 "tags": [
                     "UTU"

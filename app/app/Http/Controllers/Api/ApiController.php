@@ -14,6 +14,6 @@ class ApiController extends Controller
      */
     public function index()
     {
-        return redirect('api/v1/ELCI/BE');
+        return redirect('api/v1/ECLI/BE');
     }
 }
