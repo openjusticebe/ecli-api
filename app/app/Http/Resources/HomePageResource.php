@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources;
 
-use URL;
-use App\Models\Document;
 use App\Models\Court;
+use App\Models\Document;
+use URL;
 
 class HomePageResource extends BaseResource
 {
@@ -23,8 +23,8 @@ class HomePageResource extends BaseResource
             'count_courts' => Court::count(),
             'links' => [
                 'self' => URL::current(),
-                'parent' => null
-            ]
+                'parent' => null,
+            ],
             ];
     }
 }

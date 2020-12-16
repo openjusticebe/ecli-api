@@ -1,0 +1,113 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "ECLI API of OpenJustice",
+        "contact": {
+            "name": "Team of OpenJustice",
+            "email": "team@openjustice.be"
+        },
+        "license": {
+            "name": "GNU General Public License v3",
+            "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://api-ecli.openjustice.lltl.be/api/v1"
+        }
+    ],
+    "paths": {
+        "/ECLI/BE": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Get list of courts organised by categories",
+                "description": "Get list of Courts with statistics organised by categories",
+                "operationId": "Category",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/ECLI/BE/{court_acronym}": {
+            "get": {
+                "tags": [
+                    "Court"
+                ],
+                "summary": "Get Court information",
+                "description": "Get Court",
+                "operationId": "GetCourtInfo",
+                "parameters": [
+                    {
+                        "name": "court_acronym",
+                        "in": "path",
+                        "description": "Court acronym",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/statistics": {
+            "get": {
+                "tags": [
+                    "Stats"
+                ],
+                "summary": "Get list of Stats",
+                "description": "Get list of Stats",
+                "operationId": "Stats",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/utus": {
+            "get": {
+                "tags": [
+                    "UTU"
+                ],
+                "summary": "Get list of Utus",
+                "description": "Get list of Utus",
+                "operationId": "utus",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        }
+    }
+}

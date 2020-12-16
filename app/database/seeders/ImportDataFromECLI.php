@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use Storage;
-use App\Models\Document;
 use App\Models\Court;
+use App\Models\Document;
+use Illuminate\Database\Seeder;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
@@ -21,22 +20,22 @@ class ImportDataFromECLI extends Seeder
         $sources = [
         'IUBEL' => 'https://raw.githubusercontent.com/openjusticebe/ecli/master/resources/IUBEL.txt',
         'GHCC' => 'https://raw.githubusercontent.com/openjusticebe/ecli/master/resources/GHCC_def.json',
-        'RSCE' => 'https://raw.githubusercontent.com/openjusticebe/ecli/master/resources/RVSCDE_def.json'
+        'RSCE' => 'https://raw.githubusercontent.com/openjusticebe/ecli/master/resources/RVSCDE_def.json',
         ];
-    
+
         foreach ($sources as $key => $value) {
             $this->command->info("Importing data from " . $key);
 
             // Get files from API
             $data = file_get_contents($value);
-                
+
             // Loop and import into DB
             $lines = explode(PHP_EOL, $data);
-        
+
             $output = new ConsoleOutput();
             $progress = new ProgressBar($output, count($lines));
             $progress->start();
-        
+
             // Data is stored in .txt
             if ($key == 'IUBEL') {
                 // ECLI:BE:AHANT:2003:ARR.20030423.6
@@ -64,7 +63,6 @@ class ImportDataFromECLI extends Seeder
                             $lang = "undefined";
                         }
 
-
                         $num = $ecli[1] . '.' . $ecli[2];
                         Document::firstOrCreate(
                             [
@@ -73,7 +71,7 @@ class ImportDataFromECLI extends Seeder
                                 'src' => $key,
                                 'year' => $array[3],
                                 'lang' => $lang,
-                                'type' => strtoupper($ecli[0]) ?? 'undefined'
+                                'type' => strtoupper($ecli[0]) ?? 'undefined',
                                 ]
                         );
                     }
@@ -84,7 +82,7 @@ class ImportDataFromECLI extends Seeder
                 // GHCC
                 // {"num": "035", "year": "2009", "language": "french", "type": "arr"}
                 // {"num": "167", "year": "2005", "language": "french", "type": "arr"}
-               
+
                 // RSCE
                 //   {"num": 200874, "year": 2010, "language": "french", "type": "arr"}
                 // {"num": 142636, "year": 2005, "language": "dutch", "type": "arr"}

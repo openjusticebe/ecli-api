@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use Symfony\Component\Console\Helper\ProgressBar;
-use Symfony\Component\Console\Output\ConsoleOutput;
 use App\Models\Utu;
+use Illuminate\Database\Seeder;
 
 class ImportUTU extends Seeder
 {
@@ -29,7 +27,7 @@ class ImportUTU extends Seeder
                                     'term_fr' => $record['Branch_FR'],
                                     'term_nl' => $record['Branch_NL'],
                                     'term_de' => null,
-                                    'parent_id' => null
+                                    'parent_id' => null,
                                 ]);
                 }
             }
@@ -41,19 +39,18 @@ class ImportUTU extends Seeder
                         $parent = Utu::where('term_fr', $record['Branch_FR'])
                                 ->where('term_nl', $record['Branch_NL'])
                                 ->firstOrFail();
-                                     
+
                         if (!empty($record['Lvl1_FR']) && !empty($record['Lvl1_NL'])) {
                             Utu::firstOrCreate([
                                 'term_fr' => $record['Lvl1_FR'],
                                 'term_nl' => $record['Lvl1_NL'],
                                 'term_de' => null,
-                                'parent_id' => $parent->id
+                                'parent_id' => $parent->id,
                                 ]);
                         }
                     }
                 }
         }
-            
 
         // Create Level 2 cat
         foreach ($utu as $record) {
@@ -66,13 +63,13 @@ class ImportUTU extends Seeder
                                     ->where('term_nl', $record['Branch_NL']);
                                 })
                                 ->first();
-                                     
+
                         if (isset($parent) &&  !empty($record['Lvl2_FR']) && !empty($record['Lvl2_NL'])) {
                             Utu::firstOrCreate([
                                 'term_fr' => $record['Lvl2_FR'],
                                 'term_nl' => $record['Lvl2_NL'],
                                 'term_de' => null,
-                                'parent_id' => $parent->id
+                                'parent_id' => $parent->id,
                                 ]);
                         }
                     }
@@ -93,13 +90,13 @@ class ImportUTU extends Seeder
                                     });
                                 })
                                 ->first();
-                                     
+
                         if (isset($parent) && !empty($record['Lvl3_FR']) && !empty($record['Lvl3_NL'])) {
                             Utu::firstOrCreate([
                                 'term_fr' => $record['Lvl3_FR'],
                                 'term_nl' => $record['Lvl3_NL'],
                                 'term_de' => null,
-                                'parent_id' => $parent->id
+                                'parent_id' => $parent->id,
                                 ]);
                         }
                     }
@@ -120,7 +117,6 @@ class ImportUTU extends Seeder
                                                 $qqq->where('term_fr', $record['Branch_FR'])
                                                 ->where('term_nl', $record['Branch_NL']);
                                             });
-                                            ;
                                         });
                                     })
                                     ->first();
@@ -130,7 +126,7 @@ class ImportUTU extends Seeder
                                     'term_fr' => $record['Lvl4_FR'],
                                     'term_nl' => $record['Lvl4_NL'],
                                     'term_de' => null,
-                                    'parent_id' => $parent->id
+                                    'parent_id' => $parent->id,
                                     ]);
                             }
                         }
@@ -149,6 +145,6 @@ class ImportUTU extends Seeder
         // "Lvl4_NL": ""
         $db_count = Utu::count();
         $pct_completion = $db_count / count($utu) * 100;
-        $this->command->info($db_count . ' / ' . count($utu) . ' (' . $pct_completion  . '%)');
+        $this->command->info($db_count . ' / ' . count($utu) . ' (' . $pct_completion . '%)');
     }
 }

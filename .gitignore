@@ -11,4 +11,4 @@ temporary-captain-to-deploy.tar
 deploy.sh
 .deploy
 .vscode
-app/.php_cs.cache
+*.cache

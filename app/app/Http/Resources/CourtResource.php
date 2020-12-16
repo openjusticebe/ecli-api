@@ -31,7 +31,7 @@ class CourtResource extends BaseResource
             'docs_per_lang' => $this->docs_per_lang,
             'self_link' => $this->self_link,
             'parent_link' => $this->parent_link,
-            'links' => route('courts.show', ['court_acronym' => $this->acronym])
+            'links' => route('courts.show', ['court_acronym' => $this->acronym]),
         ];
     }
 }

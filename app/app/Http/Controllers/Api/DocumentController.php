@@ -3,13 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\DocumentResource;
 use App\Models\Court;
 use App\Models\Document;
-use App\Http\Resources\DocumentResource;
-
-use Illuminate\Http\Request;
-use Cache;
-use App\Http\Resources\CourtResource;
 
 class DocumentController extends Controller
 {
@@ -31,7 +27,6 @@ class DocumentController extends Controller
         return new DocumentResource($document);
     }
 
-
     public function docsRecent($court_acronym)
     {
         $court = Court::whereAcronym($court_acronym)->firstOrFail();
@@ -43,7 +38,6 @@ class DocumentController extends Controller
         return DocumentResource::collection($documents);
     }
 
-
     public function docsPerYear($court_acronym, $year)
     {
         $court = Court::whereAcronym($court_acronym)->firstOrFail();
@@ -51,7 +45,7 @@ class DocumentController extends Controller
         $documents = Document::whereCourtId($court->id)
         ->where('year', $year)
         ->paginate(20);
-        
+
         return DocumentResource::collection($documents);
     }
 

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
@@ -14,6 +13,6 @@ class ApiController extends Controller
      */
     public function index()
     {
-        return redirect('api/v1/ELCI/BE');
+        return redirect('api/v1/ECLI/BE');
     }
 }

@@ -18,7 +18,7 @@ class CourtMinimalResource extends BaseResource
             'ecli' => $this->ecli,
             'court_href' => $this->court_href,
             'logo_href' => $this->logo_href,
-            'links' => route('courts.show', ['court_acronym' => $this->acronym])
+            'links' => route('courts.show', ['court_acronym' => $this->acronym]),
         ];
     }
 }
