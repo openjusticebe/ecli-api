@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Utu;
 use App\Http\Resources\UtuResource;
-use Illuminate\Http\Request;
+use App\Models\Utu;
 use Cache;
 
 class UtuController extends Controller

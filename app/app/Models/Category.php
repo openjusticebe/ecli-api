@@ -13,7 +13,7 @@ class Category extends Model
         $input = ['label_fr', 'label_nl', 'label_de'];
         $rand_keys = array_rand($input);
         $key = $input[$rand_keys];
-        
+
         return $this->$key;
     }
 

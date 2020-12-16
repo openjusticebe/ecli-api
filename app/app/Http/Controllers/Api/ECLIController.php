@@ -12,9 +12,9 @@ class ECLIController extends Controller
      *
      * @return void
      */
-    public function elci($elci)
+    public function ecli($ecli)
     {
-        $arr_colon = explode(":", $elci);
+        $arr_colon = explode(":", $ecli);
 
         if (isset($arr_colon[4]) {
             $arr_type_num = explode('.', $arr_colon[4], 2);

@@ -16,6 +16,7 @@ class HttpsMiddleware
     public function handle($request, Closure $next)
     {
         $request->setTrustedProxies([$request->getClientIp()], \Request::HEADER_X_FORWARDED_ALL);
+
         return $next($request);
     }
 }

@@ -20,15 +20,13 @@ $router->get('/', function () use ($router) {
     return redirect('api/v1/ECLI/BE');
 });
 
-
-$router->get('/{elci}', 'Api\ECLIController@elci');
-
+$router->get('/{ecli}', 'Api\ECLIController@ecli');
 
 // Customs
 $router->group(['prefix'=>'api/v1/'], function () use ($router) {
     $router->get('/', [
         'as' => 'base_api',
-        'uses' => 'Api\ApiController@index'
+        'uses' => 'Api\ApiController@index',
     ]);
 
     $router->get('/statistics', 'Api\StatsController@index');
@@ -46,38 +44,37 @@ $router->group(['prefix'=>'api/v1/'], function () use ($router) {
 $router->group(['prefix'=>'api/v1/ECLI/BE'], function () use ($router) {
     $router->get('/', [
         'as' => 'base_ecli_be',
-        'uses' => 'Api\CategoryController@index'
+        'uses' => 'Api\CategoryController@index',
     ]);
-    
+
     // List of year and list of category
     $router->get('/{court_acronym}', [
         'as' => 'courts.show',
-        'uses' => 'Api\CourtController@show'
+        'uses' => 'Api\CourtController@show',
     ]);
 
     $router->get('/{court_acronym}/docsPerYear/{year}/', [
         'as' => 'courts.documents.docsPerYear',
-        'uses' => 'Api\DocumentController@docsPerYear'
+        'uses' => 'Api\DocumentController@docsPerYear',
     ]);
 
     $router->get('/{court_acronym}/docsPerType/{type}/', [
     'as' => 'courts.documents.docsPerType',
-    'uses' => 'Api\DocumentController@docsPerType'
+    'uses' => 'Api\DocumentController@docsPerType',
     ]);
 
     $router->get('/{court_acronym}/docsPerLang/{lang}/', [
     'as' => 'courts.documents.docsPerLang',
-    'uses' => 'Api\DocumentController@docsPerLang'
+    'uses' => 'Api\DocumentController@docsPerLang',
     ]);
-
 
     $router->get('/{court_acronym}/docsRecent', [
         'as' => 'courts.documents.docsRecent',
-        'uses' => 'Api\DocumentController@docsRecent'
+        'uses' => 'Api\DocumentController@docsRecent',
         ]);
-    
+
     $router->get('/{court_acronym}/{year}/{type_num}', [
         'as' => 'documents.show',
-        'uses' => 'Api\DocumentController@show'
+        'uses' => 'Api\DocumentController@show',
     ]);
 });

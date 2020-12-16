@@ -14,14 +14,34 @@
         }
     ],
     "paths": {
+        "/ECLI/BE": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Get list of courts organised by categtories",
+                "description": "Get list of Courts with statistics organised by categories",
+                "operationId": "Category",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/ECLI/BE/{court_acronym}": {
             "get": {
                 "tags": [
                     "Court"
                 ],
-                "summary": "Get Court",
-                "description": "Get list of Court",
-                "operationId": "geoZipCodes",
+                "summary": "Get Court information",
+                "description": "Get Court",
+                "operationId": "court_acronym",
                 "responses": {
                     "200": {
                         "description": "Success"

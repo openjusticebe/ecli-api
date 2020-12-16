@@ -44,8 +44,7 @@ class Document extends Model
              ],
         );
     }
-   
-   
+
     public function getParentLinkAttribute()
     {
         return route('courts.show', ['court_acronym' => $this->court->acronym]);
@@ -62,47 +61,47 @@ class Document extends Model
             return [
                 [
                  'rel' =>  'default',
-                 
-                 'href' => "https://www.const-court.be/public/f/" . $this->year . '/' . $this->year . '-' . sprintf("%03d", $this->num) . 'f.pdf'
+
+                 'href' => "https://www.const-court.be/public/f/" . $this->year . '/' . $this->year . '-' . sprintf("%03d", $this->num) . 'f.pdf',
                 ],
                 [
                     'rel' =>  'pdf',
-                    'href' => "https://www.const-court.be/public/f/" . $this->year . '/' . $this->year . '-' . sprintf("%03d", $this->num) . 'f.pdf'
+                    'href' => "https://www.const-court.be/public/f/" . $this->year . '/' . $this->year . '-' . sprintf("%03d", $this->num) . 'f.pdf',
                 ],
             ];
         } elseif ($this->src == 'RSCE') {
             return [
                 [
                  'rel' =>  'default',
-                 'href' => "http://www.raadvst-consetat.be/arr.php?nr=" . $this->num
+                 'href' => "http://www.raadvst-consetat.be/arr.php?nr=" . $this->num,
                 ],
                 [
                     'rel' =>  'pdf',
-                    'href' => "http://www.raadvst-consetat.be/arr.php?nr=" . $this->num
+                    'href' => "http://www.raadvst-consetat.be/arr.php?nr=" . $this->num,
                 ],
             ];
         } elseif ($this->src == 'IUBEL') {
             return [
                 [
                  'rel' =>  'default',
-                 'href' => "https://iubel.be/IUBELcontent/ViewDecision.php?id=" . $this->ecli
+                 'href' => "https://iubel.be/IUBELcontent/ViewDecision.php?id=" . $this->ecli,
                 ],
                 [
                     'rel' =>  'pdf',
-                    'href' => "https://iubel.be/IUBELcontent/ViewDecision.php?id=" . $this->ecli
+                    'href' => "https://iubel.be/IUBELcontent/ViewDecision.php?id=" . $this->ecli,
                 ],
             ];
         } else {
             return [
                 [
                  'rel' =>  'default',
-                 'href' => "https://doc.openjustice.lltl.be/html/" . $this->ecli
+                 'href' => "https://doc.openjustice.lltl.be/html/" . $this->ecli,
                 ],
                 [
                   'rel' =>  'html',
-                  'href' => "https://doc.openjustice.lltl.be/html/" . $this->ecli
+                  'href' => "https://doc.openjustice.lltl.be/html/" . $this->ecli,
                 ],
             ];
-        };
+        }
     }
 }

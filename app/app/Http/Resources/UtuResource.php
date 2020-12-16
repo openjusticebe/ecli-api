@@ -14,7 +14,7 @@ class UtuResource extends BaseResource
             'classification_nl' => $this->classiLang('term_fr'),
             'classification_fr' => $this->classiLang('term_nl'),
             'classification_de' => $this->classiLang('term_de'),
-            'subcategories' => UtuResource::collection($this->whenLoaded('children'))
+            'subcategories' => UtuResource::collection($this->whenLoaded('children')),
         ];
     }
 }

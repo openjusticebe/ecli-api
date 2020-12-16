@@ -2,12 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use Storage;
 use App\Models\Category;
 use App\Models\Court;
-use Symfony\Component\Console\Helper\ProgressBar;
-use Symfony\Component\Console\Output\ConsoleOutput;
+use Illuminate\Database\Seeder;
 
 class CreateCourts extends Seeder
 {
@@ -25,7 +22,7 @@ class CreateCourts extends Seeder
                 [
                 'label_fr' => $category['label_fr'],
                 'label_nl' => $category['label_nl'],
-                'label_de' => $category['label_de']
+                'label_de' => $category['label_de'],
                 ]
             );
 
@@ -41,7 +38,7 @@ class CreateCourts extends Seeder
                      'name_de' => $court['name_de'] ?? null,
                      'court_href' => $court['court_href'] ?? null,
                      'logo_href' => $court['logo_href'] ?? null,
-                     'def' => $court['def'] ?? null
+                     'def' => $court['def'] ?? null,
                      ]
                 );
             }

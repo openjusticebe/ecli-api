@@ -7,7 +7,7 @@ use Illuminate\Console\Command;
 class SwaggerScan extends Command
 {
     protected $signature = 'swg:scan';
-    
+
     public function handle()
     {
         $path = dirname(dirname(__DIR__));

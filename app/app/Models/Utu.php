@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Utu extends Model
 {
-
-
     /**
     * Get the parent.
     */
@@ -24,23 +22,23 @@ class Utu extends Model
         return $this->hasMany(self::class, 'parent_id')->orderBy('name');
     }
 
-
     public function classiLang($lang)
     {
         $string = $this->$lang;
 
         if ($this->parent) {
-            $string = $this->parent->$lang . ' > ' .  $string;
+            $string = $this->parent->$lang . ' > ' . $string;
             if ($this->parent->parent) {
-                $string = $this->parent->parent->$lang . ' > ' .  $string;
+                $string = $this->parent->parent->$lang . ' > ' . $string;
                 if ($this->parent->parent->parent) {
-                    $string = $this->parent->parent->parent->$lang . ' > ' .  $string;
+                    $string = $this->parent->parent->parent->$lang . ' > ' . $string;
                     if ($this->parent->parent->parent->parent) {
-                        $string = $this->parent->parent->parent->parent->$lang . ' > ' .  $string;
+                        $string = $this->parent->parent->parent->parent->$lang . ' > ' . $string;
                     }
                 }
             }
         }
+
         return $string;
     }
 }

@@ -13,7 +13,7 @@ class CategoryResource extends BaseResource
                 'label_nl' => $this->label_nl,
                 'label_de' => $this->label_de,
             ],
-            'courts' => CourtResource::collection($this->whenLoaded('courts'))
+            'courts' => CourtResource::collection($this->whenLoaded('courts')),
         ];
     }
 }

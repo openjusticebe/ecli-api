@@ -7,7 +7,6 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     /**
-     *
  * @OA\Server(url="https://api-ecli.openjustice.lltl.be/api/v1")
  *
  * @OA\Info(
