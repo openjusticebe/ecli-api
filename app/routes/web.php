@@ -30,7 +30,10 @@ $router->group(['prefix'=>'api/v1/'], function () use ($router) {
     ]);
 
     $router->get('/statistics', 'Api\StatsController@index');
+    
     $router->get('/utus', 'Api\UtuController@index');
+    $router->post('/utus', 'Api\UtuController@create');
+    
     $router->get('/courts', 'Api\CourtController@index');
     $router->get('/very-secret-password', function () {
         return 'unicorn-pirates-love-pizza';

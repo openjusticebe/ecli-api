@@ -31,4 +31,21 @@ class ECLIController extends Controller
             ]
         );
     }
+
+    public function create(Request $request)
+    {
+
+        $this->validate($request, [
+            'court_acronym' => 'required|alpha',
+            'year' => 'required|integer',
+            'type' => 'required|alpha',
+            'num' => 'required'
+        ]);
+
+        return $request->all();
+
+        // firstOrUpdate();
+
+        return response()->json($author, 201);
+    }
 }
