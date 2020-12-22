@@ -33,7 +33,11 @@ $router->group(['prefix'=>'api/v1/'], function () use ($router) {
     
     $router->get('/utus', 'Api\UtuController@index');
 
-    $router->post('/utu/post', 'Api\ECLIController@post');
+
+
+    $router->group(['middleware' => 'api_auth'], function () use ($router) {
+        $router->post('/utu/post', 'Api\ECLIController@post');
+    });
     
     $router->get('/courts', 'Api\CourtController@index');
     $router->get('/very-secret-password', function () {

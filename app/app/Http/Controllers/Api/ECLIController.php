@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Document;
+use App\Models\Court;
 
 class ECLIController extends Controller
 {
@@ -36,18 +38,28 @@ class ECLIController extends Controller
 
     public function post(Request $request)
     {
-        if ($request->api_key == env('API_KEY')) {
-            $this->validate($request, [
+        $validated = $this->validate($request, [
                 'court_acronym' => 'required|alpha',
                 'year' => 'required|integer',
                 'type' => 'required|alpha',
-                'num' => 'required'
+                'lang' => 'required|alpha',
+                'num' => 'required',
+                'src' => 'required'
             ]);
 
-            return response()->json($document, 201);
-        } else {
-            // throw 500
-            return response()->json('Sorry', 401);
-        }
+        $court = Court::whereAcronym($validated['court_acronym'])->firstOrFail();
+        
+        $document = $court->documents()->firstOrCreate(
+            [
+                'court_id' => $court->id,
+                'year' => $validated['year'],
+                'type' => $validated['type'],
+                'lang' => $validated['lang'],
+                'num' => $validated['num'],
+                'src' => $validated['src']
+        ]
+        );
+
+        return response()->json($document, 201);
     }
 }
