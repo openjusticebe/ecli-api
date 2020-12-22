@@ -16,11 +16,11 @@ class ECLIController extends Controller
     {
         $arr_colon = explode(":", $ecli);
 
-        if (isset($arr_colon[4]) {
+        if (isset($arr_colon[4])) {
             $arr_type_num = explode('.', $arr_colon[4], 2);
         }
       
-        // should redirect to page
+        // Redirect to page
         return redirect()->route(
             'documents.show',
             [
@@ -32,20 +32,22 @@ class ECLIController extends Controller
         );
     }
 
-    public function create(Request $request)
+
+
+    public function post(Request $request)
     {
+        if ($request->api_key == env('API_KEY')) {
+            $this->validate($request, [
+                'court_acronym' => 'required|alpha',
+                'year' => 'required|integer',
+                'type' => 'required|alpha',
+                'num' => 'required'
+            ]);
 
-        $this->validate($request, [
-            'court_acronym' => 'required|alpha',
-            'year' => 'required|integer',
-            'type' => 'required|alpha',
-            'num' => 'required'
-        ]);
-
-        return $request->all();
-
-        // firstOrUpdate();
-
-        return response()->json($author, 201);
+            return response()->json($document, 201);
+        } else {
+            // throw 500
+            return response()->json('Sorry', 401);
+        }
     }
 }

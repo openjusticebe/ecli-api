@@ -32,7 +32,8 @@ $router->group(['prefix'=>'api/v1/'], function () use ($router) {
     $router->get('/statistics', 'Api\StatsController@index');
     
     $router->get('/utus', 'Api\UtuController@index');
-    $router->post('/utus', 'Api\UtuController@create');
+
+    $router->post('/utu/post', 'Api\ECLIController@post');
     
     $router->get('/courts', 'Api\CourtController@index');
     $router->get('/very-secret-password', function () {
