@@ -93,11 +93,11 @@ class Document extends Model
             return [
                 [
                  'rel' =>  'default',
-                 'href' => "https://iubel.be/IUBELcontent/ViewDecision.php?id=" . $this->ecli,
+                 'href' => "https://juportal.be/content/" . $this->ecli,
                 ],
                 [
                     'rel' =>  'pdf',
-                    'href' => "https://iubel.be/IUBELcontent/ViewDecision.php?id=" . $this->ecli,
+                    'href' => "https://juportal.be/content/" . $this->ecli,
                 ],
             ];
         } else {
