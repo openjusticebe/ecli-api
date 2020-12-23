@@ -69,6 +69,37 @@
                 ]
             }
         },
+        "/ECLI/BE/{court_acronym}/docsFilter": {
+            "post": {
+                "tags": [
+                    "ECLI"
+                ],
+                "summary": "Filter documents of a court",
+                "description": "Filter documents of a court",
+                "operationId": "ECLI",
+                "parameters": [
+                    {
+                        "name": "court_acronym",
+                        "in": "path",
+                        "description": "Court acronym",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/ecli/post": {
             "post": {
                 "tags": [
