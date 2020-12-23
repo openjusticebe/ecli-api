@@ -4,8 +4,8 @@
 Developed by OpenJustice.be with ❤️. Licensed with GPLv3. Api built on top of Lumen.
 
 # Features
-- [x] Cache with Redis
-- [x] Api versioning
+- [x] CACHE with Redis
+- [x] API versioning
 - [x] Pagination
 - [x] Documentation OpenAPI
 - [x] Authentication for posting new document
