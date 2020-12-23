@@ -61,6 +61,12 @@ $router->group(['prefix'=>'api/v1/ECLI/BE'], function () use ($router) {
         'uses' => 'Api\CourtController@show',
     ]);
 
+    $router->post('/{court_acronym}/docsFilter', [
+        'as' => 'courts.documents.docsFilter',
+        'uses' => 'Api\DocumentController@docsFilter',
+    ]);
+
+
     $router->get('/{court_acronym}/docsPerYear/{year}/', [
         'as' => 'courts.documents.docsPerYear',
         'uses' => 'Api\DocumentController@docsPerYear',
