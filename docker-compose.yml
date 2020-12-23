@@ -29,7 +29,23 @@ services:
     #   - 9000:9000
     networks:
       - app-network
-      
+
+  mysql:
+    image: mysql:8
+    restart: on-failure:3
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - mysqldata:/var/lib/mysql
+    networks:
+      - app-network
+ 
   redis:
     image: redis:4.0-alpine
     restart: on-failure:3
@@ -45,9 +61,9 @@ services:
 volumes:
   redisdata:
     driver: local
-  # lumendata:
-  #   drive: local
-
+  mysqldata:
+    driver: local
+ 
 networks:
   app-network:
     driver: bridge

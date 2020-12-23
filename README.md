@@ -13,10 +13,6 @@ PoC Api built on top of Lumen.
 - [x] Documentation OpenAPI
 - [x] Authentication for posting new document
 
-# TODOS
-- [ ] GraphQL (standing by)
-- [ ] Throttle without api key (standing by)
-
 # Documentations of the API
 - [OpenAPI Documentation](https://api-ecli.openjustice.lltl.be/api-docs.html)
 
@@ -25,6 +21,5 @@ PoC Api built on top of Lumen.
 
 # Develop 
 - Clone the repo ;
-- `cd app`
 - `docker-compose up -d`
 - `docker-compose exec php php artisan migrate:fresh --seed`
