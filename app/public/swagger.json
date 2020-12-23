@@ -69,6 +69,26 @@
                 ]
             }
         },
+        "/ecli/post": {
+            "post": {
+                "tags": [
+                    "ECLI"
+                ],
+                "summary": "Post new document",
+                "description": "Post new document",
+                "operationId": "ECLI",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/statistics": {
             "get": {
                 "tags": [

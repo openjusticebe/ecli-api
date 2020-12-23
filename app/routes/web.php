@@ -36,7 +36,7 @@ $router->group(['prefix'=>'api/v1/'], function () use ($router) {
 
 
     $router->group(['middleware' => 'api_auth'], function () use ($router) {
-        $router->post('/utu/post', 'Api\ECLIController@post');
+        $router->post('/ecli/post', 'Api\ECLIController@post');
     });
     
     $router->get('/courts', 'Api\CourtController@index');

@@ -17,7 +17,7 @@ class ApiAuthorize
      */
     public function handle($request, Closure $next)
     {
-        if ($request->api_key == env('API_KEY')) {
+        if ($request->bearerToken() == env('API_KEY')) {
             return $next($request);
         }
         return response('Unauthorized.', 401);
