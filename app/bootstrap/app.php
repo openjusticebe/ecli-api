@@ -72,15 +72,16 @@ $app->configure('app');
 |
 */
 
-// $app->middleware([
-//     App\Http\Middleware\HttpsMiddleware::class
-// ]);
+$app->middleware([
+    App\Http\Middleware\CorsMiddleware::class
+]);
 
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
     'api_auth' => App\Http\Middleware\ApiAuthorize::class,
+    ]);
 
-]);
+
 
 /*
 |--------------------------------------------------------------------------
