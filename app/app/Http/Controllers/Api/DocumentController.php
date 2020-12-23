@@ -27,18 +27,18 @@ class DocumentController extends Controller
 
         return new DocumentResource($document);
     }
-    
+
     public function docsFilter($court_acronym, Request $request)
     {
-        return $request;
+        $court = Court::whereAcronym($court_acronym)->firstOrFail();
 
-        // $court = Court::whereAcronym($court_acronym)->firstOrFail();
+        $documents = Document::whereCourtId($court->id)
+        ->whereIn('lang', $request->lang)
+        ->whereIn('type', $request->type)
+        ->whereIn('year', $request->year)
+        ->paginate(20);
 
-        // $documents = Document::whereCourtId($court->id)
-        // ->where('type', $type)
-        // ->paginate(20);
-
-        // return DocumentResource::collection($documents);
+        return DocumentResource::collection($documents);
     }
 
     public function docsRecent($court_acronym)
