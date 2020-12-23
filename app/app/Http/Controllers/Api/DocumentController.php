@@ -28,6 +28,31 @@ class DocumentController extends Controller
         return new DocumentResource($document);
     }
 
+    /**
+    * @OA\Post(
+    * path="/ECLI/BE/{court_acronym}/docsFilter",
+    * summary="Filter documents of a court",
+    * description="Filter documents of a court",
+    * operationId="ECLI",
+    * tags={"ECLI"},
+     * @OA\Parameter(
+     *          name="court_acronym",
+     *          description="Court acronym",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+    * security={ {"bearer": {} }},
+    * @OA\Response(
+    *    response=200,
+    *    description="Success",
+    * )
+    * )
+    * )
+    */
+    
     public function docsFilter($court_acronym, Request $request)
     {
         $court = Court::whereAcronym($court_acronym)->firstOrFail();
