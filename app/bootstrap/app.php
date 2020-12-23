@@ -76,9 +76,11 @@ $app->configure('app');
 //     App\Http\Middleware\HttpsMiddleware::class
 // ]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+$app->routeMiddleware([
+    'auth' => App\Http\Middleware\Authenticate::class,
+    'api_auth' => App\Http\Middleware\ApiAuthorize::class,
+
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -107,10 +109,6 @@ $app->register(Illuminate\Redis\RedisServiceProvider::class);
 | can respond to, as well as the controllers that may handle them.
 |
 */
-
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: *');
-header('Access-Control-Allow-Headers: *');
 
 $app->router->group([
     'namespace' => 'App\Http\Controllers',

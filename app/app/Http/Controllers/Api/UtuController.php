@@ -33,7 +33,6 @@ class UtuController extends Controller
     private function getUtus()
     {
         $utus = Utu::whereNull('parent_id')->with('children.children.children')->get();
-
         return UtuResource::collection($utus);
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\DocumentResource;
 use App\Models\Court;
 use App\Models\Document;
+use Illuminate\Http\Request;
 
 class DocumentController extends Controller
 {
@@ -27,6 +28,19 @@ class DocumentController extends Controller
         return new DocumentResource($document);
     }
 
+    public function docsFilter($court_acronym, Request $request)
+    {
+        $court = Court::whereAcronym($court_acronym)->firstOrFail();
+
+        $documents = Document::whereCourtId($court->id)
+        ->whereIn('lang', $request->lang)
+        ->whereIn('type', $request->type)
+        ->whereIn('year', $request->year)
+        ->paginate(20);
+
+        return DocumentResource::collection($documents);
+    }
+
     public function docsRecent($court_acronym)
     {
         $court = Court::whereAcronym($court_acronym)->firstOrFail();
@@ -37,6 +51,8 @@ class DocumentController extends Controller
 
         return DocumentResource::collection($documents);
     }
+
+   
 
     public function docsPerYear($court_acronym, $year)
     {

@@ -30,7 +30,15 @@ $router->group(['prefix'=>'api/v1/'], function () use ($router) {
     ]);
 
     $router->get('/statistics', 'Api\StatsController@index');
+    
     $router->get('/utus', 'Api\UtuController@index');
+
+
+
+    $router->group(['middleware' => 'api_auth'], function () use ($router) {
+        $router->post('/ecli/post', 'Api\ECLIController@post');
+    });
+    
     $router->get('/courts', 'Api\CourtController@index');
     $router->get('/very-secret-password', function () {
         return 'unicorn-pirates-love-pizza';
@@ -51,6 +59,11 @@ $router->group(['prefix'=>'api/v1/ECLI/BE'], function () use ($router) {
     $router->get('/{court_acronym}', [
         'as' => 'courts.show',
         'uses' => 'Api\CourtController@show',
+    ]);
+
+    $router->post('/{court_acronym}/docsFilter', [
+        'as' => 'courts.documents.docsFilter',
+        'uses' => 'Api\DocumentController@docsFilter',
     ]);
 
     $router->get('/{court_acronym}/docsPerYear/{year}/', [
