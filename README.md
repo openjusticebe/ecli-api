@@ -11,10 +11,10 @@ PoC Api built on top of Lumen.
 - [x] Api versioning
 - [x] Pagination
 - [x] Documentation OpenAPI
+- [x] Authentication for posting new document
 
 # TODOS
 - [ ] GraphQL (standing by)
-- [ ] Authentication for post (standing by)
 - [ ] Throttle without api key (standing by)
 
 # Documentations of the API
