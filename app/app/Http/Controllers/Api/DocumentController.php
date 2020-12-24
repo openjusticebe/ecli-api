@@ -10,18 +10,18 @@ use Illuminate\Http\Request;
 
 class DocumentController extends Controller
 {
-    public function show($court_acronym, $year, $type_num)
+    public function show($court_acronym, $year, $type_identifier)
     {
         $court = Court::whereAcronym($court_acronym)->firstOrFail();
 
-        if (isset($type_num)) {
-            $arr_type_num = explode('.', $type_num, 2);
+        if (isset($type_identifier)) {
+            $arr_type_identifier = explode('.', $type_identifier, 2);
         }
 
         $document = Document::whereCourtId($court->id)
         ->where('year', $year)
-        ->where('type', $arr_type_num[0])
-        ->where('num', $arr_type_num[1])
+        ->where('type', $arr_type_identifier[0])
+        ->where('identifier', $arr_type_identifier[1])
         ->with('court')
         ->firstOrfail();
 
