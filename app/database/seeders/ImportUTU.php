@@ -14,16 +14,9 @@ class ImportUTU extends Seeder
      */
     public function run()
     {
-        // Utu::truncate();
-
-        // $file_path = realpath('/var/www/database/seeders/UTU-src.json');
-        // $utu = json_decode(file_get_contents($file_path), true);
-
-
         Utu::truncate();
 
         $utu = json_decode(file_get_contents('https://raw.githubusercontent.com/openjusticebe/resources/main/json/UTU-source.json'), true);
-
     
         // Create branch
         foreach ($utu as $record) {
