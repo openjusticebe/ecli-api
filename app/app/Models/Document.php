@@ -12,7 +12,7 @@ class Document extends Model
      * @var array
      */
     protected $fillable = [
-        'year', 'num', 'type', 'src', 'lang'
+        'year', 'identifier', 'type', 'src', 'lang', 'text', 'meta'
     ];
     
     public function court()
@@ -22,7 +22,7 @@ class Document extends Model
 
     public function getECLIAttribute()
     {
-        return "ECLI:BE:{$this->court->acronym}:{$this->year}:{$this->type_num}";
+        return "ECLI:BE:{$this->court->acronym}:{$this->year}:{$this->type_identifier}";
     }
 
     public function getTypeIdentifierAttribute()
@@ -37,7 +37,7 @@ class Document extends Model
             [
             'court_acronym' => $this->court->acronym,
             'year' => $this->year,
-            'type_num' => $this->type_num,
+            'type_identifier' => $this->type_identifier,
              ],
         );
     }
@@ -49,7 +49,7 @@ class Document extends Model
             [
             'court_acronym' => $this->court->acronym,
             'year' => $this->year,
-            'type_num' => $this->type_num,
+            'type_identifier' => $this->type_identifier,
              ],
         );
     }

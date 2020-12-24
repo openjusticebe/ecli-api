@@ -86,7 +86,7 @@ $router->group(['prefix'=>'api/v1/ECLI/BE'], function () use ($router) {
         'uses' => 'Api\DocumentController@docsRecent',
         ]);
 
-    $router->get('/{court_acronym}/{year}/{type_num}', [
+    $router->get('/{court_acronym}/{year}/{type_identifier}', [
         'as' => 'documents.show',
         'uses' => 'Api\DocumentController@show',
     ]);
