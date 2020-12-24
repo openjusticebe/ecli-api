@@ -94,7 +94,7 @@ class ImportDataFromECLI extends Seeder
                     $progress->advance();
 
                     $json = json_decode($line);
-                    if (isset($json->identifier)) {
+                    if (isset($json->num)) {
                         Document::firstOrCreate(
                             [
                             'court_id' => $court->id,
