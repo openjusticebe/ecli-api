@@ -61,7 +61,7 @@ class Document extends Model
 
     public function getRefAttribute()
     {
-        return '/BE/' . $this->court->acronym . '/' . $this->year . '/' . $this->type_num;
+        return '/BE/' . $this->court->acronym . '/' . $this->year . '/' . $this->type_identifier;
     }
 
     public function getLinksAttribute()
