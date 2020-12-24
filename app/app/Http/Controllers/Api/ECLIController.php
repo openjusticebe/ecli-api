@@ -29,7 +29,7 @@ class ECLIController extends Controller
                 'court_acronym' => $arr_colon[2],
                 'year' => $arr_colon[3],
                 'type' => $arr_type_num[0],
-                'num' => $arr_type_num[1]
+                'identifier' => $arr_type_num[1]
             ]
         );
     }
@@ -57,7 +57,7 @@ class ECLIController extends Controller
                 'year' => 'required|integer',
                 'type' => 'required|alpha',
                 'lang' => 'required|alpha',
-                'num' => 'required',
+                'identifier' => 'required',
                 'src' => 'required'
             ]);
 

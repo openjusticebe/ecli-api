@@ -44,7 +44,7 @@ class ImportDataFromOJ extends Seeder
                     $document = Document::firstOrCreate(
                         [
                             'court_id' => $court->id,
-                            'num' => strtoupper($arr_type_num[1]) ?? 'undefined',
+                            'identifier' => strtoupper($arr_type_num[1]) ?? 'undefined',
                             'src' => "OJ",
                             'year' => $year,
                             'lang' => 'undefined',

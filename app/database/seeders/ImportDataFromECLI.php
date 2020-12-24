@@ -67,7 +67,7 @@ class ImportDataFromECLI extends Seeder
                         Document::firstOrCreate(
                             [
                                 'court_id' => $court->id,
-                                'num' => $num,
+                                'identifier' => $num,
                                 'src' => $key,
                                 'year' => $array[3],
                                 'lang' => $lang,
@@ -94,11 +94,11 @@ class ImportDataFromECLI extends Seeder
                     $progress->advance();
 
                     $json = json_decode($line);
-                    if (isset($json->num)) {
+                    if (isset($json->identifier)) {
                         Document::firstOrCreate(
                             [
                             'court_id' => $court->id,
-                            'num' => $json->num ?? 'undefined',
+                            'identifier' => $json->num ?? 'undefined',
                             'year' => $json->year ?? 'undefined',
                             'src' => $key,
                             'lang' => $json->language ?? 'undefined',

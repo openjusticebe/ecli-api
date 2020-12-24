@@ -15,10 +15,12 @@ class Documents extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
-            $table->integer('num');
+            $table->string('identifier');
             $table->string('type');
             $table->string('lang')->nullable();
             $table->integer('year');
+            $table->text('text')->nullable();
+            $table->json('meta')->nullable();
             $table->string('src');
             $table->integer('court_id');
             $table->timestamps();

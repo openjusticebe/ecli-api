@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(CreateCourts::class);
-        $this->call(ImportDataFromECLI::class);
+        // $this->call(ImportDataFromECLI::class);
         $this->call(ImportDataFromOJ::class);
         $this->call(ImportUTU::class);
 

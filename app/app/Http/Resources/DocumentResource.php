@@ -7,9 +7,13 @@ class DocumentResource extends BaseResource
     public function toArray($request)
     {
         return [
-            'num' => $this->num,
+            'identifier' => $this->identifier,
             'type' => $this->type,
-            'type_num' => $this->type_num,
+            // Duplicate. Need to be removed.
+            'num' => $this->identifier,
+            'type_num' => $this->type_identifier,
+            //
+            'type_identifier' => $this->type_identifier,
             'year' => (int)$this->year,
             'lang' => $this->lang,
             'court' => new CourtMinimalResource($this->whenLoaded('court')),

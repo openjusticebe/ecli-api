@@ -25,9 +25,9 @@ class Document extends Model
         return "ECLI:BE:{$this->court->acronym}:{$this->year}:{$this->type_num}";
     }
 
-    public function getTypeNumAttribute()
+    public function getTypeIdentifierAttribute()
     {
-        return $this->type . '.' . $this->num;
+        return $this->type . '.' . $this->identifier;
     }
 
     public function getHrefAttribute()
@@ -71,22 +71,22 @@ class Document extends Model
                 [
                  'rel' =>  'default',
 
-                 'href' => "https://www.const-court.be/public/f/" . $this->year . '/' . $this->year . '-' . sprintf("%03d", $this->num) . 'f.pdf',
+                 'href' => "https://www.const-court.be/public/f/" . $this->year . '/' . $this->year . '-' . sprintf("%03d", $this->identifier) . 'f.pdf',
                 ],
                 [
                     'rel' =>  'pdf',
-                    'href' => "https://www.const-court.be/public/f/" . $this->year . '/' . $this->year . '-' . sprintf("%03d", $this->num) . 'f.pdf',
+                    'href' => "https://www.const-court.be/public/f/" . $this->year . '/' . $this->year . '-' . sprintf("%03d", $this->identifier) . 'f.pdf',
                 ],
             ];
         } elseif ($this->src == 'RSCE') {
             return [
                 [
                  'rel' =>  'default',
-                 'href' => "http://www.raadvst-consetat.be/arr.php?nr=" . $this->num,
+                 'href' => "http://www.raadvst-consetat.be/arr.php?nr=" . $this->identifier,
                 ],
                 [
                     'rel' =>  'pdf',
-                    'href' => "http://www.raadvst-consetat.be/arr.php?nr=" . $this->num,
+                    'href' => "http://www.raadvst-consetat.be/arr.php?nr=" . $this->identifier,
                 ],
             ];
         } elseif ($this->src == 'IUBEL') {
