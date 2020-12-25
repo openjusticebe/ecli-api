@@ -64,7 +64,9 @@ class ECLIController extends Controller
         $court = Court::whereAcronym($validated['court_acronym'])->firstOrFail();
         
         $document = $court->documents()->firstOrCreate(
-            $request->only(['year', 'type', 'type', 'lang', 'identifier', 'src'])
+            $request->only(['year', 'type', 'identifier'], // find
+            $request->only(['lang', 'src', 'text', 'meta'] // fill if not exist
+            )
         );
 
         return response()->json($document, 201);
