@@ -9,11 +9,10 @@ class DocumentResource extends BaseResource
         return [
             'identifier' => $this->identifier,
             'type' => $this->type,
-            // Duplicate. Need to be removed.
-            'num' => $this->identifier,
-            'type_num' => $this->type_identifier,
-            //
             'type_identifier' => $this->type_identifier,
+            // Duplicate. Need to be removed.
+            // 'num' => $this->identifier,
+            // 'type_num' => $this->type_identifier,
             'year' => (int)$this->year,
             'lang' => $this->lang,
             'court' => new CourtMinimalResource($this->whenLoaded('court')),

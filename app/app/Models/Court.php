@@ -38,6 +38,7 @@ class Court extends Model
             $docs_per_lang = $this->hasMany('App\Models\Document')
         ->select(\DB::raw('count(*) as documents_count, lang'))
         ->groupBy('lang')
+        ->orderBy('lang')
         ->get();
 
             $result = $docs_per_lang->map(function ($lang, $key) use ($docs_per_lang) {
@@ -58,6 +59,7 @@ class Court extends Model
             $docs_per_year = $this->hasMany('App\Models\Document')
         ->select(\DB::raw('count(*) as documents_count, year'))
         ->groupBy('year')
+        ->orderBy('year', 'DESC')
         ->get();
 
             $result = $docs_per_year->map(function ($year, $key) use ($docs_per_year) {
@@ -79,6 +81,7 @@ class Court extends Model
             $docs_per_type = $this->hasMany('App\Models\Document')
         ->select(\DB::raw('count(*) as documents_count, type'))
         ->groupBy('type')
+        ->orderBy('type')
         ->get();
 
             $result = $docs_per_type->map(function ($type, $key) use ($docs_per_type) {

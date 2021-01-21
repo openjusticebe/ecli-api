@@ -7,9 +7,12 @@ use App\Models\Document;
 use Illuminate\Database\Seeder;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\ConsoleOutput;
+use App\Traits\ECLITrait;
 
 class ImportDataFromECLI extends Seeder
 {
+    use ECLITrait;
+
     /**
      * Run the database seeds.
      *
@@ -42,38 +45,12 @@ class ImportDataFromECLI extends Seeder
                 // ECLI:BE:AHANT:2004:ARR.20040604.5
                 // ECLI:BE:AHANT:2004:ARR.20040625.15
                 foreach ($lines as $line) {
-                    $progress->advance();
-
-                    $array = explode(":", $line);
-                    if (isset($array[4])) {
-                        $ecli = explode(".", $array[4]);
-                        $court = Court::firstOrCreate(['acronym' => $array[2]]);
-
-                        switch ($court->def) {
-                            case 'fr':
-                                $lang = "french";
-                                break;
-                            case 'nl':
-                                $lang = "dutch";
-                                break;
-                            case 'de':
-                                $lang = "german";
-                                break;
-                            default:
-                            $lang = "undefined";
-                        }
-
-                        $num = $ecli[1] . '.' . $ecli[2];
-                        Document::firstOrCreate(
-                            [
-                                'court_id' => $court->id,
-                                'identifier' => $num,
-                                'src' => $key,
-                                'year' => $array[3],
-                                'lang' => $lang,
-                                'type' => strtoupper($ecli[0]) ?? 'undefined',
-                                ]
-                        );
+                    if (isset($line)) {
+                        $progress->advance();
+                   
+                        $result = $this->explodeECLI($line, $key);
+                        
+                        Document::firstOrCreate($result);
                     }
                 }
                 $progress->finish();
@@ -84,7 +61,7 @@ class ImportDataFromECLI extends Seeder
                 // {"num": "167", "year": "2005", "language": "french", "type": "arr"}
 
                 // RSCE
-                //   {"num": 200874, "year": 2010, "language": "french", "type": "arr"}
+                // {"num": 200874, "year": 2010, "language": "french", "type": "arr"}
                 // {"num": 142636, "year": 2005, "language": "dutch", "type": "arr"}
                 // {"num": 246073, "year": 2019, "language": "dutch", "type": "arr"}
                 // {"num": 208168, "year": 2010, "language": "french", "type": "arr"}

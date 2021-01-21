@@ -12,7 +12,7 @@ class Document extends Model
      * @var array
      */
     protected $fillable = [
-        'year', 'identifier', 'type', 'src', 'lang', 'text', 'meta'
+        'year', 'identifier', 'type', 'src', 'lang', 'text', 'meta', 'court_id'
     ];
     
     public function court()
