@@ -11,7 +11,7 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use App\Traits\ECLITrait;
 
-class ScrapeJuridat extends Command
+class ScrapeJuportal extends Command
 {
     use ECLITrait;
 
@@ -28,7 +28,7 @@ class ScrapeJuridat extends Command
     *
     * @var string
     */
-    protected $description = 'This command download ECLI form Juridat search engine. It requires a date as argument.';
+    protected $description = 'This command download ECLI form Juportal search engine. It requires a date as argument.';
 
     /**
     * Create a new command instance.
