@@ -11,24 +11,18 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use App\Traits\ECLITrait;
 
-class ScrapeJuportal extends Command
+class getECLIsfromJuportal extends Command
 {
     use ECLITrait;
 
-    /**
-    * The name and signature of the console command.
-    *
-    * @var string
-    */
-    protected $signature = 'command:scrape
-    {date : The date to scrape YYYY-MM-DD}';
+    protected $signature = 'bots:getECLIsfromJuportal {date : The date to scrape YYYY-MM-DD}';
 
     /**
     * The console command description.
     *
     * @var string
     */
-    protected $description = 'This command download ECLI form Juportal search engine. It requires a date as argument.';
+    protected $description = 'This command download ECLIs form Juportal search engine. It requires a date as argument.';
 
     /**
     * Create a new command instance.
@@ -51,7 +45,7 @@ class ScrapeJuportal extends Command
 
         $date = $this->argument('date');
 
-        $this->info("Getting ECLI for date " . $date);
+        // $this->info("Getting ECLI for date " . $date);
 
         $crawler = $client->request('GET', 'https://juportal.be/moteur/formulaire');
 
@@ -105,28 +99,43 @@ class ScrapeJuportal extends Command
         $pageCrawler->filter('a')->each(function ($node) use ($eclis) {
             $link = $node->attr('href');
 
-            $query = "/content/";
+            $query = "/content/ECLI";
             if (substr($link, 0, strlen($query)) == $query) {
-                $ecli = str_replace($query, "", $link);
+                $ecli = str_replace("/content/", "", $link);
                 $ecli = substr($ecli, 0, strpos($ecli, "/"));
                 if ($ecli != '') {
                     $eclis->push($ecli);
                 }
             }
         });
-        $this->storeECLIS($eclis->unique());
+        $this->storeECLIS($eclis->unique(), $date);
     }
 
-    private function storeECLIS($eclis)
+    private function storeECLIS($eclis, $date)
     {
-        $this->info("Gathered ". $eclis->count() . " ECLI code");
-    
-        
+        $updated = 0;
+        $created = 0;
+        $gathered = $eclis->count();
+       
         foreach ($eclis as $ecli) {
             $result = $this->explodeECLI($ecli, 'IUBEL');
                      
-            Document::firstOrCreate($result);
+            $document = Document::updateOrCreate(
+                $result,
+                [
+                    'meta' => json_encode("[{'decision_date': $date}]")
+                ]
+            );
+            
+            if (!$document->wasRecentlyCreated && $document->wasChanged()) {
+                $updated++;
+            }
+               
+            if ($document->wasRecentlyCreated) {
+                $created++;
+            }
+            $this->line('<fg=blue>' .$document->ecli. '</>');
         }
-        $this->info("Stored ". $eclis->count() . " new ECLIs");
+        $this->info("[".$date."] " . "Gathered " . $eclis->count() . " ECLI(s): " . $updated . " updated and " . $created . " created.");
     }
 }

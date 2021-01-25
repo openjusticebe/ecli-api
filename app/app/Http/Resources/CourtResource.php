@@ -13,7 +13,6 @@ class CourtResource extends BaseResource
                 'name_nl' => $this->name_nl,
                 'name_de' => $this->name_de,
                 'name_fr' => $this->name_fr,
-
             ],
             'ecli' => $this->ecli,
             'ref' => $this->ref,

@@ -88,6 +88,39 @@
                         }
                     }
                 ],
+                "requestBody": {
+                    "description": "data arrays",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "data": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "lang": {
+                                                    "type": "string",
+                                                    "example": "['french', 'dutch']"
+                                                },
+                                                "year": {
+                                                    "type": "string",
+                                                    "example": "['2001', '1983']"
+                                                },
+                                                "type": {
+                                                    "type": "string",
+                                                    "example": "['AVIS', 'JUG']"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Success"

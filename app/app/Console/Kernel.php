@@ -14,7 +14,9 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         'App\Console\Commands\SwaggerScan',
-        'App\Console\Commands\ScrapeJuportal',
+        'App\Console\Commands\getECLIsfromJuportal',
+        // 'App\Console\Commands\getContentfromJuportal',
+        // 'App\Console\Commands\indexContent',
     ];
 
     /**
