@@ -16,6 +16,7 @@ class CourtMinimalResource extends BaseResource
             ],
             'ref' => $this->ref,
             'ecli' => $this->ecli,
+            'count_total' => (int)$this->docs_per_year->sum('count'),
             'court_href' => $this->court_href,
             'logo_href' => $this->logo_href,
             'links' => route('courts.show', ['court_acronym' => $this->acronym]),

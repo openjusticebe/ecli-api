@@ -19,7 +19,7 @@ class Utu extends Model
     */
     public function children()
     {
-        return $this->hasMany(self::class, 'parent_id')->orderBy('name');
+        return $this->hasMany(self::class, 'parent_id');
     }
 
     public function classiLang($lang)
@@ -27,13 +27,13 @@ class Utu extends Model
         $string = $this->$lang;
 
         if ($this->parent) {
-            $string = $this->parent->$lang . ' > ' . $string;
+            $string = $this->parent->$lang . ' » ' . $string;
             if ($this->parent->parent) {
-                $string = $this->parent->parent->$lang . ' > ' . $string;
+                $string = $this->parent->parent->$lang . ' » ' . $string;
                 if ($this->parent->parent->parent) {
-                    $string = $this->parent->parent->parent->$lang . ' > ' . $string;
+                    $string = $this->parent->parent->parent->$lang . ' » ' . $string;
                     if ($this->parent->parent->parent->parent) {
-                        $string = $this->parent->parent->parent->parent->$lang . ' > ' . $string;
+                        $string = $this->parent->parent->parent->parent->$lang . ' » ' . $string;
                     }
                 }
             }

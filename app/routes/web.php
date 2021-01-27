@@ -32,8 +32,7 @@ $router->group(['prefix'=>'api/v1/'], function () use ($router) {
     $router->get('/statistics', 'Api\StatsController@index');
     
     $router->get('/utus', 'Api\UtuController@index');
-
-
+    $router->get('/flatutus', 'Api\UtuController@flatIndex');
 
     $router->group(['middleware' => 'api_auth'], function () use ($router) {
         $router->post('/ecli/post', 'Api\ECLIController@post');

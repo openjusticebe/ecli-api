@@ -30,9 +30,23 @@ class UtuController extends Controller
             return $this->getUtus();
         });
     }
+
     private function getUtus()
     {
         $utus = Utu::whereNull('parent_id')->with('children.children.children')->get();
+        return UtuResource::collection($utus);
+    }
+    
+    public function flatIndex()
+    {
+        return Cache::rememberForever('flatutus', function () {
+            return $this->getFlatUtus();
+        });
+    }
+
+    private function getFlatUtus()
+    {
+        $utus = Utu::all();
         return UtuResource::collection($utus);
     }
 }

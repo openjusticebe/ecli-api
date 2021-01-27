@@ -10,19 +10,22 @@ use App\Models\Document;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use App\Traits\ECLITrait;
+use Carbon\Carbon;
 
 class getECLIsfromJuportal extends Command
 {
     use ECLITrait;
 
-    protected $signature = 'bots:getECLIsfromJuportal {date : The date to scrape YYYY-MM-DD}';
+    protected $signature = 'bots:getECLIsfromJuportal 
+    {start_date : Start date to scrape YYYY-MM-DD} 
+    {end_date? : End date to scrape YYYY-MM-DD}';
 
     /**
     * The console command description.
     *
     * @var string
     */
-    protected $description = 'This command download ECLIs form Juportal search engine. It requires a date as argument.';
+    protected $description = 'This command download ECLIs form Juportal search engine. It requires a start_date and end_date as arguments.';
 
     /**
     * Create a new command instance.
@@ -43,15 +46,25 @@ class getECLIsfromJuportal extends Command
     {
         $client = new Client();
 
-        $date = $this->argument('date');
+        $date = Carbon::now();
+        
+        $start_date = $this->argument('start_date');
 
-        // $this->info("Getting ECLI for date " . $date);
+        if (empty($this->argument('end_date'))) {
+            $end_date = new Carbon($start_date);
+            $end_date = $end_date->addMonths(1)->format('Y-m-d');
+        } else {
+            $end_date = $this->argument('end_date');
+        }
+
+        $this->info('From ' . $start_date . " to " . $end_date);
 
         $crawler = $client->request('GET', 'https://juportal.be/moteur/formulaire');
 
         $buttonCrawler = $crawler->selectButton('Rechercher');
         
         $form = $buttonCrawler->form();
+        
         $pageCrawler = $client->submit(
             $form,
             [
@@ -70,8 +83,8 @@ class getECLIsfromJuportal extends Command
                 'TRECHLANGDE' => "on",
                 'TRECHECLINUMERO' => "",
                 'TRECHNOROLE' => "",
-                'TRECHDECISIONDE' => $date,
-                'TRECHDECISIONA' => $date,
+                'TRECHDECISIONDE' => $start_date,
+                'TRECHDECISIONA' => $end_date,
                 'TRECHPUBLICATDE' => "",
                 'TRECHPUBLICATA' => "",
                 'TRECHBASELEGDATE' => "",
@@ -97,21 +110,19 @@ class getECLIsfromJuportal extends Command
         $eclis = collect();
 
         $pageCrawler->filter('a')->each(function ($node) use ($eclis) {
-            $link = $node->attr('href');
+            $title = $node->attr('title');
 
-            $query = "/content/ECLI";
-            if (substr($link, 0, strlen($query)) == $query) {
-                $ecli = str_replace("/content/", "", $link);
-                $ecli = substr($ecli, 0, strpos($ecli, "/"));
-                if ($ecli != '') {
-                    $eclis->push($ecli);
+            $query = "ECLI:";
+            if (substr($title, 0, strlen($query)) == $query) {
+                if ($title != '') {
+                    $eclis->push($title);
                 }
             }
         });
-        $this->storeECLIS($eclis->unique(), $date);
+        $this->storeECLIS($eclis->unique());
     }
 
-    private function storeECLIS($eclis, $date)
+    private function storeECLIS($eclis)
     {
         $updated = 0;
         $created = 0;
@@ -121,10 +132,7 @@ class getECLIsfromJuportal extends Command
             $result = $this->explodeECLI($ecli, 'IUBEL');
                      
             $document = Document::updateOrCreate(
-                $result,
-                [
-                    'meta' => json_encode("[{'decision_date': $date}]")
-                ]
+                $result
             );
             
             if (!$document->wasRecentlyCreated && $document->wasChanged()) {
@@ -136,6 +144,6 @@ class getECLIsfromJuportal extends Command
             }
             $this->line('<fg=blue>' .$document->ecli. '</>');
         }
-        $this->info("[".$date."] " . "Gathered " . $eclis->count() . " ECLI(s): " . $updated . " updated and " . $created . " created.");
+        $this->info("Gathered " . $eclis->count() . " ECLI(s): " . $updated . " updated and " . $created . " created.");
     }
 }
