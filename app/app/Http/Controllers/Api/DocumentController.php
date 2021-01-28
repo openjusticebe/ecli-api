@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DocumentResource;
+use App\Http\Resources\DocumentMinimalResource;
 use App\Models\Court;
 use App\Models\Document;
 use Illuminate\Http\Request;
@@ -91,7 +92,7 @@ class DocumentController extends Controller
         ->whereIn('year', $request->year)
         ->paginate(20);
 
-        return DocumentResource::collection($documents);
+        return DocumentMinimalResource::collection($documents);
     }
 
     public function docsRecent($court_acronym)
@@ -103,7 +104,7 @@ class DocumentController extends Controller
         ->orderBy('identifier', 'desc')
         ->paginate(20);
 
-        return DocumentResource::collection($documents);
+        return DocumentMinimalResource::collection($documents);
     }
    
 
@@ -117,7 +118,7 @@ class DocumentController extends Controller
         ->orderBy('identifier', 'desc')
         ->paginate(20);
 
-        return DocumentResource::collection($documents);
+        return DocumentMinimalResource::collection($documents);
     }
 
     public function docsPerLang($court_acronym, $lang)
@@ -129,7 +130,7 @@ class DocumentController extends Controller
         ->orderBy('identifier', 'desc')
         ->paginate(20);
 
-        return DocumentResource::collection($documents);
+        return DocumentMinimalResource::collection($documents);
     }
 
     public function docsPerType($court_acronym, $type)
@@ -142,6 +143,6 @@ class DocumentController extends Controller
         ->orderBy('identifier', 'desc')
         ->paginate(20);
 
-        return DocumentResource::collection($documents);
+        return DocumentMinimalResource::collection($documents);
     }
 }
