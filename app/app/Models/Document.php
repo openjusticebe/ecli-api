@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Goutte\Client;
 use League\HTMLToMarkdown\HtmlConverter;
+use Cache;
 
 class Document extends Model
 {
@@ -58,7 +59,7 @@ class Document extends Model
 
     public function getMarkdownAttribute()
     {
-        if (empty($this->text)) {
+        return Cache::rememberForever('document_text_' . $this->id, function () {
             $client = new Client();
             $crawler = $client->request('GET', $this->link);
 
@@ -71,9 +72,7 @@ class Document extends Model
             $markdown = $converter->convert(implode('<br />', $html));
 
             return $markdown;
-        } else {
-            return $this->text;
-        }
+        });
     }
 
     public function getParentLinkAttribute()
