@@ -13,6 +13,7 @@
         "fabpot/goutte": "^4.0",
         "illuminate/redis": "^8.16",
         "laravel/lumen-framework": "^8.0",
+        "league/html-to-markdown": "^4.10",
         "predis/predis": "^1.1",
         "zircote/swagger-php": "^3.1"
     },

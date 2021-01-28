@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Goutte\Client;
+use League\HTMLToMarkdown\HtmlConverter;
 
 class Document extends Model
 {
@@ -54,6 +56,26 @@ class Document extends Model
         );
     }
 
+    public function getMarkdownAttribute()
+    {
+        if (empty($this->text)) {
+            $client = new Client();
+            $crawler = $client->request('GET', $this->link);
+
+            $html = $crawler->filter('#plaintext')->each(function ($node) {
+                return $node->html();
+            });
+
+            $converter = new HtmlConverter();
+
+            $markdown = $converter->convert(implode('<br />', $html));
+
+            return $markdown;
+        } else {
+            return $this->text;
+        }
+    }
+
     public function getParentLinkAttribute()
     {
         return route('courts.show', ['court_acronym' => $this->court->acronym]);
@@ -64,53 +86,16 @@ class Document extends Model
         return '/BE/' . $this->court->acronym . '/' . $this->year . '/' . $this->type_identifier;
     }
 
-    public function getLinksAttribute()
+    public function getLinkAttribute()
     {
         if ($this->src == 'GHCC') {
-            return [
-                [
-                 'rel' =>  'default',
-
-                 'href' => "https://www.const-court.be/public/f/" . $this->year . '/' . $this->year . '-' . sprintf("%03d", $this->identifier) . 'f.pdf',
-                ],
-                [
-                    'rel' =>  'pdf',
-                    'href' => "https://www.const-court.be/public/f/" . $this->year . '/' . $this->year . '-' . sprintf("%03d", $this->identifier) . 'f.pdf',
-                ],
-            ];
+            return  "https://www.const-court.be/public/f/" . $this->year . '/' . $this->year . '-' . sprintf("%03d", $this->identifier) . 'f.pdf';
         } elseif ($this->src == 'RSCE') {
-            return [
-                [
-                 'rel' =>  'default',
-                 'href' => "http://www.raadvst-consetat.be/arr.php?nr=" . $this->identifier,
-                ],
-                [
-                    'rel' =>  'pdf',
-                    'href' => "http://www.raadvst-consetat.be/arr.php?nr=" . $this->identifier,
-                ],
-            ];
+            return "http://www.raadvst-consetat.be/arr.php?nr=" . $this->identifier;
         } elseif ($this->src == 'IUBEL') {
-            return [
-                [
-                 'rel' =>  'default',
-                 'href' => "https://juportal.be/content/" . $this->ecli,
-                ],
-                [
-                    'rel' =>  'pdf',
-                    'href' => "https://juportal.be/content/" . $this->ecli,
-                ],
-            ];
+            return "https://juportal.be/content/" . $this->ecli;
         } else {
-            return [
-                [
-                 'rel' =>  'default',
-                 'href' => "https://doc.openjustice.lltl.be/html/" . $this->ecli,
-                ],
-                [
-                  'rel' =>  'html',
-                  'href' => "https://doc.openjustice.lltl.be/html/" . $this->ecli,
-                ],
-            ];
+            return "https://doc.openjustice.lltl.be/html/" . $this->ecli;
         }
     }
 }
