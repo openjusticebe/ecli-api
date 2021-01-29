@@ -32,7 +32,6 @@ class ImportDataFromECLI extends Seeder
             // Get files from API
             $data = file_get_contents($value);
 
-            // Loop and import into DB
             $lines = explode(PHP_EOL, $data);
 
             $output = new ConsoleOutput();
@@ -44,6 +43,8 @@ class ImportDataFromECLI extends Seeder
                 // ECLI:BE:AHANT:2003:ARR.20030423.6
                 // ECLI:BE:AHANT:2004:ARR.20040604.5
                 // ECLI:BE:AHANT:2004:ARR.20040625.15
+
+                // Loop and import into DB
                 foreach ($lines as $line) {
                     if (isset($line)) {
                         $progress->advance();

@@ -12,18 +12,19 @@ class HomePageResource extends BaseResource
     {
         return [
 
-            'title' => 'Browse categories and courts',
-            'title_i18ns' => [
-                'title_de' => 'Durchsuchen Sie Kategorien',
-                'title_fr' => 'Parcourir les catégories, cours et les tribunaux',
-                'title_nl' => 'Blader door categorieën en banen',
+            'title' => null,
+            'recent_documents' => [
+                'title' => 'Recent documents',
+                'documents' => DocumentMinimalResource::collection(Document::orderBy('updated_at')->limit(10)->get()),
             ],
-            'categories' => CategoryResource::collection($this),
+            'court_categories' => [
+                'title' => 'Browse categories and courts',
+                'categories' => CategoryResource::collection($this),
+            ],
             'count_documents' => Document::count(),
             'count_courts' => Court::count(),
             'links' => [
                 'self' => URL::current(),
-                'parent' => null,
             ],
             ];
     }

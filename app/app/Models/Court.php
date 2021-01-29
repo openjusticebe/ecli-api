@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Cache;
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Court extends Model
 {
@@ -36,7 +37,7 @@ class Court extends Model
     {
         return Cache::rememberForever('docs_per_lang' . $this->id, function () {
             $docs_per_lang = $this->hasMany('App\Models\Document')
-        ->select(\DB::raw('count(*) as documents_count, lang'))
+        ->select(DB::raw('count(*) as documents_count, lang'))
         ->groupBy('lang')
         ->orderBy('lang')
         ->get();
@@ -57,7 +58,7 @@ class Court extends Model
     {
         return Cache::rememberForever('docs_per_year' . $this->id, function () {
             $docs_per_year = $this->hasMany('App\Models\Document')
-        ->select(\DB::raw('count(*) as documents_count, year'))
+        ->select(DB::raw('count(*) as documents_count, year'))
         ->groupBy('year')
         ->orderBy('year', 'DESC')
         ->get();
@@ -79,7 +80,7 @@ class Court extends Model
     {
         return Cache::rememberForever('docs_per_type' . $this->id, function () {
             $docs_per_type = $this->hasMany('App\Models\Document')
-        ->select(\DB::raw('count(*) as documents_count, type'))
+        ->select(DB::raw('count(*) as documents_count, type'))
         ->groupBy('type')
         ->orderBy('type')
         ->get();

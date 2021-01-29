@@ -17,6 +17,8 @@ class DocumentMinimalResource extends BaseResource
             'self_link' => $this->self_link,
             'ref' => $this->ref,
             'link' => $this->link,
+            'updated_at' => $this->updated_at,
+            'updated_at_diff'  => (string)$this->updated_at->diffForHumans(['parts' => 2]),
         ];
     }
 }

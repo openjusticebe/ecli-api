@@ -32,11 +32,14 @@ class ImportDataFromOJ extends Seeder
         foreach ($courts as $court) {
             $court_params = json_encode(["country" => "BE", "court"  => $court]);
             $API_URL = $BASE_URL . "year&data=" . $court_params;
+            
             $years = file_get_contents($API_URL);
             $years = json_decode($years);
+            
             foreach ($years as $year) {
                 $full_params = json_encode(["country" => "BE", "court" => $court, "year" => $year]);
                 $API_URL = $BASE_URL . "document&data=" . $full_params;
+            
                 $documents = file_get_contents($API_URL);
                 $documents = json_decode($documents);
 

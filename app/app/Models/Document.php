@@ -56,7 +56,7 @@ class Document extends Model
              ],
         );
     }
-    private function storeSrcContent()
+    public function storeSrcContent()
     {
         return Cache::rememberForever('document_src_' . $this->id, function () {
             $client = new Client();
@@ -67,19 +67,41 @@ class Document extends Model
 
     private function grabJurportal()
     {
-        $crawler = $this->storeSrcContent();
+        // $crawler = $this->storeSrcContent();
 
+        $client = new Client();
+        $crawler = $client->request('GET', $this->link);
+        
         $html = $crawler->filter('#plaintext')->each(function ($node) {
             return $node->html();
         });
 
+        // To markdown
         $converter = new HtmlConverter();
-
         $markdown = $converter->convert(implode('<br />', $html));
-
         $this->text = $markdown;
 
-        $this->meta = json_encode(['test' => 'test', 'name' => 'test']);
+        $proprieties = $crawler->filter('tbody')->filter('tr')->each(function ($tr, $i) {
+            return $tr->filter('td')->each(function ($td, $i) {
+                return trim($td->text());
+            });
+        });
+
+        $pdf = $crawler->filter('#text')->filter('a')->each(function ($node) {
+            if (substr($node->attr('href'), -4) == '.pdf') {
+                return $node->attr('href');
+            }
+        });
+
+        $fiche = $crawler->filter('fieldset')->filter('.plaintext')->each(function ($node) {
+            return $node->text();
+        });
+
+        array_push($proprieties, ['pdf', $pdf[0] ?? null]);
+        array_push($proprieties, ['fiche', $fiche[0] ?? null]);
+        
+        $this->meta = json_encode($proprieties);
+
 
         $this->save();
     }
@@ -90,15 +112,14 @@ class Document extends Model
             case 'IUBEL':
                 $this->grabJurportal();
                 break;
-        case 'GHCC':
+            case 'GHCC':
                 break;
-
             case 'RSCE':
                 break;
             case 'OJ':
                 break;
             default:
-                return 'sorry';
+                return null;
     }
     }
     public function getMetadataAttribute()
@@ -132,16 +153,16 @@ class Document extends Model
     public function getLinkAttribute()
     {
         switch ($this->src) {
-            case 'GHCC':
-                return  "https://www.const-court.be/public/f/" . $this->year . '/' . $this->year . '-' . sprintf("%03d", $this->identifier) . 'f.pdf';
             case 'IUBEL':
                 return "https://juportal.be/content/" . $this->ecli;
+            case 'GHCC':
+                return  "https://www.const-court.be/public/f/" . $this->year . '/' . $this->year . '-' . sprintf("%03d", $this->identifier) . 'f.pdf';
             case 'RSCE':
                 return "http://www.raadvst-consetat.be/arr.php?nr=" . $this->identifier;
             case 'OJ':
                  return "https://doc.openjustice.lltl.be/html/" . $this->ecli;
             default:
-            return 'sorry';
+            return null;
 
         }
     }
