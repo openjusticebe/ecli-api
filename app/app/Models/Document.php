@@ -56,23 +56,67 @@ class Document extends Model
              ],
         );
     }
+    private function storeSrcContent()
+    {
+        return Cache::rememberForever('document_src_' . $this->id, function () {
+            $client = new Client();
+            $crawler = $client->request('GET', $this->link);
+            return $crawler;
+        });
+    }
+
+    private function grabJurportal()
+    {
+        $crawler = $this->storeSrcContent();
+
+        $html = $crawler->filter('#plaintext')->each(function ($node) {
+            return $node->html();
+        });
+
+        $converter = new HtmlConverter();
+
+        $markdown = $converter->convert(implode('<br />', $html));
+
+        $this->text = $markdown;
+
+        $this->meta = json_encode(['test' => 'test', 'name' => 'test']);
+
+        $this->save();
+    }
+
+    private function grabData()
+    {
+        switch ($this->src) {
+            case 'IUBEL':
+                $this->grabJurportal();
+                break;
+        case 'GHCC':
+                break;
+
+            case 'RSCE':
+                break;
+            case 'OJ':
+                break;
+            default:
+                return 'sorry';
+    }
+    }
+    public function getMetadataAttribute()
+    {
+        if (empty($this->meta)) {
+            $this->grabData();
+        }
+
+        return $this->meta;
+    }
 
     public function getMarkdownAttribute()
     {
-        return Cache::rememberForever('document_text_' . $this->id, function () {
-            $client = new Client();
-            $crawler = $client->request('GET', $this->link);
+        if (empty($this->text)) {
+            $this->grabData();
+        }
 
-            $html = $crawler->filter('#plaintext')->each(function ($node) {
-                return $node->html();
-            });
-
-            $converter = new HtmlConverter();
-
-            $markdown = $converter->convert(implode('<br />', $html));
-
-            return $markdown;
-        });
+        return $this->text;
     }
 
     public function getParentLinkAttribute()
@@ -87,14 +131,18 @@ class Document extends Model
 
     public function getLinkAttribute()
     {
-        if ($this->src == 'GHCC') {
-            return  "https://www.const-court.be/public/f/" . $this->year . '/' . $this->year . '-' . sprintf("%03d", $this->identifier) . 'f.pdf';
-        } elseif ($this->src == 'RSCE') {
-            return "http://www.raadvst-consetat.be/arr.php?nr=" . $this->identifier;
-        } elseif ($this->src == 'IUBEL') {
-            return "https://juportal.be/content/" . $this->ecli;
-        } else {
-            return "https://doc.openjustice.lltl.be/html/" . $this->ecli;
+        switch ($this->src) {
+            case 'GHCC':
+                return  "https://www.const-court.be/public/f/" . $this->year . '/' . $this->year . '-' . sprintf("%03d", $this->identifier) . 'f.pdf';
+            case 'IUBEL':
+                return "https://juportal.be/content/" . $this->ecli;
+            case 'RSCE':
+                return "http://www.raadvst-consetat.be/arr.php?nr=" . $this->identifier;
+            case 'OJ':
+                 return "https://doc.openjustice.lltl.be/html/" . $this->ecli;
+            default:
+            return 'sorry';
+
         }
     }
 }

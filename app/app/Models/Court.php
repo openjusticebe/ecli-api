@@ -88,8 +88,7 @@ class Court extends Model
                 return [
             'type' => $type->type,
             'count' => (int)$type->documents_count,
-            '
-            href' => route('courts.documents.docsPerType', ['court_acronym' => $this->acronym, 'type' => $type->type]),
+            'href' => route('courts.documents.docsPerType', ['court_acronym' => $this->acronym, 'type' => $type->type]),
             'links' => [
                 'parent' => $this->self_link,
                 'self' => route('courts.documents.docsPerType', ['court_acronym' => $this->acronym, 'type' => $type->type]),
