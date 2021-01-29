@@ -43,9 +43,9 @@ class Court extends Model
 
             $result = $docs_per_lang->map(function ($lang, $key) use ($docs_per_lang) {
                 return [
-            'lang' => $lang->lang,
+            'lang' => (string)$lang->lang,
             'count' => (int)$lang->documents_count,
-            'href' => route('courts.documents.docsPerLang', ['court_acronym' => $this->acronym, 'lang' => $lang->lang]),
+            // 'href' => route('courts.documents.docsPerLang', ['court_acronym' => $this->acronym, 'lang' => $lang->lang]),
                 ];
             });
 
@@ -66,8 +66,8 @@ class Court extends Model
                 return [
             'year' => (int)$year->year,
             'count' => (int)$year->documents_count,
-            'ecli_ref' => $this->ecli . ':' . $year->year,
-            'href' => route('courts.documents.docsPerYear', ['court_acronym' => $this->acronym,'year' => $year->year]),
+            // 'ecli_ref' => $this->ecli . ':' . $year->year,
+            // 'href' => route('courts.documents.docsPerYear', ['court_acronym' => $this->acronym,'year' => $year->year]),
             ];
             });
 
@@ -86,13 +86,13 @@ class Court extends Model
 
             $result = $docs_per_type->map(function ($type, $key) use ($docs_per_type) {
                 return [
-            'type' => $type->type,
+            'type' => (string)$type->type,
             'count' => (int)$type->documents_count,
-            'href' => route('courts.documents.docsPerType', ['court_acronym' => $this->acronym, 'type' => $type->type]),
-            'links' => [
-                'parent' => $this->self_link,
-                'self' => route('courts.documents.docsPerType', ['court_acronym' => $this->acronym, 'type' => $type->type]),
-                ],
+            // 'href' => route('courts.documents.docsPerType', ['court_acronym' => $this->acronym, 'type' => $type->type]),
+            // 'links' => [
+            //     'parent' => $this->self_link,
+            //     'self' => route('courts.documents.docsPerType', ['court_acronym' => $this->acronym, 'type' => $type->type]),
+            //     ],
             ];
             });
 

@@ -65,20 +65,20 @@ $router->group(['prefix'=>'api/v1/ECLI/BE'], function () use ($router) {
         'uses' => 'Api\DocumentController@docsFilter',
     ]);
 
-    $router->get('/{court_acronym}/docsPerYear/{year}/', [
-        'as' => 'courts.documents.docsPerYear',
-        'uses' => 'Api\DocumentController@docsPerYear',
-    ]);
+    // $router->get('/{court_acronym}/docsPerYear/{year}/', [
+    //     'as' => 'courts.documents.docsPerYear',
+    //     'uses' => 'Api\DocumentController@docsPerYear',
+    // ]);
 
-    $router->get('/{court_acronym}/docsPerType/{type}/', [
-    'as' => 'courts.documents.docsPerType',
-    'uses' => 'Api\DocumentController@docsPerType',
-    ]);
+    // $router->get('/{court_acronym}/docsPerType/{type}/', [
+    // 'as' => 'courts.documents.docsPerType',
+    // 'uses' => 'Api\DocumentController@docsPerType',
+    // ]);
 
-    $router->get('/{court_acronym}/docsPerLang/{lang}/', [
-    'as' => 'courts.documents.docsPerLang',
-    'uses' => 'Api\DocumentController@docsPerLang',
-    ]);
+    // $router->get('/{court_acronym}/docsPerLang/{lang}/', [
+    // 'as' => 'courts.documents.docsPerLang',
+    // 'uses' => 'Api\DocumentController@docsPerLang',
+    // ]);
 
     $router->get('/{court_acronym}/docsRecent', [
         'as' => 'courts.documents.docsRecent',
