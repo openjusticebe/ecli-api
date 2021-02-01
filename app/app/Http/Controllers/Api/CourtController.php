@@ -33,8 +33,7 @@ class CourtController extends Controller
      *              type="string"
      *          )
      *      ),
-     * tags={"Court"},
-     * security={ {"bearer": {} }},
+     * tags={"court"},
      * @OA\Response(
      *    response=200,
      *    description="Success"

@@ -7,7 +7,7 @@ use App\Http\Resources\DocumentResource;
 use App\Http\Resources\DocumentMinimalResource;
 use App\Models\Court;
 use App\Models\Document;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Requests\FilterDocsRequest;
 
 class DocumentController extends Controller
 {
@@ -35,45 +35,23 @@ class DocumentController extends Controller
     * tags={"ECLI"},
     * summary="Filter documents of a court",
     * description="Filter documents of a court",
-    * operationId="ECLI",
     * @OA\Parameter(
      *          name="court_acronym",
      *          description="Court acronym",
      *          required=true,
      *          in="path",
+     *          example="RSCE",
      *          @OA\Schema(
      *              type="string"
-     *          )
+     *          ),
      *      ),
-     * @OA\RequestBody(
-     *        description = "data arrays",
+     *       @OA\RequestBody(
      *          required=true,
-     *          @OA\JsonContent(
-     *   @OA\Property(
-     *                property="data",
-     *                type="array",
-     *     @OA\Items(
-     *      @OA\Property(
-     *       property="lang",
-     *       type="string",
-     *       example="['french', 'dutch']"
-     *       ),
-     * @OA\Property(
-     *       property="year",
-     *       type="string",
-     *       example="['2001', '1983']"
-     *       ),
-     *  @OA\Property(
-     *       property="type",
-     *       type="string",
-     *       example="['AVIS', 'JUG']"
-     *       ),
-     *      )
-     *      )
-     *    )
-     * ),
-     * https://github.com/zircote/swagger-php/issues/728
-    * security={ {"bearer": {} }},
+     *       @OA\MediaType(
+     *          mediaType="multipart/form-data",
+     *          @OA\Schema(ref="#/components/schemas/filterDocs")
+     *        )
+     *      ),
     * @OA\Response(
     *    response=200,
     *    description="Success",
@@ -82,7 +60,7 @@ class DocumentController extends Controller
     * )
     */
     
-    public function docsFilter($court_acronym, Request $request)
+    public function docsFilter($court_acronym, FilterDocsRequest $request)
     {
         $court = Court::whereAcronym($court_acronym)->firstOrFail();
 
@@ -95,54 +73,54 @@ class DocumentController extends Controller
         return DocumentMinimalResource::collection($documents);
     }
 
-    public function docsRecent($court_acronym)
+    public function docsRecent($court_acronym, $limit == 20)
     {
         $court = Court::whereAcronym($court_acronym)->firstOrFail();
 
         $documents = Document::whereCourtId($court->id)
         ->orderBy('year', 'desc')
         ->orderBy('identifier', 'desc')
-        ->paginate(20);
+        ->paginate($limit);
 
         return DocumentMinimalResource::collection($documents);
     }
    
 
-    public function docsPerYear($court_acronym, $year)
-    {
-        $court = Court::whereAcronym($court_acronym)->firstOrFail();
+    // public function docsPerYear($court_acronym, $year)
+    // {
+    //     $court = Court::whereAcronym($court_acronym)->firstOrFail();
 
-        $documents = Document::whereCourtId($court->id)
-        ->where('year', $year)
-        ->orderBy('year', 'desc')
-        ->orderBy('identifier', 'desc')
-        ->paginate(20);
+    //     $documents = Document::whereCourtId($court->id)
+    //     ->where('year', $year)
+    //     ->orderBy('year', 'desc')
+    //     ->orderBy('identifier', 'desc')
+    //     ->paginate(20);
 
-        return DocumentMinimalResource::collection($documents);
-    }
+    //     return DocumentMinimalResource::collection($documents);
+    // }
 
-    public function docsPerLang($court_acronym, $lang)
-    {
-        $court = Court::whereAcronym($court_acronym)->firstOrFail();
-        $documents = Document::whereCourtId($court->id)
-        ->where('lang', $lang)
-        ->orderBy('year', 'desc')
-        ->orderBy('identifier', 'desc')
-        ->paginate(20);
+    // public function docsPerLang($court_acronym, $lang)
+    // {
+    //     $court = Court::whereAcronym($court_acronym)->firstOrFail();
+    //     $documents = Document::whereCourtId($court->id)
+    //     ->where('lang', $lang)
+    //     ->orderBy('year', 'desc')
+    //     ->orderBy('identifier', 'desc')
+    //     ->paginate(20);
 
-        return DocumentMinimalResource::collection($documents);
-    }
+    //     return DocumentMinimalResource::collection($documents);
+    // }
 
-    public function docsPerType($court_acronym, $type)
-    {
-        $court = Court::whereAcronym($court_acronym)->firstOrFail();
+    // public function docsPerType($court_acronym, $type)
+    // {
+    //     $court = Court::whereAcronym($court_acronym)->firstOrFail();
 
-        $documents = Document::whereCourtId($court->id)
-        ->where('type', $type)
-        ->orderBy('year', 'desc')
-        ->orderBy('identifier', 'desc')
-        ->paginate(20);
+    //     $documents = Document::whereCourtId($court->id)
+    //     ->where('type', $type)
+    //     ->orderBy('year', 'desc')
+    //     ->orderBy('identifier', 'desc')
+    //     ->paginate(20);
 
-        return DocumentMinimalResource::collection($documents);
-    }
+    //     return DocumentMinimalResource::collection($documents);
+    // }
 }

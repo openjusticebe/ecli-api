@@ -2,6 +2,46 @@
 
 namespace App\Http\Resources;
 
+/**
+ * @OA\Schema(
+ *     title="filterDocs",
+ *     description="Document minumal resource",
+ * @OA\Property(
+ *     title="identifier",
+ *     property="identifier",
+ *     type="string",
+ *     example="20200526.HBOJ"
+ * ),
+ * @OA\Property(
+ *     title="type",
+ *     property="type",
+ *     type="string",
+ *     example="DEC"
+ * ),
+ * @OA\Property(
+*     title="type_identifier",
+ *    property="type_identifier",
+ *    description="Concatenation of type, '.' and identifier",
+ *    type="string",
+ *    example="DEC.20200526.HBOJ"
+ * ),
+ * @OA\Property(
+ *     title="updated_at",
+ *     property="updated_at",
+ *     format="datetime",
+ *     description="updated_at",
+*      type="string"
+* ),
+*  @OA\Property(
+*     title="updated_at_diff",
+*     property="updated_at_diff",
+*     description="updated_at field diff for humans",
+*     type="string"
+* )
+ * ),
+
+*/
+
 class DocumentMinimalResource extends BaseResource
 {
     public function toArray($request)

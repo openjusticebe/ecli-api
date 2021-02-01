@@ -15,8 +15,7 @@ class CategoryController extends Controller
     * summary="Get list of courts organised by categories",
     * description="Get list of Courts with statistics organised by categories",
     * operationId="Category",
-    * tags={"Category"},
-    * security={ {"bearer": {} }},
+    * tags={"category"},
     * @OA\Response(
     *    response=200,
     *    description="Success",

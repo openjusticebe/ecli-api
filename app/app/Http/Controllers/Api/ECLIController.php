@@ -39,9 +39,7 @@ class ECLIController extends Controller
     * path="/ecli/post",
     * summary="Post new document",
     * description="Post new document",
-    * operationId="ECLI",
     * tags={"ECLI"},
-    * security={ {"bearer": {} }},
     * @OA\Response(
     *    response=200,
     *    description="Success",

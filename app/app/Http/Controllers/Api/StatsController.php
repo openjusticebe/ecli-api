@@ -15,8 +15,7 @@ class StatsController extends Controller
      * summary="Get list of Stats",
      * description="Get list of Stats",
      * operationId="Stats",
-     * tags={"Stats"},
-     * security={ {"bearer": {} }},
+     * tags={"stats"},
      * @OA\Response(
      *    response=200,
      *    description="Success",

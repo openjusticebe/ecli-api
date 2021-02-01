@@ -2,6 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "ECLI API of OpenJustice",
+        "description": "This is the documentation of ECLI Api of OpenJustice.be",
         "contact": {
             "name": "Team of OpenJustice",
             "email": "team@openjustice.be"
@@ -21,7 +22,7 @@
         "/ECLI/BE": {
             "get": {
                 "tags": [
-                    "Category"
+                    "category"
                 ],
                 "summary": "Get list of courts organised by categories",
                 "description": "Get list of Courts with statistics organised by categories",
@@ -30,18 +31,13 @@
                     "200": {
                         "description": "Success"
                     }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
+                }
             }
         },
         "/ECLI/BE/{court_acronym}": {
             "get": {
                 "tags": [
-                    "Court"
+                    "court"
                 ],
                 "summary": "Get Court information",
                 "description": "Get Court",
@@ -61,12 +57,7 @@
                     "200": {
                         "description": "Success"
                     }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
+                }
             }
         },
         "/ECLI/BE/{court_acronym}/docsFilter": {
@@ -76,7 +67,7 @@
                 ],
                 "summary": "Filter documents of a court",
                 "description": "Filter documents of a court",
-                "operationId": "ECLI",
+                "operationId": "App\\Http\\Controllers\\Api\\DocumentController::docsFilter",
                 "parameters": [
                     {
                         "name": "court_acronym",
@@ -85,38 +76,16 @@
                         "required": true,
                         "schema": {
                             "type": "string"
-                        }
+                        },
+                        "example": "RSCE"
                     }
                 ],
                 "requestBody": {
-                    "description": "data arrays",
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
-                                "properties": {
-                                    "data": {
-                                        "type": "array",
-                                        "items": {
-                                            "properties": {
-                                                "lang": {
-                                                    "type": "string",
-                                                    "example": "['french', 'dutch']"
-                                                },
-                                                "year": {
-                                                    "type": "string",
-                                                    "example": "['2001', '1983']"
-                                                },
-                                                "type": {
-                                                    "type": "string",
-                                                    "example": "['AVIS', 'JUG']"
-                                                }
-                                            },
-                                            "type": "object"
-                                        }
-                                    }
-                                },
-                                "type": "object"
+                                "$ref": "#/components/schemas/filterDocs"
                             }
                         }
                     }
@@ -125,12 +94,7 @@
                     "200": {
                         "description": "Success"
                     }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
+                }
             }
         },
         "/ecli/post": {
@@ -140,23 +104,18 @@
                 ],
                 "summary": "Post new document",
                 "description": "Post new document",
-                "operationId": "ECLI",
+                "operationId": "App\\Http\\Controllers\\Api\\ECLIController::post",
                 "responses": {
                     "200": {
                         "description": "Success"
                     }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
+                }
             }
         },
         "/statistics": {
             "get": {
                 "tags": [
-                    "Stats"
+                    "stats"
                 ],
                 "summary": "Get list of Stats",
                 "description": "Get list of Stats",
@@ -165,18 +124,13 @@
                     "200": {
                         "description": "Success"
                     }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
+                }
             }
         },
         "/utus": {
             "get": {
                 "tags": [
-                    "UTU"
+                    "utu"
                 ],
                 "summary": "Get list of Utus",
                 "description": "Get list of Utus",
@@ -185,13 +139,111 @@
                     "200": {
                         "description": "Success"
                     }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
+                }
             }
         }
-    }
+    },
+    "components": {
+        "schemas": {
+            "filterDocs": {
+                "properties": {
+                    "lang[]": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "example": "french"
+                        }
+                    },
+                    "year[]": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "example": "2001"
+                        }
+                    },
+                    "type[]": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "example": "AVIS"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "DocumentMinimalResource": {
+                "title": "filterDocs",
+                "description": "Document minumal resource",
+                "properties": {
+                    "identifier": {
+                        "title": "identifier",
+                        "type": "string",
+                        "example": "20200526.HBOJ"
+                    },
+                    "type": {
+                        "title": "type",
+                        "type": "string",
+                        "example": "DEC"
+                    },
+                    "type_identifier": {
+                        "title": "type_identifier",
+                        "description": "Concatenation of type, '.' and identifier",
+                        "type": "string",
+                        "example": "DEC.20200526.HBOJ"
+                    },
+                    "updated_at": {
+                        "title": "updated_at",
+                        "description": "updated_at",
+                        "type": "string",
+                        "format": "datetime"
+                    },
+                    "updated_at_diff": {
+                        "title": "updated_at_diff",
+                        "description": "updated_at field diff for humans",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "responses": {
+            "200": {
+                "description": "Success"
+            },
+            "403": {
+                "description": "Forbidden"
+            },
+            "404": {
+                "description": "Resource Not Found"
+            }
+        },
+        "securitySchemes": {
+            "bearer": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "ECLI",
+            "description": "Everything about ECLI"
+        },
+        {
+            "name": "court",
+            "description": "Everything about Court"
+        },
+        {
+            "name": "category",
+            "description": "Everything about category of courts"
+        },
+        {
+            "name": "stats",
+            "description": "Everything about category of stats"
+        },
+        {
+            "name": "utus",
+            "description": "Everything about Utus"
+        }
+    ]
 }

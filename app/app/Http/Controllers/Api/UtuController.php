@@ -10,20 +10,18 @@ use Cache;
 class UtuController extends Controller
 {
     /**
- * @OA\Get(
- * path="/utus",
- * summary="Get list of Utus",
- * description="Get list of Utus",
- * operationId="utus",
- * tags={"UTU"},
- * security={ {"bearer": {} }},
- * @OA\Response(
- *    response=200,
- *    description="Success",
- * )
- * )
- * )
- */
+    * @OA\Get(
+    * path="/utus",
+    * summary="Get list of Utus",
+    * description="Get list of Utus",
+    * operationId="utus",
+    * tags={"utu"},
+    * @OA\Response(
+     *    response=200,
+     *    description="Success",
+     * )
+    * )
+    */
     public function index()
     {
         return Cache::rememberForever('utus', function () {

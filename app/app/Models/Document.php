@@ -127,7 +127,6 @@ class Document extends Model
         if (empty($this->meta)) {
             $this->grabData();
         }
-
         return $this->meta;
     }
 
@@ -136,7 +135,6 @@ class Document extends Model
         if (empty($this->text)) {
             $this->grabData();
         }
-
         return $this->text;
     }
 
