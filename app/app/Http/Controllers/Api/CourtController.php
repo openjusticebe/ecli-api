@@ -29,6 +29,7 @@ class CourtController extends Controller
      *          description="Court acronym",
      *          required=true,
      *          in="path",
+     *          example="CASS",
      *          @OA\Schema(
      *              type="string"
      *          )

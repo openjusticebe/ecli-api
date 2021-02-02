@@ -50,7 +50,54 @@
                         "required": true,
                         "schema": {
                             "type": "string"
-                        }
+                        },
+                        "example": "CASS"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/ECLI/BE/{court_acronym}/{year}/{type_identifier}": {
+            "get": {
+                "tags": [
+                    "ECLI"
+                ],
+                "summary": "Get document info",
+                "operationId": "App\\Http\\Controllers\\Api\\DocumentController::show",
+                "parameters": [
+                    {
+                        "name": "court_acronym",
+                        "in": "path",
+                        "description": "Court acronym",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "CASS"
+                    },
+                    {
+                        "name": "year",
+                        "in": "path",
+                        "description": "Year",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "2021"
+                    },
+                    {
+                        "name": "type_identifier",
+                        "in": "path",
+                        "description": "Type identifier",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "ARR.20210119.2N.5"
                     }
                 ],
                 "responses": {
@@ -130,11 +177,11 @@
         "/utus": {
             "get": {
                 "tags": [
-                    "utu"
+                    "utus"
                 ],
                 "summary": "Get list of Utus",
                 "description": "Get list of Utus",
-                "operationId": "utus",
+                "operationId": "App\\Http\\Controllers\\Api\\UtuController::index",
                 "responses": {
                     "200": {
                         "description": "Success"
@@ -151,28 +198,28 @@
                         "type": "array",
                         "items": {
                             "type": "string",
-                            "example": "french"
-                        }
-                    },
-                    "year[]": {
-                        "type": "array",
-                        "items": {
-                            "type": "string",
-                            "example": "2001"
+                            "example": "undefined"
                         }
                     },
                     "type[]": {
                         "type": "array",
                         "items": {
                             "type": "string",
-                            "example": "AVIS"
+                            "example": "ARR"
+                        }
+                    },
+                    "year[]": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "example": "2019"
                         }
                     }
                 },
                 "type": "object"
             },
             "DocumentMinimalResource": {
-                "title": "filterDocs",
+                "title": "DocMinimal",
                 "description": "Document minumal resource",
                 "properties": {
                     "identifier": {

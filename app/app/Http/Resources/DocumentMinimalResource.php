@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 /**
  * @OA\Schema(
- *     title="filterDocs",
+ *     title="DocMinimal",
  *     description="Document minumal resource",
  * @OA\Property(
  *     title="identifier",

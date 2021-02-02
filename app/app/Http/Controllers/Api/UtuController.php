@@ -14,8 +14,7 @@ class UtuController extends Controller
     * path="/utus",
     * summary="Get list of Utus",
     * description="Get list of Utus",
-    * operationId="utus",
-    * tags={"utu"},
+    * tags={"utus"},
     * @OA\Response(
      *    response=200,
      *    description="Success",

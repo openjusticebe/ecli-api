@@ -7,10 +7,53 @@ use App\Http\Resources\DocumentResource;
 use App\Http\Resources\DocumentMinimalResource;
 use App\Models\Court;
 use App\Models\Document;
-use App\Http\Controllers\Requests\FilterDocsRequest;
+use Illuminate\Http\Request;
 
 class DocumentController extends Controller
 {
+
+    /**
+    * @OA\Get(
+    * path="/ECLI/BE/{court_acronym}/{year}/{type_identifier}",
+    * summary="Get document info",
+    * tags={"ECLI"},
+    * @OA\Parameter(
+    *          name="court_acronym",
+    *          description="Court acronym",
+    *          required=true,
+    *          in="path",
+    *          example="CASS",
+    *          @OA\Schema(
+    *              type="string"
+    *          ),
+    *      ),
+        * @OA\Parameter(
+    *          name="year",
+    *          description="Year",
+    *          required=true,
+    *          in="path",
+    *          example="2021",
+    *          @OA\Schema(
+    *              type="string"
+    *          ),
+    *      ),
+        * @OA\Parameter(
+    *          name="type_identifier",
+    *          description="Type identifier",
+    *          required=true,
+    *          in="path",
+    *          example="ARR.20210119.2N.5",
+    *          @OA\Schema(
+    *              type="string"
+    *          ),
+    *      ),
+    * @OA\Response(
+     *    response=200,
+     *    description="Success",
+     * )
+    * )
+    */
+
     public function show($court_acronym, $year, $type_identifier)
     {
         $court = Court::whereAcronym($court_acronym)->firstOrFail();
@@ -36,32 +79,63 @@ class DocumentController extends Controller
     * summary="Filter documents of a court",
     * description="Filter documents of a court",
     * @OA\Parameter(
-     *          name="court_acronym",
-     *          description="Court acronym",
-     *          required=true,
-     *          in="path",
-     *          example="RSCE",
-     *          @OA\Schema(
-     *              type="string"
-     *          ),
-     *      ),
-     *       @OA\RequestBody(
-     *          required=true,
-     *       @OA\MediaType(
-     *          mediaType="multipart/form-data",
-     *          @OA\Schema(ref="#/components/schemas/filterDocs")
-     *        )
-     *      ),
+    *          name="court_acronym",
+    *          description="Court acronym",
+    *          required=true,
+    *          in="path",
+    *          example="RSCE",
+    *          @OA\Schema(
+    *              type="string"
+    *          ),
+    *      ),
+    *       @OA\RequestBody(
+    *          required=true,
+    *       @OA\MediaType(
+    *          mediaType="multipart/form-data",
+    *          @OA\Schema(ref="#/components/schemas/filterDocs")
+    *        )
+    *      ),
     * @OA\Response(
     *    response=200,
     *    description="Success",
-    * )
-    * )
+    *   )
+    *  )
     * )
     */
     
-    public function docsFilter($court_acronym, FilterDocsRequest $request)
+    
+    public function docsFilter($court_acronym, Request $request)
     {
+        /**
+        *    @OA\Schema(
+        *    schema="filterDocs",
+        *
+        *    @OA\Property(
+        *       property="lang[]",
+        *       type="array",
+        *       @OA\Items(type="string", example="undefined")
+        *       ),
+        *   @OA\Property(
+        *       property="type[]",
+        *       type="array",
+        *       @OA\Items(type="string", example="ARR")
+        *      ),
+        *   @OA\Property(
+        *       property="year[]",
+        *       type="array",
+        *       @OA\Items(type="string", example="2019")
+        *       ),
+        *      )
+        *    )
+        *
+        */
+
+        $this->validate($request, [
+                'type' => 'required|array',
+                'year' => 'required|array',
+                'lang' => 'required|array',
+        ]);
+        
         $court = Court::whereAcronym($court_acronym)->firstOrFail();
 
         $documents = Document::whereCourtId($court->id)
@@ -73,7 +147,7 @@ class DocumentController extends Controller
         return DocumentMinimalResource::collection($documents);
     }
 
-    public function docsRecent($court_acronym, $limit == 20)
+    public function docsRecent($court_acronym, $limit = 20)
     {
         $court = Court::whereAcronym($court_acronym)->firstOrFail();
 

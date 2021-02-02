@@ -134,15 +134,19 @@ class getECLIsfromJuportal extends Command
             $document = Document::updateOrCreate(
                 $result
             );
+
+            $operation = "  Found > ";
             
             if (!$document->wasRecentlyCreated && $document->wasChanged()) {
                 $updated++;
+                $operation = "Updated > " ;
             }
                
             if ($document->wasRecentlyCreated) {
                 $created++;
+                $operation = "Created > " ;
             }
-            $this->line('<fg=blue>' .$document->ecli. '</>');
+            $this->line($operation . '<fg=blue>' .$document->ecli. '</>');
         }
         $this->info("Gathered " . $eclis->count() . " ECLI(s): " . $updated . " updated and " . $created . " created.");
     }
