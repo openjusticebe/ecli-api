@@ -34,6 +34,18 @@ class UtuController extends Controller
         return UtuResource::collection($utus);
     }
     
+    /**
+    * @OA\Get(
+    * path="/flatutus",
+    * summary="Get list of Utus flatten",
+    * description="Get list of Utus flatten",
+    * tags={"utus"},
+    * @OA\Response(
+     *    response=200,
+     *    description="Success",
+     * )
+    * )
+    */
     public function flatIndex()
     {
         return Cache::rememberForever('flatutus', function () {

@@ -188,6 +188,21 @@
                     }
                 }
             }
+        },
+        "/flatutus": {
+            "get": {
+                "tags": [
+                    "utus"
+                ],
+                "summary": "Get list of Utus flatten",
+                "description": "Get list of Utus flatten",
+                "operationId": "App\\Http\\Controllers\\Api\\UtuController::flatIndex",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
         }
     },
     "components": {
