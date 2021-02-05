@@ -19,7 +19,7 @@ class Documents extends Migration
             $table->string('type');
             $table->string('lang')->nullable();
             $table->integer('year');
-            $table->text('text')->nullable();
+            $table->mediumText('text')->nullable();
             $table->json('meta')->nullable();
             $table->string('src');
             $table->integer('court_id');

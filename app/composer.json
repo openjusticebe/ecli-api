@@ -10,6 +10,7 @@
     "type": "project",
     "require": {
         "php": "^7.3|^8.0",
+        "basemkhirat/elasticsearch": "^1.4",
         "fabpot/goutte": "^4.0",
         "illuminate/redis": "^8.16",
         "laravel/lumen-framework": "^8.0",

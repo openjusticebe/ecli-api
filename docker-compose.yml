@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   nginx:
     image: nginx:1.17.9
@@ -13,11 +13,12 @@ services:
       - php
     networks:
       - app-network
-  # elasticsearch:
-  #   image: elasticsearch:6.5.4
-  #   container_name: elasticsearch
-  #   networks:
-  #     - app-network
+
+  elasticsearch:
+    image: elasticsearch:6.5.4
+    container_name: elasticsearch
+    networks:
+      - app-network
   php:
     build:
       context: .
@@ -45,7 +46,7 @@ services:
       - mysqldata:/var/lib/mysql
     networks:
       - app-network
- 
+
   redis:
     image: redis:4.0-alpine
     # command: redis-server --requirepass ${REDIS_PASSWORD} --appendonly yes
@@ -62,10 +63,7 @@ volumes:
     driver: local
   mysqldata:
     driver: local
- 
+
 networks:
   app-network:
     driver: bridge
-
-
-   

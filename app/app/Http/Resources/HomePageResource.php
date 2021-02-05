@@ -15,7 +15,7 @@ class HomePageResource extends BaseResource
             'title' => null,
             'recent_documents' => [
                 'title' => 'Recent documents',
-                'documents' => DocumentMinimalResource::collection(Document::orderBy('updated_at')->limit(10)->get()),
+                'documents' => DocumentMinimalResource::collection(Document::orderBy('created_at', 'desc')->limit(10)->get()),
             ],
             'court_categories' => [
                 'title' => 'Browse categories and courts',
