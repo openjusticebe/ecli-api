@@ -61,6 +61,11 @@ $app->singleton(
 
 $app->configure('app');
 
+$app->configure("es");
+
+$app->configure("scout");
+
+
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
@@ -99,8 +104,6 @@ $app->register(Illuminate\Redis\RedisServiceProvider::class);
 $app->register(Basemkhirat\Elasticsearch\ElasticsearchServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
-
-$app->configure("es");
 
    
 /*

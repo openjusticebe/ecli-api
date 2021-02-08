@@ -12,7 +12,7 @@ class HomePageResource extends BaseResource
     {
         return [
 
-            'title' => null,
+            'title' => "A free open source solution developed by OpenJustice.be to browse Belgian case law.",
             'recent_documents' => [
                 'title' => 'Recent documents',
                 'documents' => DocumentMinimalResource::collection(Document::orderBy('created_at', 'desc')->limit(10)->get()),
