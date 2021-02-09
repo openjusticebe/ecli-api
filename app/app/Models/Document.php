@@ -9,6 +9,7 @@ use Cache;
 
 class Document extends Model
 {
+
     /**
      * The attributes that are mass assignable.
      *

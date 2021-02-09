@@ -14,9 +14,9 @@ services:
     networks:
       - app-network
 
-  elasticsearch:
+  es:
     image: elasticsearch:6.5.4
-    container_name: elasticsearch
+    # container_name: elasticsearch
     networks:
       - app-network
   php:
