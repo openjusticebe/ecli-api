@@ -61,7 +61,7 @@ $app->singleton(
 
 $app->configure('app');
 
-$app->configure("es");
+$app->configure('elasticsearch');
 
 $app->configure("scout");
 
@@ -101,7 +101,7 @@ $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(Illuminate\Redis\RedisServiceProvider::class);
 
-$app->register(Basemkhirat\Elasticsearch\ElasticsearchServiceProvider::class);
+$app->register(Cviebrock\LaravelElasticsearch\ServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
 
