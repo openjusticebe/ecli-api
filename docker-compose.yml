@@ -15,10 +15,12 @@ services:
       - app-network
 
   es:
-    image: elasticsearch:6.5.4
+    image: elasticsearch:6.8.13
     # container_name: elasticsearch
     networks:
       - app-network
+    ports:
+      - 9200:9200
   php:
     build:
       context: .

@@ -165,4 +165,15 @@ class Document extends Model
 
         }
     }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        self::creating(function ($document) {
+        });
+
+        self::updating(function ($document) {
+        });
+    }
 }
