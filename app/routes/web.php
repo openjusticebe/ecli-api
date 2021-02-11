@@ -29,6 +29,12 @@ $router->group(['prefix'=>'api/v1/'], function () use ($router) {
         'uses' => 'Api\ApiController@index',
     ]);
 
+    $router->get('/search/{needle}', [
+        'as' => 'search',
+        'uses' => 'Api\SearchController@search',
+    ]);
+
+    
     $router->get('/statistics', 'Api\StatsController@index');
     
     $router->get('/utus', 'Api\UtuController@index');

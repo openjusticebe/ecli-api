@@ -159,6 +159,33 @@
                 }
             }
         },
+        "/search/{needle}": {
+            "get": {
+                "tags": [
+                    "search"
+                ],
+                "summary": "Search method",
+                "description": "Search method",
+                "operationId": "App\\Http\\Controllers\\Api\\SearchController::search",
+                "parameters": [
+                    {
+                        "name": "needle",
+                        "in": "path",
+                        "description": "needle",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "OR"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
         "/statistics": {
             "get": {
                 "tags": [

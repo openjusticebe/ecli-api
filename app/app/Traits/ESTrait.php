@@ -22,9 +22,11 @@ trait ESTrait
         return $client->index($params);
     }
 
-    protected function searchDocument()
+    protected function searchDocument($params)
     {
         $client = $this->setupClient();
+
+        return $client->search($params);
     }
 
     protected function deleteDocument()
