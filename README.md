@@ -4,9 +4,11 @@ ECLI API a web application used for processing legal text and providing a REST-A
 # Documentations of the API
 - [OpenAPI Documentation](https://api-ecli.openjustice.lltl.be/api-docs.html)
 
-# Develop 
+# Launch dev environment
 - Clone the repo ;
 - `cd app`
+- `cp .env.example .env`
+- edit .env to match your configuration
 - `docker-compose up -d`
 - `docker-compose exec php php artisan migrate:fresh --seed`
 
