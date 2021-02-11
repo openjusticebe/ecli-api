@@ -3,7 +3,7 @@ services:
   nginx:
     image: nginx:1.17.9
     restart: on-failure:3
-    ports:
+    ports: #change if prod
       - 8000:80
       - 8443:443
     volumes:
@@ -16,10 +16,9 @@ services:
 
   es:
     image: elasticsearch:6.8.13
-    # container_name: elasticsearch
     networks:
       - app-network
-    ports:
+    ports: #remove if prod
       - 9200:9200
   php:
     build:
@@ -28,8 +27,6 @@ services:
     restart: on-failure:3
     volumes:
       - ./app:/var/www:delegated
-    # ports:
-    #   - 9000:9000
     networks:
       - app-network
 
@@ -37,8 +34,6 @@ services:
     image: mysql:8
     restart: on-failure:3
     tty: true
-    ports:
-      - "3306:3306"
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_USER: ${DB_USERNAME}
@@ -46,6 +41,14 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     volumes:
       - mysqldata:/var/lib/mysql
+    networks:
+      - app-network
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8080
     networks:
       - app-network
 

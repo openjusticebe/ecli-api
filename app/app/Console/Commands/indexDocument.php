@@ -10,9 +10,12 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 use Elasticsearch\ClientBuilder;
 use Carbon\Carbon;
 use App\Http\Resources\DocumentResource;
+use App\Traits\ESTrait;
 
 class indexDocument extends Command
 {
+    use ESTrait;
+
     protected $signature = 'bots:indexDocument';
 
     /**
@@ -20,7 +23,7 @@ class indexDocument extends Command
     *
     * @var string
     */
-    protected $description = 'This command will index Model::Document into ES';
+    protected $description = 'This command will index Model::Document into ES is $document->text IS NOT null';
 
     /**
     * Create a new command instance.
@@ -39,7 +42,9 @@ class indexDocument extends Command
     */
     public function handle()
     {
-        $docs = Document::whereNotNull('text')->where('text', '!=', '')->get();
+        $docs = Document::whereNotNull('text')->get();
+
+        $this->info($docs->count());
 
         foreach ($docs as $document) {
             $this->putDocumentInES($document);
@@ -48,9 +53,7 @@ class indexDocument extends Command
 
     private function putDocumentInEs($document)
     {
-        $hosts = ['http://' . env('ELASTIC_HOST', 'localhost') . ':9200'];
-
-        $data = [
+        $params = [
             'body' => [
                 'identifier' => $document->identifier,
                 'type' => $document->type,
@@ -68,22 +71,9 @@ class indexDocument extends Command
                 'type' => 'documents',
                 'id' => $document->id,
             ];
-    
-        $clientBuilder = ClientBuilder::create();   // Instantiate a new ClientBuilder
-        $clientBuilder->setHosts($hosts);           // Set the hosts
-        $client = $clientBuilder->build();
-
-        $return = $client->index($data);
+         
+        $return = $this->indexDocument($params);  // method from ESTrait
         
         $this->line($return['result'] . ' <fg=blue>' .$document->ecli. '</>');
-
-        // $params = [
-        //     'index' => 'my_index',
-        //     'type' => 'my_type',
-        //     'id' => 'my_id'
-        // ];
-        
-        // $response = $client->get($params);
-        // dd($response);
     }
 }
