@@ -9,6 +9,7 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Elasticsearch\ClientBuilder;
 use Carbon\Carbon;
+use App\Http\Resources\DocumentResource;
 
 class indexDocument extends Command
 {
@@ -19,7 +20,7 @@ class indexDocument extends Command
     *
     * @var string
     */
-    protected $description = 'This command will index document';
+    protected $description = 'This command will index Model::Document into ES';
 
     /**
     * Create a new command instance.
@@ -38,32 +39,51 @@ class indexDocument extends Command
     */
     public function handle()
     {
+        $docs = Document::whereNotNull('text')->where('text', '!=', '')->get();
+
+        foreach ($docs as $document) {
+            $this->putDocumentInES($document);
+        }
+    }
+
+    private function putDocumentInEs($document)
+    {
+        $hosts = ['http://' . env('ELASTIC_HOST', 'localhost') . ':9200'];
+
         $data = [
             'body' => [
-                'testField' => 'abddc'
+                'identifier' => $document->identifier,
+                'type' => $document->type,
+                'type_identifier' => $document->type_identifier,
+                'year' => (int)$document->year,
+                'lang' => $document->lang,
+                'ecli' => $document->ecli,
+                'src' => $document->src,
+                'meta' => null,
+                'text' => $document->markdown,
+                'ref' => $document->ref,
+                'link' => $document->link,
             ],
-                'index' => 'my_index',
-                'type' => 'my_type',
-                'id' => 'my_id',
+                'index' => 'ecli',
+                'type' => 'documents',
+                'id' => $document->id,
             ];
     
-        $hosts = ['http://es:9200'];
-
         $clientBuilder = ClientBuilder::create();   // Instantiate a new ClientBuilder
         $clientBuilder->setHosts($hosts);           // Set the hosts
-        $client = $clientBuilder->build();          // Set the hosts
+        $client = $clientBuilder->build();
 
         $return = $client->index($data);
         
-        // $this->info(dd($return));
+        $this->line($return['result'] . ' <fg=blue>' .$document->ecli. '</>');
+
+        // $params = [
+        //     'index' => 'my_index',
+        //     'type' => 'my_type',
+        //     'id' => 'my_id'
+        // ];
         
-        $params = [
-            'index' => 'my_index',
-            'type' => 'my_type',
-            'id' => 'my_id'
-        ];
-        
-        $response = $client->get($params);
-        dd($response);
+        // $response = $client->get($params);
+        // dd($response);
     }
 }
