@@ -24,6 +24,8 @@ class Documents extends Migration
             $table->string('src');
             $table->integer('court_id');
             $table->timestamps();
+            $table->dateTime('grabbed_at');
+            $table->dateTime('processed_at');
             $table->index('type');
             $table->index('court_id');
             $table->index('year');
