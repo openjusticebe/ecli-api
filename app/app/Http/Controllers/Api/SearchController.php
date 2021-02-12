@@ -40,10 +40,17 @@ class SearchController extends Controller
                 'query' => [
                     'match' => [
                         'text' => "$needle"  // "B. LETERME en mr. W. DERVEAUX"
-
+                        ]
+                    ],
+                    'highlight' => [
+                        'pre_tags' => "<span class='highlightText'>",
+                        'post_tags' => "</span>",
+                        'fields'    => [
+                            "text" => new \stdClass() //title" => []   //NO.
+                        ],
+                        'require_field_match' => false
                     ]
-                ]
-            ]
+                ],
         ];
 
       
