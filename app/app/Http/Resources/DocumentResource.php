@@ -22,7 +22,7 @@ class DocumentResource extends BaseResource
             'ref' => $this->ref,
             'link' => $this->link,
             'updated_at' => $this->updated_at,
-            'updated_at_diff'  => (string)$this->updated_at->diffForHumans(['parts' => 1])
+            'updated_at_diff'  => (string)$this->updated_at->diffForHumans(['parts' => 1]),
             'created_at' => $this->created_at,
             'created_at_diff'  => (string)$this->created_at->diffForHumans(['parts' => 1]),
         ];
