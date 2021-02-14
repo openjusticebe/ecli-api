@@ -53,26 +53,7 @@ class indexDocument extends Command
 
     private function putDocumentInEs($document)
     {
-        $params = [
-            'body' => [
-                'identifier' => $document->identifier,
-                'type' => $document->type,
-                'type_identifier' => $document->type_identifier,
-                'year' => (int)$document->year,
-                'lang' => $document->lang,
-                'ecli' => $document->ecli,
-                'src' => $document->src,
-                'meta' => null,
-                'text' => $document->markdown,
-                'ref' => $document->ref,
-                'link' => $document->link,
-            ],
-                'index' => 'ecli',
-                'type' => 'documents',
-                'id' => $document->id,
-            ];
-         
-        $return = $this->indexDocument($params);  // method from ESTrait
+        $return = $this->indexDocument($document->params);  // method from ESTrait
         
         $this->line($return['result'] . ' <fg=blue>' .$document->ecli. '</>');
     }
