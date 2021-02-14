@@ -53,7 +53,7 @@ class indexDocument extends Command
 
     private function putDocumentInEs($document)
     {
-        $return = $this->indexDocument($document->params);  // method from ESTrait
+        $return = $this->indexDocument($document);  // method from ESTrait
         
         $this->line($return['result'] . ' <fg=blue>' .$document->ecli. '</>');
     }

@@ -16,9 +16,11 @@ trait ESTrait
         return $clientBuilder->build();
     }
 
-    protected function indexDocument($params)
+    protected function indexDocument($document)
     {
         $client = $this->setupClient();
+        $params = $this->getParams($document);
+
         return $client->index($params);
     }
 
@@ -32,5 +34,30 @@ trait ESTrait
     protected function deleteDocument()
     {
         $client = $this->setupClient();
+    }
+
+
+    protected function getParams($document)
+    {
+        $params = [
+            'body' => [
+                'identifier' => $document->identifier,
+                'type' => $document->type,
+                'type_identifier' => $document->type_identifier,
+                'year' => (int)$document->year,
+                'lang' => $document->lang,
+                'ecli' => $document->ecli,
+                'src' => $document->src,
+                'meta' => null,
+                'text' => $document->text,
+                'ref' => $document->ref,
+                'link' => $document->link,
+            ],
+                'index' => 'ecli',
+                'type' => 'documents',
+                'id' => $document->id,
+            ];
+
+        return $params;
     }
 }

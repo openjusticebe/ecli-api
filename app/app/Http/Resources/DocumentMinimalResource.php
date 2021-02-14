@@ -55,6 +55,7 @@ class DocumentMinimalResource extends BaseResource
             'ecli' => $this->ecli,
             'src' => $this->src,
             'self_link' => $this->self_link,
+            'params' => $this->params,
             'ref' => $this->ref,
             'link' => $this->link,
             'updated_at_diff' => (string)$this->updated_at->diffForHumans(['parts' => 1]),

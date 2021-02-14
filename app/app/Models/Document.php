@@ -167,38 +167,18 @@ class Document extends Model
         }
     }
 
-    public function getParamsAttribute()
-    {
-        return [
-            'body' => [
-                'identifier' => $this->identifier,
-                'type' => $this->type,
-                'type_identifier' => $this->type_identifier,
-                'year' => (int)$this->year,
-                'lang' => $this->lang,
-                'ecli' => $this->ecli,
-                'src' => $this->src,
-                'meta' => null,
-                'text' => $this->markdown,
-                'ref' => $this->ref,
-                'link' => $this->link,
-            ],
-                'index' => 'ecli',
-                'type' => 'documents',
-                'id' => $this->id,
-            ];
-    }
+   
 
     public static function boot()
     {
         parent::boot();
 
         self::creating(function ($document) {
-            $return = $this->indexDocument($this->params);  // method from ESTrait
+            $document->indexDocument($document);  // method from ESTrait
         });
 
         self::updating(function ($document) {
-            $return = $this->indexDocument($this->params);  // method from ESTrait
+            $document->indexDocument($document);  // method from ESTrait
         });
     }
 }
