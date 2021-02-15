@@ -37,7 +37,11 @@ class getContentfromJuportal extends Command
     */
     public function handle()
     {
-        $documents = Document::whereSrc('IUBEL')->whereNull('text')->inRandomOrder()->take($this->argument('number_of_documents'))->get();
+        $documents = Document::whereSrc('IUBEL')
+        ->whereNull('text')
+        ->inRandomOrder()
+        ->take($this->argument('number_of_documents'))
+        ->get();
         
         foreach ($documents as $doc) {
             $doc->markdown;
