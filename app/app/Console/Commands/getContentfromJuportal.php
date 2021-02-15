@@ -41,7 +41,8 @@ class getContentfromJuportal extends Command
         
         foreach ($documents as $doc) {
             $doc->markdown;
-            $this->line($doc->ecli . '<fg=blue> text len:' . strlen($doc->text). '</>');
+            $this->line($doc->ecli . '<fg=blue> text len:' . strlen($doc->text). '</><fg=red> meta len:' . strlen($doc->meta). '</>');
+            sleep(rand(0, 2));
         }
     }
 }
