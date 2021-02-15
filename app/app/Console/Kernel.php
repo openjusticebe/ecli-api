@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
         'App\Console\Commands\SwaggerScan',
         'App\Console\Commands\getECLIsfromJuportal',
         'App\Console\Commands\indexDocument',
-        // 'App\Console\Commands\getContentfromJuportal',
+        'App\Console\Commands\getContentfromJuportal',
     ];
 
     /**
