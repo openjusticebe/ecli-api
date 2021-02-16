@@ -18,7 +18,7 @@ class getContentfromJuportal extends Command
     *
     * @var string
     */
-    protected $description = 'This command load document->text.';
+    protected $description = 'This command load and save document->text.';
 
     /**
     * Create a new command instance.
@@ -39,6 +39,7 @@ class getContentfromJuportal extends Command
     {
         $documents = Document::whereSrc('IUBEL')
         ->whereNull('text')
+        ->whereNull('meta')
         ->inRandomOrder()
         ->take($this->argument('number_of_documents'))
         ->get();
