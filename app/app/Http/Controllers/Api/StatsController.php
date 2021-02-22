@@ -44,10 +44,23 @@ class StatsController extends Controller
         $array = [];
         foreach ($years as $year) {
             foreach ($courts as $court) {
-                $array[$court->acronym][$year] = Document::where('year', $year)->where('court_id', $court->id)->count();
+                $array[$court->acronym][$year] = Document::where('year', $year)
+                ->where('court_id', $court->id)
+                ->count();
             }
         }
 
         return json_encode($array);
+    }
+
+    public function documentsStats()
+    {
+        $full_texts_count = Document::whereNotNull('meta')->whereNotNull('text')->count();
+        $ecli_count = Document::count();
+
+        return [
+            'full_texts_count' => $full_texts_count,
+            'ecli_count' => $ecli_count,
+        ];
     }
 }

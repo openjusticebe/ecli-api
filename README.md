@@ -10,7 +10,8 @@ ECLI API a web application used for processing legal text and providing a REST-A
 - `cp .env.example .env`
 - edit .env to match your configuration
 - `docker-compose up -d`
-- `docker-compose exec php php artisan migrate:fresh --seed`
+- `docker-compose exec php php artisan migrate`
+- Import `db` from a dump
 
 # License
 - Licensed with GPLv3.
