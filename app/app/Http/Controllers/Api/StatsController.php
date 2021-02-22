@@ -25,9 +25,18 @@ class StatsController extends Controller
      */
     public function index()
     {
-        return Cache::rememberForever('stats', function () {
+        $docs_per_court_per_year = Cache::rememberForever('stats', function () {
             return $this->docPerYear();
         });
+
+        $full_texts_count = Document::whereNotNull('meta')->whereNotNull('text')->count();
+        $ecli_count = Document::count();
+
+        return [
+            'full_texts_count' => $full_texts_count,
+            'ecli_count' => $ecli_count,
+            'docs_per_court_per_year' => json_decode($docs_per_court_per_year),
+        ];
     }
 
     /**
@@ -51,16 +60,5 @@ class StatsController extends Controller
         }
 
         return json_encode($array);
-    }
-
-    public function documentsStats()
-    {
-        $full_texts_count = Document::whereNotNull('meta')->whereNotNull('text')->count();
-        $ecli_count = Document::count();
-
-        return [
-            'full_texts_count' => $full_texts_count,
-            'ecli_count' => $ecli_count,
-        ];
     }
 }
