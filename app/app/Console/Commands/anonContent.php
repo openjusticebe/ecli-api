@@ -7,6 +7,7 @@ use App\Models\Document;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Http;
 
 class anonContent extends Command
 {
@@ -29,7 +30,43 @@ class anonContent extends Command
     {
         parent::__construct();
     }
+
+    public function handle()
+    {
+        $documents = Document::whereSrc('IUBEL')
+        ->where('text', '!=', '')
+        ->WhereNotNull('text')
+        ->inRandomOrder()
+        ->take($this->argument('number_of_documents'))
+        ->get();
+        
+        foreach ($documents as $doc) {
+            $this->anon($doc);
+        }
+    }
+    
+    private function anon($doc)
+    {
+        $json_request = [
+                "_v" => 1,
+                "_timestamp" => Carbon::now()->timestamp,
+                "algo_list" => [
+                  [
+                    "id" => "anon_trazor",
+                    "params" => "{}"
+                  ]
+                ],
+                "format" => "text",
+                "encoding" => "utf8",
+                "text" => $doc->text
+            ];
+    
+        $response = Http::post('https://upl.test.openjustice.lltl.be/run', $json_request);
+        return $this->info(json_decode($response)->text);
+    }
 }
+
+
 
 // curl -X POST "https://upl.test.openjustice.lltl.be/run" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"_v\":1,\"_timestamp\":1239120938,\"algo_list\":[{\"id\":\"anon_trazor\",\"params\":\"{}\"}],\"format\":\"text\",\"encoding\":\"utf8\",\"text\":\"Robert serait le fils d'Erlebert et le neveu de Robert, référendaire de Dagobert Ier.\"}"
 // response example

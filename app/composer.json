@@ -12,6 +12,7 @@
         "php": "^7.3|^8.0",
         "elasticsearch/elasticsearch": "^6.0",
         "fabpot/goutte": "^4.0",
+        "guzzlehttp/guzzle": "^7.2",
         "illuminate/redis": "^8.16",
         "laravel/lumen-framework": "^8.0",
         "league/html-to-markdown": "^4.10",
