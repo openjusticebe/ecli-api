@@ -33,8 +33,7 @@ class checkLanguage extends Command
 
     public function handle()
     {
-        $documents = Document::whereSrc('IUBEL')
-        ->whereRaw('LENGTH(text) > 100')
+        $documents = Document::whereRaw('LENGTH(text) > 100')
         ->whereLang('undefined')
         ->inRandomOrder()
         ->take($this->argument('number_of_documents'))
