@@ -53,7 +53,7 @@ class anonContent extends Command
                 "algo_list" => [
                   [
                     "id" => "anon_trazor",
-                    "params" => "{}"
+                    "params" => "{\"method\":\"brackets\"}"
                   ]
                 ],
                 "format" => "text",

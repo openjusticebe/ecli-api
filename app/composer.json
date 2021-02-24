@@ -16,6 +16,7 @@
         "illuminate/redis": "^8.16",
         "laravel/lumen-framework": "^8.0",
         "league/html-to-markdown": "^4.10",
+        "patrickschur/language-detection": "^5.0",
         "predis/predis": "^1.1",
         "zircote/swagger-php": "^3.1"
     },
