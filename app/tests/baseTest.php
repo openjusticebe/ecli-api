@@ -8,14 +8,14 @@ class baseTest extends TestCase
     /** @test */
     public function redirectionTest()
     {
-        $this->get('/');
-        $this->seeStatusCode(302);
+        $response = $this->call('GET', '/');
+        $this->assertEquals(302, $response->status());
     }
 
     /** @test */
     public function baseApiTest()
     {
-        $this->get('/api/v1/ECLI/BE/');
-        $this->seeStatusCode(200);
+        $response = $this->call('GET', '/api/v1/ECLI/BE');
+        $this->assertEquals(200, $response->status());
     }
 }

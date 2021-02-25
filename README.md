@@ -13,6 +13,11 @@ ECLI API a web application used for processing legal text and providing a REST-A
 - `docker-compose exec php php artisan migrate`
 - Import `db` from a dump
 
+# Tests
+Tests are written within `./app/tests/` directory. 
+
+- `docker-compose exec php ./vendor/bin/phpunit`
+
 # License
 - Licensed with GPLv3.
 
