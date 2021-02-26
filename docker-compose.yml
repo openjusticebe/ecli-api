@@ -39,6 +39,7 @@ services:
       MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_SORT_BUFFER_SIZE: 256k
     volumes:
       - mysqldata:/var/lib/mysql
     networks:
