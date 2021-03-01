@@ -9,13 +9,15 @@ class baseTest extends TestCase
     public function redirectionTest()
     {
         $response = $this->call('GET', '/');
-        $this->assertEquals(302, $response->status());
+        $response->assertStatus(302);
     }
 
     /** @test */
     public function baseApiTest()
     {
         $response = $this->call('GET', '/api/v1/ECLI/BE');
-        $this->assertEquals(200, $response->status());
+        $response->assertStatus(200);
+        $response->assertSee('OpenJustice.be');
+        $response->assertSee('v1');
     }
 }

@@ -13,7 +13,8 @@ class randomECLITest extends TestCase
         $documents = Document::inRandomOrder()->take(10)->get();
         foreach ($documents as $doc) {
             $response = $this->call('GET', '/api/v1/ECLI' . $doc->ref);
-            $this->assertEquals(200, $response->status());
+            $response->assertStatus(200);
+            $response->assertSee($doc->ecli);
         }
     }
 }
