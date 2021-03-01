@@ -14,12 +14,12 @@ RUN docker-php-ext-install pdo pdo_mysql
 
 RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS}
 RUN pecl install redis \
-&& docker-php-ext-enable redis
+    && docker-php-ext-enable redis
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
-RUN echo 'memory_limit = 1024M' >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini;
+RUN echo 'memory_limit = 2048M' >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini;
 
 # RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 # RUN mv "$PHP_INI_DIR/php.ini-development " "$PHP_INI_DIR/php.ini"
