@@ -35,7 +35,7 @@ class anonContent extends Command
     {
         $documents = Document::whereSrc('IUBEL')
         ->where('text', '!=', '')
-        ->WhereNotNull('text')
+        ->whereNotNull('text')
         ->inRandomOrder()
         ->take($this->argument('number_of_documents'))
         ->get();
@@ -54,7 +54,11 @@ class anonContent extends Command
                   [
                     "id" => "anon_trazor",
                     "params" => "{\"method\":\"brackets\"}"
-                  ]
+                  ],
+                  [
+                    "id" => "anon_mask",
+                    "params" => "{}"
+                  ],
                 ],
                 "format" => "text",
                 "encoding" => "utf8",

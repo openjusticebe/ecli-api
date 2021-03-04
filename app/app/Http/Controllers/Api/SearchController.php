@@ -33,6 +33,7 @@ class SearchController extends Controller
      */
     public function search($needle)
     {
+        $needle = rawurldecode($needle);
         $params = [
             'index' => 'ecli',
             'type' => 'documents',
