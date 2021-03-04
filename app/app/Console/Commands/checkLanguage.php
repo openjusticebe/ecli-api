@@ -33,8 +33,7 @@ class checkLanguage extends Command
 
     public function handle()
     {
-        $documents = Document::whereRaw('LENGTH(text) > 100')
-        ->whereLang('undefined')
+        $documents = Document::whereLang('undefined')
         ->inRandomOrder()
         ->take($this->argument('number_of_documents'))
         ->get();
@@ -48,7 +47,9 @@ class checkLanguage extends Command
     {
         $ld = new Language(['de', 'fr', 'nl', 'en']);
         
-        $result = $ld->detect($doc->text)->bestResults()->close();
+        $content = $doc->text . ' ' . $doc->meta;
+
+        $result = $ld->detect($content)->bestResults()->close();
 
         if (current($result) > '0.5') {
             $this->updateLanguage($doc, key($result));
