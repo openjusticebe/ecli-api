@@ -7,10 +7,13 @@ use Goutte\Client;
 use League\HTMLToMarkdown\HtmlConverter;
 use Cache;
 use App\Traits\ESTrait;
+use App\Traits\AnonTrait;
 
 class Document extends Model
 {
     use ESTrait;
+    use AnonTrait;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -46,6 +49,14 @@ class Document extends Model
              ],
         );
     }
+
+    public function getTextAnonymizedAttribute()
+    {
+        return Cache::rememberForever('document_text_anonymized' . $this->id, function () {
+            return $this->anonText($this->text);
+        });
+    }
+
 
     public function getSelfLinkAttribute()
     {

@@ -34,12 +34,12 @@ services:
     image: mysql:8
     restart: on-failure:3
     tty: true
+    command: --sort_buffer_size=512K
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_SORT_BUFFER_SIZE: 256k
     volumes:
       - mysqldata:/var/lib/mysql
     networks:
