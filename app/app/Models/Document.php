@@ -53,7 +53,10 @@ class Document extends Model
     public function getTextAnonymizedAttribute()
     {
         return Cache::rememberForever('document_text_anonymized' . $this->id, function () {
-            return $this->anonText($this->text);
+            if (!empty($this->text)) {
+                return $this->anonText($this->text);
+            }
+            return null;
         });
     }
 
