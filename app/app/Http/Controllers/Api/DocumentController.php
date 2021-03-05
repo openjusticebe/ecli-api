@@ -152,7 +152,8 @@ class DocumentController extends Controller
         $court = Court::whereAcronym($court_acronym)->firstOrFail();
 
         $documents = Document::whereCourtId($court->id)
-        ->orderBy('created_at', 'desc')
+        ->orderBy('year', 'desc')
+        ->orderBy('identifier', 'desc')
         ->paginate($limit);
 
         return DocumentMinimalResource::collection($documents);
