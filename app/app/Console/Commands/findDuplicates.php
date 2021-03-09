@@ -37,6 +37,8 @@ class findDuplicates extends Command
         ->orderBy('identifier')
         ->get();
 
+        $this->info('Found ' . $duplicates->count() . ' duplicate(s) ECLIs');
+
         foreach ($duplicates as $duplicate) {
             $dontDeleteThis = Document::where('identifier', $duplicate->identifier)
             ->where('year', $duplicate->year)
@@ -51,7 +53,8 @@ class findDuplicates extends Command
             ->where('id', '!=', $dontDeleteThis->id)
             ->delete();
             
-            $this->line($duplicate->ecli . '<fg=blue> Occurences found of ECLI [' . $duplicate->occurences . ']</><fg=red> Deleted occurence [' . ($duplicate->occurences - 1) . ']</>');
+            $this->line('<fg=green>' . $duplicate->ecli . '</><fg=blue> Found [' . $duplicate->occurences . ']</><fg=red> Deleted [' . ($duplicate->occurences - 1) . ']</>');
         }
+        $this->info('Deleted ' . $duplicates->count() . ' ECLIs');
     }
 }
