@@ -46,9 +46,9 @@ class ImportDataFromOJ extends Seeder
                 foreach ($documents as $document) {
                     $ecli = "ECLI:" . $country . ':' . $court . ':' . $year . ':' . $document;
 
-                    $result = $this->explodeECLI($ecli, 'OJ');
+                    $result = $this->explodeECLI($ecli);
                         
-                    Document::firstOrCreate($result);
+                    Document::updateOrCreate($result, ['src' => 'OJ']);
                 }
             }
         }

@@ -129,10 +129,11 @@ class getECLIsfromJuportal extends Command
         $gathered = $eclis->count();
        
         foreach ($eclis as $ecli) {
-            $result = $this->explodeECLI($ecli, 'IUBEL');
+            $result = $this->explodeECLI($ecli);
                      
             $document = Document::updateOrCreate(
-                $result
+                $result,
+                ['src' => 'IUBEL']
             );
 
             $operation = "  Found > ";

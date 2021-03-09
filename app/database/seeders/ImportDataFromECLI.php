@@ -45,13 +45,13 @@ class ImportDataFromECLI extends Seeder
                 // ECLI:BE:AHANT:2004:ARR.20040625.15
 
                 // Loop and import into DB
-                foreach ($lines as $line) {
-                    if (isset($line)) {
+                foreach ($lines as $ecli) {
+                    if (isset($ecli)) {
                         $progress->advance();
                    
-                        $result = $this->explodeECLI($line, $key);
+                        $result = $this->explodeECLI($ecli);
                         
-                        Document::firstOrCreate($result);
+                        Document::updateOrCreate($result, ['src' => $key]);
                     }
                 }
                 $progress->finish();
