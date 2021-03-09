@@ -18,7 +18,9 @@ class Kernel extends ConsoleKernel
         'App\Console\Commands\indexDocument',
         'App\Console\Commands\getContentfromJuportal',
         'App\Console\Commands\anonContent',
-        'App\Console\Commands\checkLanguage'
+        'App\Console\Commands\checkLanguage',
+        'App\Console\Commands\findDuplicates'
+        
     ];
 
     /**
