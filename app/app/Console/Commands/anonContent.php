@@ -20,7 +20,7 @@ class anonContent extends Command
     *
     * @var string
     */
-    protected $description = 'This command ...';
+    protected $description = 'This command command will get a specific number of random documents and anon the content.';
 
     /**
     * Create a new command instance.

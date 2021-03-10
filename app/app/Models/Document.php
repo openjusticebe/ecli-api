@@ -8,11 +8,13 @@ use League\HTMLToMarkdown\HtmlConverter;
 use Cache;
 use App\Traits\ESTrait;
 use App\Traits\AnonTrait;
+use App\Traits\CheckLangTrait;
 
 class Document extends Model
 {
     use ESTrait;
     use AnonTrait;
+    use CheckLangTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -52,7 +54,9 @@ class Document extends Model
 
     public function getTextAnonymizedAttribute()
     {
-        return Cache::rememberForever('document_text_anonymized' . $this->id, function () {
+        $hash = md5($this->text);
+
+        return Cache::rememberForever('document_text_anonymized' . $hash, function () {
             if (!empty($this->text)) {
                 return $this->anonText($this->text);
             }
@@ -118,9 +122,24 @@ class Document extends Model
         
         $this->meta = json_encode($proprieties);
 
+        $this->checkLang($this);  // method from Trait
 
         $this->save();
     }
+
+    private function grabOJ()
+    {
+        $url = 'https://doc.openjustice.lltl.be/txt/' . $this->ecli;
+
+        $text = file_get_contents($url);
+
+        $this->text = $text;
+
+        $this->checkLang($this);  // method from Trait
+
+        $this->save();
+    }
+
 
     private function grabData()
     {
@@ -133,11 +152,13 @@ class Document extends Model
             case 'RSCE':
                 break;
             case 'OJ':
+                $this->grabOJ();
                 break;
             default:
                 return null;
+        }
     }
-    }
+
     public function getMetadataAttribute()
     {
         if (empty($this->meta)) {
@@ -182,7 +203,6 @@ class Document extends Model
     }
 
    
-
     public static function boot()
     {
         parent::boot();

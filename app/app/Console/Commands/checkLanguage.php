@@ -8,9 +8,13 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Carbon\Carbon;
 use LanguageDetection\Language;
+use App\Traits\checkLangTrait;
 
 class checkLanguage extends Command
 {
+    use checkLangTrait;
+
+
     protected $signature = 'bots:checkLanguage 
     {number_of_documents : Number of random document to load}';
 
@@ -19,7 +23,7 @@ class checkLanguage extends Command
     *
     * @var string
     */
-    protected $description = 'This command ...';
+    protected $description = 'This command command will get a specific number of documents update lang.';
 
     /**
     * Create a new command instance.
@@ -38,48 +42,8 @@ class checkLanguage extends Command
         ->take($this->argument('number_of_documents'))
         ->get();
 
-        foreach ($documents as $doc) {
-            $this->checkLang($doc);
+        foreach ($documents as $document) {
+            $this->checkLang($document);
         }
-    }
-    
-    private function checkLang($doc)
-    {
-        $ld = new Language(['de', 'fr', 'nl', 'en']);
-        
-        $content = $doc->text . ' ' . $doc->meta;
-
-        $result = $ld->detect($content)->bestResults()->close();
-
-        if (current($result) > '0.5') {
-            $this->updateLanguage($doc, key($result));
-        } else {
-            $this->info('Sorry, I am not sure!');
-        }
-    }
-
-    private function updateLanguage($doc, $lang)
-    {
-        switch ($lang) {
-            case 'fr':
-                $lang = 'french';
-                break;
-            case 'nl':
-                $lang = 'dutch';
-                break;
-            case 'en':
-                $lang = 'english';
-                break;
-            case 'de':
-                $lang = 'german';
-                break;
-            default:
-            $lang = 'undefined';
-            break;
-        }
-        $doc->lang = $lang;
-        $doc->save();
-
-        $this->info($doc->id . ' is now ' . $lang);
     }
 }
