@@ -8,13 +8,13 @@ use League\HTMLToMarkdown\HtmlConverter;
 use Cache;
 use App\Traits\ESTrait;
 use App\Traits\AnonTrait;
-use App\Traits\CheckLangTrait;
+use App\Traits\ChecklangTrait;
 
 class Document extends Model
 {
     use ESTrait;
     use AnonTrait;
-    use CheckLangTrait;
+    use ChecklangTrait;
 
     /**
      * The attributes that are mass assignable.

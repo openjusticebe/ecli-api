@@ -8,12 +8,11 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Carbon\Carbon;
 use LanguageDetection\Language;
-use App\Traits\CheckLangTrait;
+use App\Traits\ChecklangTrait;
 
 class checkLanguage extends Command
 {
-    use CheckLangTrait;
-
+    use ChecklangTrait;
 
     protected $signature = 'bots:checkLanguage 
     {number_of_documents : Number of random document to load}';
