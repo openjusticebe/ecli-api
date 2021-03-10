@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use App\Models\Document;
 use LanguageDetection\Language;
 
-trait checkLangTrait
+trait CheckLangTrait
 {
     protected function checkLang($doc)
     {

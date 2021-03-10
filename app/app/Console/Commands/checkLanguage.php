@@ -8,11 +8,11 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Carbon\Carbon;
 use LanguageDetection\Language;
-use App\Traits\checkLangTrait;
+use App\Traits\CheckLangTrait;
 
 class checkLanguage extends Command
 {
-    use checkLangTrait;
+    use CheckLangTrait;
 
 
     protected $signature = 'bots:checkLanguage 
