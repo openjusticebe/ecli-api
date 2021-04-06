@@ -54,14 +54,19 @@ class Document extends Model
 
     public function getTextAnonymizedAttribute()
     {
-        $hash = md5($this->text);
+        if (!empty($this->text)) {
 
-        return Cache::rememberForever('document_text_anonymized' . $hash, function () {
-            if (!empty($this->text)) {
+            $hash = md5($this->text);
+
+            return Cache::rememberForever('document_text_anonymized' . $hash, function () {
                 return $this->anonText($this->text);
+                }
+            );
+            } else {
+                return null;
+
             }
-            return null;
-        });
+  
     }
 
 

@@ -55,8 +55,8 @@ services:
       - app-network
 
   redis:
-    image: redis:4.0-alpine
-    # command: redis-server --requirepass ${REDIS_PASSWORD} --appendonly yes
+    image: redis:6.0-alpine
+    command: redis-server --requirepass ${REDIS_PASSWORD} --appendonly yes
     expose:
       - 6379
     volumes:

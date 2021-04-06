@@ -1,6 +1,6 @@
 {
     "php.validate.executablePath": "",
-    "php-cs-fixer.executablePath": "php-cs-fixer",
+    "php-cs-fixer.executablePath": "php-cs-fixer.phar",
     "php-cs-fixer.onsave": true,
     "php-cs-fixer.rules": "@PSR2",
     "php-cs-fixer.config": ".php_cs;.php_cs.dist",
