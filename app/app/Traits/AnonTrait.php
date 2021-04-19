@@ -28,12 +28,12 @@ trait AnonTrait
             ];
     
      
-        $response = Http::post('https://upl.test.openjustice.lltl.be/run', $json_request);
+        $response = Http::post('https://upl.openjustice.lltl.be/run', $json_request);
 
         return json_decode($response)->text;
     }
 
-    // curl -X POST "https://upl.test.openjustice.lltl.be/run" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"_v\":1,\"_timestamp\":1239120938,\"algo_list\":[{\"id\":\"anon_trazor\",\"params\":\"{}\"}],\"format\":\"text\",\"encoding\":\"utf8\",\"text\":\"Robert serait le fils d'Erlebert et le neveu de Robert, référendaire de Dagobert Ier.\"}"
+    // curl -X POST "https://upl.openjustice.lltl.be/run" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"_v\":1,\"_timestamp\":1239120938,\"algo_list\":[{\"id\":\"anon_trazor\",\"params\":\"{}\"}],\"format\":\"text\",\"encoding\":\"utf8\",\"text\":\"Robert serait le fils d'Erlebert et le neveu de Robert, référendaire de Dagobert Ier.\"}"
         // response example
         // {
 //     "_v": 3,

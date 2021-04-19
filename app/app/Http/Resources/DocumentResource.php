@@ -17,7 +17,7 @@ class DocumentResource extends BaseResource
             'src' => $this->src,
             'meta' => json_decode($this->metadata),
             'text' => $this->markdown,
-            'text_anonymized' => (!empty($this->text)) ? null : $this->text_anonymized,
+            'text_anonymized' => $this->text_anonymized,
             'self_link' => $this->self_link,
             'parent_link' => $this->parent_link,
             'ref' => $this->ref,
