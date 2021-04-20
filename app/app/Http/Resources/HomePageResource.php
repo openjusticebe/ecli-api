@@ -6,7 +6,6 @@ use App\Models\Court;
 use App\Models\Document;
 use URL;
 use Cache;
-
 class HomePageResource extends BaseResource
 {
     public function toArray($request)
@@ -21,12 +20,14 @@ class HomePageResource extends BaseResource
             ],
             'court_categories' => [
                 'title' => 'Browse categories and courts',
-                'categories' => CategoryResource::collection($this),
+                'categories' => Cache::remember('court_categories_rsrc', 3600 * 240, function () {
+                    return CategoryResource::collection($this);
+                }),
             ],
-            'count_documents' => Cache::remember('count_documents', 3600 * 100, function () {
+            'count_documents' => Cache::remember('count_documents', 3600 * 120, function () {
                 return Document::count();
             }),
-            'count_courts' => Cache::remember('count_courts', 3600 * 100, function () {
+            'count_courts' => Cache::remember('count_courts', 3600 * 120, function () {
                 return Court::count();
             }),
             'links' => [
