@@ -42,9 +42,14 @@ class checkLanguage extends Command
         ->get();
 
         foreach ($documents as $document) {
-            $this->checkLang($document);
 
-            $this->info($document->self_link);
+            $old = $document->lang;
+            $this->checkLang($document);
+            $new = $document->lang;
+            
+            $this->info("Document {$document->id} lang changed from {$old} to {$new}");
+
+            // $this->info($document->self_link);
         }
     }
 }
