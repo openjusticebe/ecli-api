@@ -43,6 +43,8 @@ class checkLanguage extends Command
 
         foreach ($documents as $document) {
             $this->checkLang($document);
+
+            $this->info($document->self_link);
         }
     }
 }
