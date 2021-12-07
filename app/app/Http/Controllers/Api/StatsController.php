@@ -53,9 +53,11 @@ class StatsController extends Controller
         $array = [];
         foreach ($years as $year) {
             foreach ($courts as $court) {
-                $array[$court->acronym][$year] = Document::where('year', $year)
+                $count = Document::where('year', $year)
                 ->where('court_id', $court->id)
                 ->count();
+
+                $array[$court->acronym][$year] = ($count !== 0) ? log($count) : $count;
             }
         }
 

@@ -36,7 +36,7 @@ class checkLanguage extends Command
 
     public function handle()
     {
-        $documents = Document::whereLang('undefined')
+        $documents = Document::whereNull('lang')
         ->inRandomOrder()
         ->take($this->argument('number_of_documents'))
         ->get();

@@ -1,6 +1,7 @@
 {
-    "php.validate.executablePath": "",
-    "php-cs-fixer.executablePath": "php-cs-fixer.phar",
+    "editor.formatOnSave": true,
+    "php.validate.executablePath": "php-cs-fixer",
+    "php-cs-fixer.executablePath": "php-cs-fixer",
     "php-cs-fixer.onsave": true,
     "php-cs-fixer.rules": "@PSR2",
     "php-cs-fixer.config": ".php_cs;.php_cs.dist",
@@ -11,12 +12,28 @@
     "php-cs-fixer.autoFixBySemicolon": false,
     "php-cs-fixer.formatHtml": false,
     "php-cs-fixer.documentFormattingProvider": true,
-    "editor.formatOnSave": true,
-    "editor.wordWrap": "on",
-    "workbench.colorTheme": "Cobalt2",
-    // Controls if the editor should automatically format the line after typing
-    "beautify.onSave": true,
-    "[php]": {
-        "editor.formatOnSave": true
+    "beautify.language": {
+        "js": {
+            "type": [
+                "javascript",
+                "json"
+            ],
+            "filename": [
+                ".jshintrc",
+                ".jsbeautifyrc"
+            ]
+            // "ext": ["js", "json"]
+            // ^^ to set extensions to be beautified using the javascript beautifier
+        },
+        "css": [
+            "css",
+            "scss"
+        ],
+        "html": [
+            "blade",
+            "htm",
+            "html"
+        ]
+        // ^^ providing just an array sets the VS Code file type
     }
 }
