@@ -12,6 +12,9 @@ ECLI API a web application used for processing legal text and providing a REST-A
 - `docker-compose up -d`
 - `docker-compose exec php php artisan migrate`
 - Import `db` from a dump
+- Run composer install (attach to console and run `composer install`)
+- Enable log directory writing  ( `chmod 777 /var/www/storage/logs`)
+- Populate DB with something
 
 # Tests
 Tests are written within `./app/tests/` directory. 

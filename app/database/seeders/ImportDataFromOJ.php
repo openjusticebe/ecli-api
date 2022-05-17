@@ -18,7 +18,7 @@ class ImportDataFromOJ extends Seeder
      */
     public function run()
     {
-        $BASE_URL = "https://doc.openjustice.lltl.be/list?level=";
+        $BASE_URL = env("OJ_DOC_URL", "https://doc.openjustice.lltl.be") . "/list?level=";
         
         $country = "BE";
         $country_params = ["country" => $country];

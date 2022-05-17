@@ -27,6 +27,8 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     restart: on-failure:3
+    environment:
+      OJ_DOC_URL: ${OJ_DOC_URL}
     volumes:
       - ./app:/var/www:delegated
     networks:
